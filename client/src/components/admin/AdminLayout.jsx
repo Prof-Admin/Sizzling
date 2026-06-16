@@ -1,0 +1,74 @@
+import { NavLink, Outlet, Navigate, useNavigate } from 'react-router-dom';
+import { useAdminAuth } from '../../context/AdminAuthContext';
+
+const NAV = [
+  { to: '/admin', label: 'Dashboard', end: true, icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { to: '/admin/orders', label: 'Orders', end: false, icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
+  { to: '/admin/enquiries', label: 'Enquiries', end: false, icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+  { to: '/admin/menu', label: 'Menu Config', end: false, icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4' },
+];
+
+export default function AdminLayout() {
+  const { isAuthenticated, admin, logout } = useAdminAuth();
+  const navigate = useNavigate();
+
+  if (!isAuthenticated) return <Navigate to="/admin/login" replace />;
+
+  function handleLogout() {
+    logout();
+    navigate('/admin/login');
+  }
+
+  return (
+    <div className="flex h-screen bg-gray-50 overflow-hidden">
+      {/* Sidebar */}
+      <aside className="w-60 bg-gray-900 flex flex-col shrink-0">
+        <div className="px-5 py-5 border-b border-gray-800">
+          <p className="text-white font-serif font-bold text-base leading-tight">Sizzling Sensations</p>
+          <p className="text-gray-400 text-xs mt-0.5">Admin Panel</p>
+        </div>
+
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+          {NAV.map(item => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'bg-primary text-white'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                }`
+              }
+            >
+              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d={item.icon} />
+              </svg>
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="px-4 py-4 border-t border-gray-800">
+          <p className="text-white text-sm font-medium truncate">{admin?.name}</p>
+          <p className="text-gray-400 text-xs truncate mb-3">{admin?.email}</p>
+          <button
+            onClick={handleLogout}
+            className="w-full text-left text-xs text-gray-400 hover:text-white transition-colors flex items-center gap-2"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Sign Out
+          </button>
+        </div>
+      </aside>
+
+      {/* Main content */}
+      <main className="flex-1 overflow-y-auto">
+        <Outlet />
+      </main>
+    </div>
+  );
+}
