@@ -12,6 +12,9 @@ const seed = require('./config/seed');
 
 const app = express();
 
+// Trust Render/Heroku/Netlify reverse proxy so rate-limit sees real client IPs
+app.set('trust proxy', 1);
+
 // Connect to MongoDB then seed initial data
 connectDB().then(() => seed().catch(console.error));
 
