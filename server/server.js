@@ -34,13 +34,16 @@ app.use(
 
 // CORS
 const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:5173',
+  process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, '') : 'http://localhost:5173',
+  'http://localhost:5173',
   'http://localhost:3000',
 ];
 app.use(
   cors({
     origin: (origin, cb) => {
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      if (!origin) return cb(null, true);
+      const normalised = origin.replace(/\/$/, '');
+      if (allowedOrigins.includes(normalised)) return cb(null, true);
       cb(new Error('Not allowed by CORS'));
     },
     credentials: true,
