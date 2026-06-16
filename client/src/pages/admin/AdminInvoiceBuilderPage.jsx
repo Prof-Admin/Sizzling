@@ -3,6 +3,7 @@ import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { downloadInvoicePdf, getInvoicePdfBase64, preloadLogo } from '../../utils/generateInvoicePdf';
+import { MENU_SECTIONS as DEFAULT_MENU_SECTIONS } from '../../context/OrderContext';
 
 const STATUSES = ['draft', 'sent', 'paid', 'overdue', 'cancelled'];
 
@@ -18,7 +19,10 @@ function emptyItem(isExtra = true) {
   return { description: '', quantity: 1, unitPrice: 0, total: 0, isExtra };
 }
 
-function buildLineItemsFromOrder(order) {
+const STAFF_RATE = 16.67;
+const STAFF_MIN_HOURS = 6;
+
+function buildLineItemsFromOrder(order, menuSections = DEFAULT_MENU_SECTIONS) {
   const { serviceType, orderData, estimatedTotal } = order;
 
   if (serviceType === 'platter' && orderData?.items?.length) {
@@ -41,8 +45,14 @@ function buildLineItemsFromOrder(order) {
     const pkg = orderData.package;
     const guests = orderData.guests || 1;
     const pricePerGuest = +(pkg.pricePerGuest || 0);
+    const selected = orderData.selectedItems || {};
+    const menuNote = [
+      ...(selected.starters || []).map(id => `Starter: ${id.replace(/-/g, ' ')}`),
+      ...(selected.mains || []).map(id => `Main: ${id.replace(/-/g, ' ')}`),
+      ...(selected.desserts || []).map(id => `Dessert: ${id.replace(/-/g, ' ')}`),
+    ].join(', ');
     return [{
-      description: `${pkg.name || 'Full-Service'} Package × ${guests} guests`,
+      description: `${pkg.name || 'Full-Service'} Package${menuNote ? ` – ${menuNote}` : ''}`,
       quantity: guests,
       unitPrice: pricePerGuest,
       total: +(guests * pricePerGuest).toFixed(2),
@@ -50,10 +60,70 @@ function buildLineItemsFromOrder(order) {
     }];
   }
 
-  // Grazing and fallback: single base line item
+  if (serviceType === 'grazing') {
+    const lines = [];
+
+    // 1. Guest tier base price
+    const tier = orderData?.guestTier;
+    if (tier) {
+      lines.push({
+        description: `Grazing Table – ${tier.label} Tier (${tier.guests} guests)`,
+        quantity: 1,
+        unitPrice: +(tier.price || 0),
+        total: +(tier.price || 0),
+        isExtra: false,
+      });
+    }
+
+    // 2. Menu items — look up price from MENU_SECTIONS
+    for (const [id, qty] of Object.entries(orderData?.menuItems || {})) {
+      for (const section of menuSections) {
+        const item = section.items.find(i => i.id === id);
+        if (item) {
+          lines.push({
+            description: `${item.name} (${section.label})`,
+            quantity: qty,
+            unitPrice: item.price,
+            total: +(qty * item.price).toFixed(2),
+            isExtra: false,
+          });
+          break;
+        }
+      }
+    }
+
+    // 3. Brunch packages — price stored directly on each package
+    for (const pkg of (orderData?.brunchPackages || [])) {
+      lines.push({
+        description: pkg.name,
+        quantity: 1,
+        unitPrice: +(pkg.price || 0),
+        total: +(pkg.price || 0),
+        isExtra: false,
+      });
+    }
+
+    // 4. Staff cost
+    const lg = orderData?.logistics || {};
+    if (lg.staffCount > 0) {
+      const hours = Math.max(Number(lg.staffHours) || 0, STAFF_MIN_HOURS);
+      const staffTotal = +(lg.staffCount * hours * STAFF_RATE).toFixed(2);
+      lines.push({
+        description: `Staff (${lg.staffCount} × ${hours}hrs @ £${STAFF_RATE}/hr)`,
+        quantity: 1,
+        unitPrice: staffTotal,
+        total: staffTotal,
+        isExtra: false,
+      });
+    }
+
+    if (lines.length > 0) return lines;
+  }
+
+  // Fallback
   const label = serviceType === 'grazing' ? 'Grazing Table' : serviceType === 'platter' ? 'Platter Delivery' : 'Full-Service Catering';
   return [{
-    description: `${label} (as quoted)`,
+    description: `${label} – see order notes`,
     quantity: 1,
     unitPrice: +(estimatedTotal || 0),
     total: +(estimatedTotal || 0),
@@ -143,6 +213,8 @@ export default function AdminInvoiceBuilderPage() {
             client: { name: c.name || '', email: c.email || '', phone: c.phone || '' },
             serviceDescription: `${serviceLabel} – ${c.name || ''}`,
             lineItems: buildLineItemsFromOrder(order),
+            // Platters use a 5% service fee (already in line items), not VAT
+            vatRate: order.serviceType === 'platter' ? 0 : 20,
           }));
         }
       } catch (e) {
