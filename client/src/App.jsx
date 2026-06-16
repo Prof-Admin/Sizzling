@@ -11,6 +11,9 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminOrdersPage from './pages/admin/AdminOrdersPage';
 import AdminEnquiriesPage from './pages/admin/AdminEnquiriesPage';
 import AdminMenuPage from './pages/admin/AdminMenuPage';
+import AdminInvoicesPage from './pages/admin/AdminInvoicesPage';
+import AdminInvoiceBuilderPage from './pages/admin/AdminInvoiceBuilderPage';
+import AdminSettingsPage from './pages/admin/AdminSettingsPage';
 import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
 import PackagesPage from './pages/PackagesPage';
@@ -69,7 +72,10 @@ function AdminRoutes() {
         <Route index element={<AdminDashboardPage />} />
         <Route path="orders" element={<AdminOrdersPage />} />
         <Route path="enquiries" element={<AdminEnquiriesPage />} />
+        <Route path="invoices" element={<AdminInvoicesPage />} />
+        <Route path="invoices/:id" element={<AdminInvoiceBuilderPage />} />
         <Route path="menu" element={<AdminMenuPage />} />
+        <Route path="settings" element={<AdminSettingsPage />} />
       </Route>
     </Routes>
   );

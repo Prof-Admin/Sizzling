@@ -100,6 +100,23 @@ const DEFAULT_CONFIGS = {
     hourlyRate: 16.67,
     minHours: 6,
   },
+  'payment-settings': {
+    companyDetails: {
+      name: 'Sizzling Sensations',
+      tagline: "London's Premier African Catering",
+      address: 'London, United Kingdom',
+      phone: '',
+      email: 'hello@sizzlingsensations.co.uk',
+      website: 'www.sizzlingsensations.co.uk',
+    },
+    bankTransfer: {
+      bankName: '',
+      accountName: '',
+      accountNumber: '',
+      sortCode: '',
+      paymentReference: 'SS-[number]',
+    },
+  },
   'fs-menu': {
     starters: {
       label: 'Starters',
