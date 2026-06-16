@@ -62,7 +62,7 @@ export default function Header() {
             <img
               src="/logo-main.png"
               alt="Sizzling Sensations"
-              className="h-10 md:h-11 w-auto object-contain"
+              className="h-10 md:h-12 w-auto object-contain"
             />
           </Link>
 
