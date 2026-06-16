@@ -54,6 +54,22 @@ export default function AdminOrdersPage() {
     if (selected?._id === id) setSelected(prev => ({ ...prev, status }));
   }
 
+  async function handleInvoiceAction(orderId) {
+    try {
+      const r = await axios.get('/api/admin/invoices', {
+        headers: authHeader,
+        params: { orderId, limit: 1 },
+      });
+      if (r.data.data?.length > 0) {
+        navigate(`/admin/invoices/${r.data.data[0]._id}`);
+      } else {
+        navigate(`/admin/invoices/new?orderId=${orderId}`);
+      }
+    } catch {
+      navigate(`/admin/invoices/new?orderId=${orderId}`);
+    }
+  }
+
   return (
     <div className="p-6 max-w-6xl">
       <div className="mb-6">
@@ -160,13 +176,13 @@ export default function AdminOrdersPage() {
               </div>
               <div><span className="text-gray-500">Date</span><p className="font-medium mt-0.5">{new Date(selected.createdAt).toLocaleString('en-GB')}</p></div>
               <button
-                onClick={() => navigate(`/admin/invoices/new?orderId=${selected._id}`)}
+                onClick={() => handleInvoiceAction(selected._id)}
                 className="w-full mt-2 py-2 bg-gray-900 text-white text-xs font-semibold rounded-sm hover:bg-gray-800 transition-colors flex items-center justify-center gap-1.5"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Create Invoice
+                Create / Edit Invoice
               </button>
               {selected.orderData && (
                 <div>

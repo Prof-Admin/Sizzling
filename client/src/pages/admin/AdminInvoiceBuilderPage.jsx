@@ -18,6 +18,49 @@ function emptyItem(isExtra = true) {
   return { description: '', quantity: 1, unitPrice: 0, total: 0, isExtra };
 }
 
+function buildLineItemsFromOrder(order) {
+  const { serviceType, orderData, estimatedTotal } = order;
+
+  if (serviceType === 'platter' && orderData?.items?.length) {
+    const items = orderData.items.map(item => ({
+      description: item.name + (item.detail ? ` (${item.detail})` : ''),
+      quantity: 1,
+      unitPrice: +(item.price || 0),
+      total: +(item.price || 0),
+      isExtra: false,
+    }));
+    const subtotal = items.reduce((s, i) => s + i.unitPrice, 0);
+    const fee = +(subtotal * 0.05).toFixed(2);
+    if (fee > 0) {
+      items.push({ description: 'Service Fee (5%)', quantity: 1, unitPrice: fee, total: fee, isExtra: false });
+    }
+    return items;
+  }
+
+  if (serviceType === 'full-service' && orderData?.package) {
+    const pkg = orderData.package;
+    const guests = orderData.guests || 1;
+    const pricePerGuest = +(pkg.pricePerGuest || 0);
+    return [{
+      description: `${pkg.name || 'Full-Service'} Package × ${guests} guests`,
+      quantity: guests,
+      unitPrice: pricePerGuest,
+      total: +(guests * pricePerGuest).toFixed(2),
+      isExtra: false,
+    }];
+  }
+
+  // Grazing and fallback: single base line item
+  const label = serviceType === 'grazing' ? 'Grazing Table' : serviceType === 'platter' ? 'Platter Delivery' : 'Full-Service Catering';
+  return [{
+    description: `${label} (as quoted)`,
+    quantity: 1,
+    unitPrice: +(estimatedTotal || 0),
+    total: +(estimatedTotal || 0),
+    isExtra: false,
+  }];
+}
+
 function calcItem(item) {
   return { ...item, total: +(Number(item.quantity) * Number(item.unitPrice)).toFixed(2) };
 }
@@ -99,13 +142,7 @@ export default function AdminInvoiceBuilderPage() {
             orderId: order._id,
             client: { name: c.name || '', email: c.email || '', phone: c.phone || '' },
             serviceDescription: `${serviceLabel} – ${c.name || ''}`,
-            lineItems: [{
-              description: `${serviceLabel} (as quoted)`,
-              quantity: 1,
-              unitPrice: order.estimatedTotal || 0,
-              total: order.estimatedTotal || 0,
-              isExtra: false,
-            }],
+            lineItems: buildLineItemsFromOrder(order),
           }));
         }
       } catch (e) {
@@ -387,7 +424,7 @@ export default function AdminInvoiceBuilderPage() {
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
-              Add Extra Cost
+              Add Extra Charge
             </button>
           </div>
 

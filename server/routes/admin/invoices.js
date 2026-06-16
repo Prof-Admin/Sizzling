@@ -9,9 +9,10 @@ const MenuConfig = require('../../models/MenuConfig');
 // GET /api/admin/invoices
 router.get('/', adminAuth, async (req, res) => {
   try {
-    const { status, page = 1, limit = 20 } = req.query;
+    const { status, orderId, page = 1, limit = 20 } = req.query;
     const filter = {};
     if (status && status !== 'all') filter.status = status;
+    if (orderId) filter.orderId = orderId;
 
     const total = await Invoice.countDocuments(filter);
     const invoices = await Invoice.find(filter)
