@@ -4,11 +4,30 @@ import autoTable from 'jspdf-autotable';
 const PRIMARY = [139, 26, 26];
 const GOLD = [201, 162, 39];
 
+let _cachedLogo = null;
+
+export async function preloadLogo() {
+  if (_cachedLogo) return _cachedLogo;
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      canvas.getContext('2d').drawImage(img, 0, 0);
+      _cachedLogo = canvas.toDataURL('image/png');
+      resolve(_cachedLogo);
+    };
+    img.onerror = () => resolve(null);
+    img.src = '/logo-main.png';
+  });
+}
+
 function fmt(n) {
   return `£${Number(n).toFixed(2)}`;
 }
 
-export function buildInvoicePdf(invoice, settings = {}) {
+export function buildInvoicePdf(invoice, settings = {}, logoBase64 = null) {
   const doc = new jsPDF();
   const W = doc.internal.pageSize.getWidth();
   const company = settings.companyDetails || {};
@@ -18,16 +37,25 @@ export function buildInvoicePdf(invoice, settings = {}) {
   doc.setFillColor(...PRIMARY);
   doc.rect(0, 0, W, 38, 'F');
 
-  doc.setTextColor(255, 255, 255);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(18);
-  doc.text(company.name || 'Sizzling Sensations', 14, 15);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(255, 220, 180);
-  if (company.tagline) doc.text(company.tagline, 14, 22);
-  if (company.address) doc.text(company.address, 14, 28);
+  // Logo or text fallback
+  if (logoBase64) {
+    doc.addImage(logoBase64, 'PNG', 12, 7, 48, 15);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(255, 220, 180);
+    if (company.tagline) doc.text(company.tagline, 14, 26);
+    if (company.address) doc.text(company.address, 14, 31);
+  } else {
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.text(company.name || 'Sizzling Sensations', 14, 15);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(255, 220, 180);
+    if (company.tagline) doc.text(company.tagline, 14, 22);
+    if (company.address) doc.text(company.address, 14, 28);
+  }
 
   // INVOICE title top-right
   doc.setFont('helvetica', 'bold');
@@ -231,12 +259,12 @@ export function buildInvoicePdf(invoice, settings = {}) {
   return doc;
 }
 
-export function downloadInvoicePdf(invoice, settings) {
-  const doc = buildInvoicePdf(invoice, settings);
+export function downloadInvoicePdf(invoice, settings, logoBase64 = null) {
+  const doc = buildInvoicePdf(invoice, settings, logoBase64);
   doc.save(`Invoice-${invoice.invoiceNumber}.pdf`);
 }
 
-export function getInvoicePdfBase64(invoice, settings) {
-  const doc = buildInvoicePdf(invoice, settings);
+export function getInvoicePdfBase64(invoice, settings, logoBase64 = null) {
+  const doc = buildInvoicePdf(invoice, settings, logoBase64);
   return doc.output('datauristring').split(',')[1];
 }

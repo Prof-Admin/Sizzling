@@ -58,12 +58,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
-          <Link
-            to="/"
-            className="flex-shrink-0 font-serif text-xl md:text-2xl font-bold text-primary hover:text-primary-light transition-colors"
-            aria-label="Sizzling Sensations Home"
-          >
-            Sizzling Sensations
+          <Link to="/" className="flex-shrink-0" aria-label="Sizzling Sensations Home">
+            <img
+              src="/logo-main.png"
+              alt="Sizzling Sensations"
+              className="h-10 md:h-11 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Nav */}

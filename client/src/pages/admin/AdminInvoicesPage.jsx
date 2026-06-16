@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
-import { downloadInvoicePdf } from '../../utils/generateInvoicePdf';
+import { downloadInvoicePdf, preloadLogo } from '../../utils/generateInvoicePdf';
 
 const STATUSES = ['all', 'draft', 'sent', 'paid', 'overdue', 'cancelled'];
 
@@ -32,11 +32,13 @@ export default function AdminInvoicesPage() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState({});
+  const [logoBase64, setLogoBase64] = useState(null);
 
   useEffect(() => {
     axios.get('/api/admin/menu/payment-settings', { headers: authHeader })
       .then(r => setSettings(r.data.data || {}))
       .catch(() => {});
+    preloadLogo().then(setLogoBase64);
   }, []);
 
   function fetchInvoices() {
@@ -131,7 +133,7 @@ export default function AdminInvoicesPage() {
                           Edit
                         </button>
                         <button
-                          onClick={() => downloadInvoicePdf(inv, settings)}
+                          onClick={() => downloadInvoicePdf(inv, settings, logoBase64)}
                           className="text-xs text-gray-500 hover:text-gray-800"
                           title="Download PDF"
                         >

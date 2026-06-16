@@ -51,8 +51,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 md:gap-8 lg:gap-12 pb-10 border-b border-dark-700">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="font-serif text-xl font-bold text-gold hover:text-gold-light transition-colors">
-              Sizzling Sensations
+            <Link to="/" aria-label="Sizzling Sensations Home">
+              <img src="/logo-white.png" alt="Sizzling Sensations" className="h-10 w-auto object-contain" />
             </Link>
             <p className="mt-3 text-sm text-gray-400 leading-relaxed max-w-xs">
               London's premier choice for authentic and modern African catering. Bringing heritage to every table.

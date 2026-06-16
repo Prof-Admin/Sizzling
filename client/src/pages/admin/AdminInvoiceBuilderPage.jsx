@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
-import { downloadInvoicePdf, getInvoicePdfBase64 } from '../../utils/generateInvoicePdf';
+import { downloadInvoicePdf, getInvoicePdfBase64, preloadLogo } from '../../utils/generateInvoicePdf';
 
 const STATUSES = ['draft', 'sent', 'paid', 'overdue', 'cancelled'];
 
@@ -41,6 +41,7 @@ export default function AdminInvoiceBuilderPage() {
   const [sendingEmail, setSendingEmail] = useState(false);
   const [toast, setToast] = useState({ msg: '', type: '' });
   const [settings, setSettings] = useState({});
+  const [logoBase64, setLogoBase64] = useState(null);
 
   const [invoice, setInvoice] = useState({
     invoiceNumber: '',
@@ -65,11 +66,12 @@ export default function AdminInvoiceBuilderPage() {
     setTimeout(() => setToast({ msg: '', type: '' }), 3500);
   }
 
-  // Load payment settings
+  // Load payment settings and preload logo
   useEffect(() => {
     axios.get('/api/admin/menu/payment-settings', { headers: authHeader })
       .then(r => setSettings(r.data.data || {}))
       .catch(() => {});
+    preloadLogo().then(setLogoBase64);
   }, []);
 
   // Load invoice or seed from order
@@ -184,7 +186,7 @@ export default function AdminInvoiceBuilderPage() {
 
   function handleDownload() {
     if (!invoice.invoiceNumber) { showToast('Save the invoice first.', 'error'); return; }
-    downloadInvoicePdf(invoice, settings);
+    downloadInvoicePdf(invoice, settings, logoBase64);
   }
 
   async function handleSendEmail() {
@@ -192,7 +194,7 @@ export default function AdminInvoiceBuilderPage() {
     if (!invoice.client.email) { showToast('Client email is required.', 'error'); return; }
     setSendingEmail(true);
     try {
-      const pdfBase64 = getInvoicePdfBase64(invoice, settings);
+      const pdfBase64 = getInvoicePdfBase64(invoice, settings, logoBase64);
       await axios.post(
         `/api/admin/invoices/${id}/send-email`,
         { pdfBase64 },

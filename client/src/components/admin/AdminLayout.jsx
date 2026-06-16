@@ -25,9 +25,9 @@ export default function AdminLayout() {
     <div className="flex h-screen bg-gray-50 overflow-hidden">
       {/* Sidebar */}
       <aside className="w-60 bg-gray-900 flex flex-col shrink-0">
-        <div className="px-5 py-5 border-b border-gray-800">
-          <p className="text-white font-serif font-bold text-base leading-tight">Sizzling Sensations</p>
-          <p className="text-gray-400 text-xs mt-0.5">Admin Panel</p>
+        <div className="px-4 py-4 border-b border-gray-800">
+          <img src="/logo-white.png" alt="Sizzling Sensations" className="h-9 w-auto object-contain mb-1" />
+          <p className="text-gray-500 text-[10px] uppercase tracking-widest font-medium">Admin Panel</p>
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
