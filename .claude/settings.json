@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(cd \"C:\\\\Users\\\\HP\\\\Desktop\\\\Sizzling Sensations\"; powershell -ExecutionPolicy Bypass -File \".\\\\remove-bg.ps1\")",
+      "PowerShell(cd \"C:\\\\Users\\\\HP\\\\Desktop\\\\Sizzling Sensations\"; powershell -ExecutionPolicy Bypass -File \".\\\\verify-bg.ps1\")",
+      "PowerShell(cd \"C:\\\\Users\\\\HP\\\\Desktop\\\\Sizzling Sensations\"; powershell -ExecutionPolicy Bypass -File \".\\\\verify-bg2.ps1\")"
+    ]
+  }
+}
