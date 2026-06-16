@@ -25,8 +25,12 @@ export function MenuConfigProvider({ children }) {
 
   useEffect(() => {
     axios.get('/api/menu-config')
-      .then(res => { if (res.data.success) setConfig(prev => ({ ...prev, ...res.data.data })); })
-      .catch(() => {});
+      .then(res => {
+        if (res.data.success) setConfig(prev => ({ ...prev, ...res.data.data }));
+      })
+      .catch(err => {
+        console.warn('Menu config fetch failed, using defaults:', err?.message);
+      });
   }, []);
 
   return <MenuConfigContext.Provider value={config}>{children}</MenuConfigContext.Provider>;

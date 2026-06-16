@@ -77,11 +77,14 @@ const globalLimiter = rateLimit({
 });
 app.use('/api', globalLimiter);
 
+// Open CORS for fully public endpoints (no auth, read-only or customer-facing)
+const openCors = cors({ origin: '*', methods: ['GET', 'POST', 'OPTIONS'], allowedHeaders: ['Content-Type'] });
+
 // Routes
 app.use('/api/enquiries', require('./routes/enquiries'));
-app.use('/api/menu', require('./routes/menu'));
-app.use('/api/orders', require('./routes/orders'));
-app.use('/api/menu-config', require('./routes/menuConfig'));
+app.use('/api/menu', openCors, require('./routes/menu'));
+app.use('/api/orders', openCors, require('./routes/orders'));
+app.use('/api/menu-config', openCors, require('./routes/menuConfig'));
 app.use('/api/admin/auth', require('./routes/admin/auth'));
 app.use('/api/admin/dashboard', require('./routes/admin/dashboard'));
 app.use('/api/admin/orders', require('./routes/admin/orders'));
