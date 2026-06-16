@@ -93,6 +93,7 @@ function GrazingEditor({ authHeader }) {
   const styles = useMenuKey('grazing-styles', authHeader);
   const menu = useMenuKey('grazing-menu', authHeader);
   const brunch = useMenuKey('brunch-packages', authHeader);
+  const staff = useMenuKey('staff-config', authHeader);
 
   function updateTier(i, field, val) {
     const next = tiers.data.map((t, idx) => idx === i ? { ...t, [field]: val } : t);
@@ -147,7 +148,7 @@ function GrazingEditor({ authHeader }) {
     brunch.setData({ ...brunch.data, [type]: brunch.data[type].filter((_, idx) => idx !== i) });
   }
 
-  if (!tiers.data || !styles.data || !menu.data || !brunch.data) return <p className="text-sm text-gray-400 p-4">Loading...</p>;
+  if (!tiers.data || !styles.data || !menu.data || !brunch.data || !staff.data) return <p className="text-sm text-gray-400 p-4">Loading...</p>;
 
   return (
     <div>
@@ -257,6 +258,44 @@ function GrazingEditor({ authHeader }) {
           </div>
         ))}
         <SaveBar onSave={() => brunch.save(brunch.data)} saving={brunch.saving} toast={brunch.toast} />
+      </Section>
+
+      {/* Staff Config */}
+      <Section title="Staffing Rates">
+        <p className="text-xs text-gray-500 mb-4">
+          Staff cost = Staff count × max(hours, min hours) × hourly rate. This is added to the order total.
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide block mb-1">Hourly Rate per Staff (£)</label>
+            <input
+              type="number"
+              step="0.01"
+              value={staff.data.hourlyRate}
+              onChange={e => staff.setData({ ...staff.data, hourlyRate: Number(e.target.value) })}
+              className="w-full border border-gray-200 rounded-sm px-2.5 py-1.5 text-sm focus:outline-none focus:border-gray-400"
+            />
+            <p className="text-xs text-gray-400 mt-1">e.g. 16.67 = £100 for a 6-hour shift</p>
+          </div>
+          <div>
+            <label className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide block mb-1">Minimum Hours per Staff</label>
+            <input
+              type="number"
+              min="1"
+              value={staff.data.minHours}
+              onChange={e => staff.setData({ ...staff.data, minHours: Number(e.target.value) })}
+              className="w-full border border-gray-200 rounded-sm px-2.5 py-1.5 text-sm focus:outline-none focus:border-gray-400"
+            />
+            <p className="text-xs text-gray-400 mt-1">Staff hours are billed at least this many hours</p>
+          </div>
+        </div>
+        <div className="mt-3 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-sm">
+          <p className="text-xs text-gray-600 font-medium">Example calculation:</p>
+          <p className="text-xs text-gray-500 mt-0.5">
+            4 staff × {staff.data.minHours}h minimum × £{Number(staff.data.hourlyRate).toFixed(2)}/hr = <span className="font-bold text-gray-700">£{(4 * staff.data.minHours * staff.data.hourlyRate).toFixed(2)}</span>
+          </p>
+        </div>
+        <SaveBar onSave={() => staff.save(staff.data)} saving={staff.saving} toast={staff.toast} />
       </Section>
     </div>
   );

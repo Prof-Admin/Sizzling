@@ -29,9 +29,9 @@ function ScrollRestoration() {
 }
 
 function ConfiguredOrderProvider({ children }) {
-  const { menuSections, fsPackages } = useMenuConfig();
+  const { menuSections, fsPackages, staffConfig } = useMenuConfig();
   return (
-    <OrderProvider menuSections={menuSections} fsPackages={fsPackages}>
+    <OrderProvider menuSections={menuSections} fsPackages={fsPackages} staffConfig={staffConfig}>
       {children}
     </OrderProvider>
   );

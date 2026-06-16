@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { OrderProvider, useOrder } from '../context/OrderContext';
+import { useOrder } from '../context/OrderContext';
 import OrderSidebar from '../components/order/OrderSidebar';
 import LiveSummaryPanel from '../components/order/LiveSummaryPanel';
 import Step1Service from '../components/order/steps/Step1Service';
@@ -125,9 +125,5 @@ function OrderBuilderContent() {
 }
 
 export default function OrderBuilderPage() {
-  return (
-    <OrderProvider>
-      <OrderBuilderContent />
-    </OrderProvider>
-  );
+  return <OrderBuilderContent />;
 }

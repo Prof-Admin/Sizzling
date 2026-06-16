@@ -1,4 +1,5 @@
 import { useOrder } from '../../../context/OrderContext';
+import { useMenuConfig } from '../../../context/MenuConfigContext';
 
 const KITCHEN_OPTIONS = [
   { id: 'full',    label: 'Fully working professional kitchen',
@@ -26,13 +27,14 @@ const STAFFING_GUIDE = [
 
 export default function Step4Logistics() {
   const { state, dispatch } = useOrder();
+  const { staffConfig } = useMenuConfig();
   const { kitchenStatus, setupTime, accessNotes, staffCount, staffHours } = state;
 
   function setField(key, val) {
     dispatch({ type: 'SET_LOGISTICS', payload: { [key]: val } });
   }
 
-  const staffTotal = staffCount * Math.max(staffHours, 6) * (100 / 6);
+  const staffTotal = staffCount * Math.max(staffHours, staffConfig.minHours) * staffConfig.hourlyRate;
 
   return (
     <div className="px-4 sm:px-6 py-8 max-w-3xl">

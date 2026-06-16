@@ -354,11 +354,12 @@ function reducer(state, action) {
 
 const OrderContext = createContext(null);
 
-export function OrderProvider({ children, menuSections: menuSectionsProp, fsPackages: fsPackagesProp }) {
+export function OrderProvider({ children, menuSections: menuSectionsProp, fsPackages: fsPackagesProp, staffConfig: staffConfigProp }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const activeSections = menuSectionsProp || MENU_SECTIONS;
   const activePackages = fsPackagesProp || FS_PACKAGES;
+  const activeStaffConfig = staffConfigProp || { hourlyRate: 16.67, minHours: 6 };
 
   const computed = useMemo(() => {
     const basePrice = state.guestTier?.price ?? 0;
@@ -373,8 +374,8 @@ export function OrderProvider({ children, menuSections: menuSectionsProp, fsPack
 
     const brunchTotal = state.addedPackages.reduce((s, p) => s + p.price, 0);
     const menuSubtotal = menuTotal + brunchTotal;
-    const staffCost = state.staffCount * Math.max(state.staffHours, 6) * (100 / 6);
-    const subtotal = basePrice + menuSubtotal;
+    const staffCost = state.staffCount * Math.max(state.staffHours, activeStaffConfig.minHours) * activeStaffConfig.hourlyRate;
+    const subtotal = basePrice + menuSubtotal + staffCost;
     const vat = subtotal * 0.2;
     const total = subtotal + vat;
     const budgetLeft = state.budget - menuSubtotal;
@@ -390,7 +391,7 @@ export function OrderProvider({ children, menuSections: menuSectionsProp, fsPack
     const fsMaxItems = fsPkg ? Object.values(fsPkg.allocation).reduce((s, n) => s + n, 0) : 0;
 
     return { basePrice, menuTotal, brunchTotal, menuSubtotal, staffCost, subtotal, vat, total, budgetLeft, budgetPct, platterSubtotal, platterFee, platterTotal, fsPkg, fsTotal, fsTotalItems, fsMaxItems };
-  }, [state, activeSections, activePackages]);
+  }, [state, activeSections, activePackages, activeStaffConfig]);
 
   return (
     <OrderContext.Provider value={{ state, dispatch, computed }}>

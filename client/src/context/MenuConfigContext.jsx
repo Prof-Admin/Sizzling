@@ -15,6 +15,7 @@ const defaults = {
   'platter-brunch': PLATTER_BRUNCH,
   'fs-packages': FS_PACKAGES,
   'fs-menu': FS_MENU,
+  'staff-config': { hourlyRate: 16.67, minHours: 6 },
 };
 
 export const MenuConfigContext = createContext(defaults);
@@ -44,5 +45,6 @@ export function useMenuConfig() {
     platterBrunch: config['platter-brunch'],
     fsPackages: config['fs-packages'],
     fsMenu: config['fs-menu'],
+    staffConfig: config['staff-config'],
   };
 }

@@ -18,7 +18,7 @@ export default function LiveSummaryPanel() {
   const { state, dispatch, computed } = useOrder();
   const { menuSections } = useMenuConfig();
   const { step, service, guestTier, style, primaryColor, accentColor, menuItems, addedPackages } = state;
-  const { basePrice, menuSubtotal, subtotal, vat, total } = computed;
+  const { basePrice, menuSubtotal, staffCost, subtotal, vat, total } = computed;
 
   const serviceLabel = service === 'grazing-table' ? 'Grazing Table'
     : service === 'platter' ? 'Platter'
@@ -111,9 +111,15 @@ export default function LiveSummaryPanel() {
       {/* Totals */}
       <div className="border-t border-gray-100 pt-4 space-y-2">
         <div className="flex justify-between text-sm">
-          <span className="text-dark-600">Subtotal</span>
-          <span className="font-medium text-dark">{fmt(subtotal)}</span>
+          <span className="text-dark-600">Menu & Tier</span>
+          <span className="font-medium text-dark">{fmt(basePrice + menuSubtotal)}</span>
         </div>
+        {staffCost > 0 && (
+          <div className="flex justify-between text-sm">
+            <span className="text-dark-600">Staffing</span>
+            <span className="font-medium text-dark">{fmt(staffCost)}</span>
+          </div>
+        )}
         <div className="flex justify-between text-sm">
           <span className="text-dark-600">Tax (VAT 20%)</span>
           <span className="text-dark-600">{fmt(vat)}</span>

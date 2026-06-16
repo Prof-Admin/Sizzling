@@ -96,6 +96,10 @@ const DEFAULT_CONFIGS = {
     { id: 'popular', name: '2 Courses', badge: 'Most Popular', badgeCls: 'bg-primary text-white', desc: 'Balanced experience with appetizers and mains.', pricePerGuest: 65, allocation: { starters: 1, mains: 2, desserts: 0 }, features: [{ label: 'Choice of Appetizer', ok: true }, { label: 'Main Entrée + 3 Sides', ok: true }, { label: 'Table Refreshments', ok: true }], icon: 'fork' },
     { id: 'premium', name: '3 Courses', badge: 'Premium', badgeCls: 'bg-gold text-dark', desc: 'The full journey including starters, mains, and desserts.', pricePerGuest: 85, allocation: { starters: 1, mains: 2, desserts: 1 }, features: [{ label: 'Starter & Appetizers', ok: true }, { label: 'Signature Main Entrée', ok: true }, { label: 'Gourmet Dessert', ok: true }], icon: 'plate' },
   ],
+  'staff-config': {
+    hourlyRate: 16.67,
+    minHours: 6,
+  },
   'fs-menu': {
     starters: {
       label: 'Starters',

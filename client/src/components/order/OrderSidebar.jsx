@@ -124,7 +124,7 @@ export default function OrderSidebar({ stepName, onClose, isMobile = false }) {
         )}
         <button
           disabled={step === 1}
-          onClick={() => step > 1 && dispatch({ type: 'SET_STEP', payload: step })}
+          onClick={() => step > 1 && dispatch({ type: 'SET_STEP', payload: step > 3 ? 3 : step === 3 ? 2 : 3 })}
           className={`w-full btn-outline-dark text-xs py-2 px-3 ${step === 1 ? 'opacity-40 cursor-not-allowed' : ''}`}
         >
           {step >= 4 ? 'View Summary' : 'View Live Summary'}
