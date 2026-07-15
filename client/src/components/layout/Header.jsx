@@ -2,20 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const NAV_LINKS = [
-  { label: 'Menu', to: '/menu' },
-  { label: 'Packages', to: '/packages' },
-  { label: 'Events', to: '/events' },
+  { label: 'Main Menu', to: '/menu' },
+  { label: 'Food Boxes', to: '/platters' },
+  { label: 'Grazing Tables', to: '/packages' },
   { label: 'About', to: '/about' },
 ];
 
-function CartIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-    </svg>
-  );
-}
 
 function MenuIcon({ open }) {
   return (
@@ -83,19 +75,13 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
-            <Link to="/order-builder" className="p-2 text-dark-600 hover:text-primary transition-colors" aria-label="Cart">
-              <CartIcon />
-            </Link>
-            <Link to="/order-builder" className="btn-primary text-sm px-5 py-2.5">
-              Book Now
+            <Link to="/contact" className="btn-primary text-sm px-5 py-2.5">
+              Enquire Now
             </Link>
           </div>
 
-          {/* Mobile: cart + hamburger */}
+          {/* Mobile: hamburger */}
           <div className="flex md:hidden items-center gap-3">
-            <Link to="/order-builder" className="p-2 text-dark-600" aria-label="Cart">
-              <CartIcon />
-            </Link>
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="p-2 -mr-2"
@@ -136,11 +122,8 @@ export default function Header() {
             ))}
           </ul>
           <div className="mt-4 space-y-3">
-            <Link to="/order-builder" className="btn-primary w-full justify-center">
-              Book Now
-            </Link>
-            <Link to="/contact" className="btn-outline-dark w-full justify-center">
-              Request a Quote
+            <Link to="/contact" className="btn-primary w-full justify-center">
+              Enquire Now
             </Link>
           </div>
         </nav>

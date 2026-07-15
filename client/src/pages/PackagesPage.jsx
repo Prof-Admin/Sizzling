@@ -2,201 +2,251 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1555244162-803834f70033?w=1600&q=80&auto=format&fit=crop';
-const GALLERY = [
+
+const GRAZING_SECTIONS = [
   {
-    src: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&q=80&auto=format&fit=crop',
-    alt: 'Arancini rice balls with dipping sauce',
-    caption: 'Jollof Arancini',
-    desc: 'Smoked Jollof rice spheres with a molten mozzarella core and spicy shito glaze.',
-    span: 'lg:col-span-1 lg:row-span-2',
+    id: 'abula',
+    label: 'Abula Station',
+    cols: ['Dish', 'Price', 'MOQ'],
+    items: [
+      { name: 'Abula Station', price: '£13 per person', moq: '50 people' },
+    ],
   },
   {
-    src: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&q=80&auto=format&fit=crop',
-    alt: 'Variety of dips and spreads',
-    caption: '',
-    desc: '',
-    span: 'lg:col-span-1',
+    id: 'canapes',
+    label: 'Canapés',
+    cols: ['Dish', 'Price', 'MOQ'],
+    items: [
+      { name: 'Puff Puff', price: '£0.50 per piece', moq: '20 pieces' },
+      { name: 'Spring Rolls', price: '£0.50 per piece', moq: '20 pieces' },
+      { name: 'Samosas', price: '£1 per piece', moq: '20 pieces' },
+      { name: 'Mini Shawarma Rolls', price: '£2 per roll', moq: '20 rolls' },
+      { name: 'Fried Plantain', price: '£1 per serving', moq: '20 servings' },
+      { name: 'Chicken & Waffles', price: '£3.50 per portion', moq: '20 portions' },
+      { name: 'BBQ Chicken Niblets', price: '£1.50 per piece', moq: '20 pieces' },
+      { name: 'Suya Chicken Wings', price: '£1.50 per wing', moq: '20 wings' },
+      { name: 'Corn on the Cob', price: '£1 per piece', moq: '20 pieces' },
+    ],
   },
   {
-    src: 'https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?w=800&q=80&auto=format&fit=crop',
-    alt: 'Golden fried snacks with smoke',
-    caption: '',
-    desc: '',
-    span: 'lg:col-span-1',
+    id: 'bowl',
+    label: 'Bowl Food',
+    cols: ['Dish', 'Price', 'MOQ'],
+    items: [
+      { name: 'Jollof Rice', price: '£4 per portion', moq: '20 portions' },
+      { name: 'Fried Rice', price: '£3.50 per portion', moq: '20 portions' },
+      { name: 'Rice & Peas with Curry Goat', price: '£4 per portion', moq: '20 portions' },
+      { name: 'Gizdodo', price: '£3 per portion', moq: '20 portions' },
+      { name: 'Peppered Chicken', price: '£2.50 per piece', moq: '20 pieces' },
+      { name: 'Peppered Beef', price: '£2.50 per portion', moq: '20 portions' },
+      { name: 'Peppered Fish', price: '£3.50 per portion', moq: '20 portions' },
+    ],
   },
   {
-    src: 'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=800&q=80&auto=format&fit=crop',
-    alt: 'Plantain bites appetizer',
-    caption: 'Plantain Bites',
-    desc: 'Sweet fried plantain medallions topped with avocado mousse and citrus salt.',
-    span: 'lg:col-span-1',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=800&q=80&auto=format&fit=crop',
-    alt: 'Gourmet mini burgers platter',
-    caption: '',
-    desc: '',
-    span: 'lg:col-span-1',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1515361271503-b8d9fa0d1ec5?w=800&q=80&auto=format&fit=crop',
-    alt: 'Specialty dips platter',
-    caption: 'Specialty Dips',
-    desc: 'A trio of Suya-infused hummus, roasted red pepper Harissa, and honey-ginger dip.',
-    span: 'lg:col-span-1',
+    id: 'sweets',
+    label: 'Sweets & Desserts',
+    cols: ['Item', 'Price', 'Size'],
+    items: [
+      { name: 'Cookie Butter Brookies', price: '£25', moq: 'Box of 6' },
+      { name: 'Cookie Butter Brookies', price: '£38', moq: 'Box of 12' },
+      { name: 'Berry Me in Cream', price: '£35', moq: 'Feeds 10–12' },
+      { name: 'Red-y or Not', price: '£35', moq: 'Feeds 10–12' },
+      { name: 'Tirr-a-mi-crazyy', price: '£35', moq: 'Feeds 10–12' },
+      { name: 'Chocolate Dream', price: '£40', moq: 'Feeds 10–12' },
+      { name: 'Crème Brûlée Cheesecake', price: '£40', moq: 'Feeds 10–12' },
+    ],
   },
 ];
 
-const PERFECT_FOR = [
+const HOW_IT_WORKS = [
   {
-    icon: (
-      <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
-    title: 'Luxury Weddings',
-    desc: 'A dramatic culinary focal point for your cocktail hour or reception.',
+    label: 'Table Styling',
+    price: '£250',
+    desc: 'Layered table linen, coordinated florals, fresh fruit displays, themed decorative accents, chafing dishes, styled serving pieces, decorative plates, napkins and cutlery. Coordinated with your event colour palette.',
   },
   {
-    icon: (
-      <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-          d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-      </svg>
-    ),
-    title: 'Brand Launches',
-    desc: 'Memorable, Instagrammable setups that reflect high-end innovation.',
+    label: 'Logistics',
+    price: 'From £100',
+    desc: 'We deliver the food and grazing table items directly to your venue. The final logistics cost depends on your location.',
   },
   {
-    icon: (
-      <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-    ),
-    title: 'Corporate Galas',
-    desc: "Elegant, efficient grazing solutions for London's leading enterprises.",
+    label: 'Staffing',
+    price: '£15 / staff / hr',
+    desc: 'Minimum four hours per staff member. Staff replenish the food and keep your grazing table looking full and presentable throughout your event.',
   },
+];
+
+const STAFFING = [
+  { guests: 'Up to 30 guests', staff: 'Minimum 2 staff' },
+  { guests: 'Up to 60 guests', staff: 'Minimum 3 staff' },
+  { guests: 'Up to 100 guests', staff: 'Minimum 5 staff' },
 ];
 
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Bespoke African Grazing Tables',
+  name: 'Grazing Tables — Sizzling Sensations',
   provider: { '@type': 'Organization', name: 'Sizzling Sensations' },
-  description: 'Luxury West African grazing table experiences for weddings, brand launches, and corporate events in London.',
+  description: 'Nigerian-inspired grazing tables with canapés, bowl food, and beautiful styling for events in London.',
   areaServed: 'London',
 };
+
+function PricingTable({ section }) {
+  return (
+    <div className="mb-10">
+      <h2 className="text-xl font-serif font-bold text-dark mb-4">{section.label}</h2>
+      <div className="overflow-hidden border border-gray-100 rounded-sm shadow-sm">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-offwhite border-b border-gray-100">
+              {section.cols.map((col, i) => (
+                <th
+                  key={col}
+                  className={`px-5 py-3 font-semibold text-dark-600 uppercase tracking-wider text-xs ${i === 0 ? 'text-left' : 'text-right'} ${i === 2 ? 'hidden sm:table-cell' : ''}`}
+                >
+                  {col}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {section.items.map((item, i) => (
+              <tr
+                key={`${item.name}-${i}`}
+                className={`border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}
+              >
+                <td className="px-5 py-3.5 font-medium text-dark">{item.name}</td>
+                <td className="px-5 py-3.5 text-right font-bold text-primary">{item.price}</td>
+                <td className="px-5 py-3.5 text-right text-dark-600 hidden sm:table-cell">{item.moq}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 
 export default function PackagesPage() {
   return (
     <>
       <SEO
-        title="Packages — Bespoke African Grazing Tables"
-        description="Experience the luxury of cultural heritage reimagined through contemporary culinary design. Bespoke African grazing tables for weddings, brand launches, and corporate galas in London."
+        title="Grazing Tables — Sizzling Sensations"
+        description="Our grazing tables bring together food and beautiful table styling to create a food display designed around your event. Canapés, bowl food, desserts and full styling."
         canonical="/packages"
         structuredData={SCHEMA}
       />
 
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-end pt-16" aria-label="Packages hero">
+      <section className="relative min-h-[60vh] flex items-end pt-16" aria-label="Grazing tables hero">
         <div className="absolute inset-0 z-0">
-          <img src={HERO_IMG} alt="Bespoke African grazing table" className="w-full h-full object-cover" loading="eager" />
+          <img src={HERO_IMG} alt="Beautiful grazing table display" className="w-full h-full object-cover" loading="eager" />
           <div className="absolute inset-0 bg-dark/60" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-16">
           <div className="inline-flex bg-gold/20 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-sm mb-4">
-            Premium London Catering
+            Grazing Tables
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white leading-tight mb-3">
-            Bespoke African Grazing Tables
+            Food & Styling,<br className="hidden sm:block" /> Designed Around Your Event
           </h1>
           <p className="text-white/80 text-sm md:text-base max-w-xl mb-6">
-            An Edible Work of Art for Your Event. Experience the luxury of cultural heritage reimagined through contemporary culinary design.
+            Our grazing tables bring together food and beautiful table styling to create a food display that's as stunning as it is delicious.
           </p>
           <div className="flex flex-col xs:flex-row gap-3">
             <Link to="/contact" className="btn-primary px-7 py-3">
-              Request a Grazing Quote
+              Request a Quote
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </Link>
-            <button className="btn-secondary px-7 py-3">
-              View Showcase
-            </button>
           </div>
         </div>
       </section>
 
-      {/* Grazing Experience intro */}
-      <section className="py-12 md:py-16 bg-white" aria-labelledby="grazing-intro">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <p className="section-label mb-2" id="grazing-intro">The Grazing Experience</p>
-          <h2 className="section-title mb-3">An Edible Work of Art for Your Event.</h2>
-          <p className="section-subtitle mx-auto">
-            We don't just cater; we curate multisensory installations that become the centrepiece of your celebration.
-          </p>
+      {/* Notice banner */}
+      <div className="bg-primary-50 border-b border-primary/20 py-3">
+        <p className="text-center text-sm text-primary font-medium">
+          Grazing Tables require a minimum of <strong>3 weeks' notice</strong>
+        </p>
+      </div>
+
+      {/* Menu / Pricing */}
+      <section className="py-12 md:py-16 bg-white" aria-labelledby="pricing-heading">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <p className="section-label mb-2" id="pricing-heading">What's on the Table</p>
+            <p className="text-sm text-dark-600 max-w-xl">
+              Build your grazing table from our selection of canapés, bowl food, desserts, and the Abula Station. Mix and match to suit your event and guest count.
+            </p>
+          </div>
+
+          {GRAZING_SECTIONS.map((section) => (
+            <PricingTable key={section.id} section={section} />
+          ))}
+
+          <div className="mt-2 flex items-center gap-2 text-sm text-dark-600 bg-green-50 border border-green-100 rounded-sm px-4 py-3">
+            <svg className="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            All our food is halal. Please let us know of any dietary requirements when you enquire.
+          </div>
         </div>
       </section>
 
-      {/* Gallery Grid */}
-      <section className="pb-16 md:pb-20 bg-white" aria-label="Gallery">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-            {GALLERY.map((item, i) => (
-              <div key={i} className={`group relative overflow-hidden rounded-sm ${item.span}`}>
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className="w-full h-48 sm:h-64 lg:h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  style={{ minHeight: i === 0 ? '32rem' : undefined }}
-                />
-                {item.caption && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-dark-overlay p-4">
-                    <p className="text-sm font-semibold text-white">{item.caption}</p>
-                    {item.desc && <p className="text-xs text-white/70 mt-0.5">{item.desc}</p>}
-                  </div>
-                )}
+      {/* How It Works */}
+      <section className="py-12 md:py-16 bg-offwhite" aria-labelledby="how-it-works-heading">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-xs font-bold tracking-widest uppercase text-dark-600 mb-2" id="how-it-works-heading">How It Works</h2>
+            <p className="section-title">What's Included</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+            {HOW_IT_WORKS.map((card) => (
+              <div key={card.label} className="bg-white border border-gray-100 rounded-sm p-6 shadow-sm">
+                <p className="text-xs font-bold tracking-widest uppercase text-dark-600 mb-1">{card.label}</p>
+                <p className="text-2xl font-serif font-bold text-primary mb-3">{card.price}</p>
+                <p className="text-sm text-dark-600 leading-relaxed">{card.desc}</p>
               </div>
             ))}
           </div>
+
+          {/* Staffing recommendations */}
+          <div className="bg-white border border-gray-100 rounded-sm shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-gray-100 bg-offwhite">
+              <h3 className="text-sm font-semibold text-dark">Our Staffing Recommendation</h3>
+            </div>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-50">
+                  <th className="text-left px-6 py-3 font-semibold text-dark-600 uppercase tracking-wider text-xs">Guest Count</th>
+                  <th className="text-right px-6 py-3 font-semibold text-dark-600 uppercase tracking-wider text-xs">Recommended Staffing</th>
+                </tr>
+              </thead>
+              <tbody>
+                {STAFFING.map((row, i) => (
+                  <tr key={row.guests} className={`border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}>
+                    <td className="px-6 py-3.5 font-medium text-dark">{row.guests}</td>
+                    <td className="px-6 py-3.5 text-right text-dark-600">{row.staff}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
-      {/* Perfect For */}
-      <section className="py-12 md:py-16 bg-dark" aria-labelledby="perfect-for-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <p className="section-label text-gold mb-3" id="perfect-for-heading">Perfect For</p>
-              <div className="space-y-5">
-                {PERFECT_FOR.map((item) => (
-                  <div key={item.title} className="flex items-start gap-4">
-                    <div className="w-9 h-9 bg-dark-800 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-base font-semibold text-white">{item.title}</h3>
-                      <p className="text-sm text-gray-400 mt-0.5">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Link to="/contact" className="btn-gold mt-8 px-8 py-3 inline-flex">
-                Request a Grazing Quote
-              </Link>
-            </div>
-            <div className="hidden lg:block">
-              <img
-                src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&q=80&auto=format&fit=crop"
-                alt="Elegant event venue with guests"
-                className="w-full h-96 object-cover rounded-sm"
-                loading="lazy"
-              />
-            </div>
-          </div>
+      {/* CTA */}
+      <section className="py-14 bg-white" aria-label="Grazing table enquiry CTA">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="section-title mb-3">Ready to Plan Your Grazing Table?</h2>
+          <p className="section-subtitle mx-auto mb-7">
+            Share your event details, guest count, and colour palette with us and we'll put together a bespoke proposal.
+          </p>
+          <Link to="/contact" className="btn-primary px-8 py-3.5">
+            Request a Quote
+          </Link>
         </div>
       </section>
     </>
