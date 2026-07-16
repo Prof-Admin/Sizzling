@@ -7,8 +7,8 @@ import Step2Configuration from '../components/order/steps/Step2Configuration';
 import Step3Menu from '../components/order/steps/Step3Menu';
 import Step4Logistics from '../components/order/steps/Step4Logistics';
 import Step5Details from '../components/order/steps/Step5Details';
-import PlatterFlow from '../components/order/platter/PlatterFlow';
-import FullServiceFlow from '../components/order/fullservice/FullServiceFlow';
+import MainMenuFlow from '../components/order/mainmenu/MainMenuFlow';
+import FoodBoxFlow from '../components/order/foodbox/FoodBoxFlow';
 
 const STEP_NAMES = ['', 'Service Selection', 'Style & Tier', 'Menu Selection', 'Logistics', 'Final Details'];
 
@@ -18,22 +18,22 @@ function OrderBuilderContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
 
-  const isPlatterFlow     = service === 'platter'      && step > 1;
-  const isFullServiceFlow = service === 'full-service' && step > 1;
-  const showRightPanel    = !isPlatterFlow && !isFullServiceFlow && (step === 2 || step === 3);
+  const isMainMenuFlow = service === 'main-menu'   && step > 1;
+  const isFoodBoxFlow  = service === 'food-boxes'  && step > 1;
+  const showRightPanel = !isMainMenuFlow && !isFoodBoxFlow && (step === 2 || step === 3);
 
-  if (isPlatterFlow) {
+  if (isMainMenuFlow) {
     return (
       <div className="min-h-screen bg-offwhite overflow-x-hidden" style={{ paddingTop: '4rem' }}>
-        <PlatterFlow />
+        <MainMenuFlow />
       </div>
     );
   }
 
-  if (isFullServiceFlow) {
+  if (isFoodBoxFlow) {
     return (
       <div className="min-h-screen bg-offwhite overflow-x-hidden" style={{ paddingTop: '4rem' }}>
-        <FullServiceFlow />
+        <FoodBoxFlow />
       </div>
     );
   }

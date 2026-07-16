@@ -1,4 +1,4 @@
-import { MENU_SECTIONS as DEFAULT_MENU_SECTIONS, FS_MENU as DEFAULT_FS_MENU, FS_PACKAGES } from '../context/OrderContext';
+import { MENU_SECTIONS as DEFAULT_MENU_SECTIONS, FS_MENU as DEFAULT_FS_MENU, FS_PACKAGES, MAIN_MENU_SECTIONS, FOOD_BOXES } from '../context/OrderContext';
 
 const WA_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '447435405324';
 
@@ -115,6 +115,76 @@ export function buildPlatterMessage(state, computed) {
     `Subtotal: ${fmt(platterSubtotal)}`,
     `Service Fee (5%): ${fmt(platterFee)}`,
     `*TOTAL: ${fmt(platterTotal)}*`,
+  ];
+
+  return lines.filter(l => l !== null).join('\n');
+}
+
+export function buildMainMenuMessage(state, computed) {
+  const {
+    mainMenuFulfillment, mainMenuDate, mainMenuAddress,
+    mainMenuNotes, mainMenuItems, mainMenuContact,
+  } = state;
+  const { mainMenuTotal } = computed;
+
+  const allItems = MAIN_MENU_SECTIONS.flatMap(s => s.items);
+  const itemLines = allItems
+    .filter(i => (mainMenuItems[i.id] ?? 0) > 0)
+    .map(i => `  • ${i.name} × ${mainMenuItems[i.id]} — £${(i.price * mainMenuItems[i.id]).toFixed(2)}`);
+
+  const lines = [
+    `🍽️ *NEW MAIN MENU ORDER — Sizzling Sensations*`,
+    ``,
+    `🚚 *Fulfilment*: ${mainMenuFulfillment === 'delivery' ? 'Delivery (free until 31 Aug 2026)' : 'Collection'}`,
+    mainMenuDate ? `📅 *Date*: ${mainMenuDate}` : null,
+    mainMenuFulfillment === 'delivery' && mainMenuAddress ? `📍 *Address*: ${mainMenuAddress}` : null,
+    mainMenuNotes ? `📝 *Notes*: ${mainMenuNotes}` : null,
+    ``,
+    `━━━━━━━━━━━━━━━━━━`,
+    `📞 *CONTACT DETAILS*`,
+    `Name: ${mainMenuContact.name}`,
+    `Email: ${mainMenuContact.email}`,
+    `Phone: ${mainMenuContact.phone}`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━`,
+    `🛒 *ITEMS ORDERED*`,
+    itemLines.length ? itemLines.join('\n') : `  No items`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━`,
+    `💰 *TOTAL: £${mainMenuTotal.toFixed(2)}*`,
+  ];
+
+  return lines.filter(l => l !== null).join('\n');
+}
+
+export function buildFoodBoxMessage(state, computed) {
+  const { foodBoxBoxes, foodBoxDate, foodBoxContact, foodBoxNotes } = state;
+  const { foodBoxCount, foodBoxTotal } = computed;
+
+  const boxLines = FOOD_BOXES
+    .filter(b => (foodBoxBoxes[b.id] ?? 0) > 0)
+    .map(b => `  • ${b.name} × ${foodBoxBoxes[b.id]} — £${(foodBoxBoxes[b.id] * b.price).toFixed(2)}`);
+
+  const lines = [
+    `📦 *NEW FOOD BOX ORDER — Sizzling Sensations*`,
+    ``,
+    `📅 *Date*: ${foodBoxDate}`,
+    `🏠 *Fulfilment*: Collection free · Uber delivery at customer's cost`,
+    foodBoxNotes ? `📝 *Notes*: ${foodBoxNotes}` : null,
+    ``,
+    `━━━━━━━━━━━━━━━━━━`,
+    `📞 *CONTACT DETAILS*`,
+    `Name: ${foodBoxContact.name}`,
+    `Email: ${foodBoxContact.email}`,
+    `Phone: ${foodBoxContact.phone}`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━`,
+    `📦 *BOXES ORDERED*`,
+    boxLines.length ? boxLines.join('\n') : `  No boxes`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━`,
+    `🔢 *Total Boxes*: ${foodBoxCount}`,
+    `💰 *TOTAL: £${foodBoxTotal.toFixed(2)}* (£15 per box)`,
   ];
 
   return lines.filter(l => l !== null).join('\n');

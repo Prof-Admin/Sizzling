@@ -23,21 +23,21 @@ export const GUEST_TIERS = [
 export const SERVICES = [
   {
     id: 'grazing-table',
-    name: 'Grazing Table',
-    desc: 'An opulent display of bite-sized delights, perfectly curated to be the centrepiece of your gathering.',
+    name: 'Grazing Tables',
+    desc: 'Canapés, bowl food and desserts, fully styled to your event\'s colour palette — a display, not just a delivery. Minimum 3 weeks\' notice.',
     img: 'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=600&q=80&auto=format&fit=crop',
   },
   {
-    id: 'platter',
-    name: 'Platter',
-    desc: 'Pre-assembled gourmet platters delivered ready-to-serve. Ideal for smaller office meetings or home socials.',
-    img: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=600&q=80&auto=format&fit=crop',
+    id: 'main-menu',
+    name: 'Main Menu',
+    desc: 'Large portions of our dishes, perfect for feeding a crowd. Order any combination — rice, proteins, soups & sides. Minimum order £150, free delivery until 31 Aug 2026.',
+    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80&auto=format&fit=crop',
   },
   {
-    id: 'full-service',
-    name: 'Full-Service',
-    desc: 'A complete culinary experience with on-site chefs, service staff, and bespoke menu design for large events.',
-    img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80&auto=format&fit=crop',
+    id: 'food-boxes',
+    name: 'Individual Food Boxes',
+    desc: 'Individually packed meals — ideal when you want each guest to have their own box. £15 per box, minimum 10 boxes. At least 1 week\'s notice required.',
+    img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop',
   },
 ];
 
@@ -252,6 +252,88 @@ export const PLATTER_BRUNCH = [
   },
 ];
 
+export const MAIN_MENU_SECTIONS = [
+  {
+    id: 'rice',
+    label: 'Rice Dishes',
+    note: 'All rice dishes come in a 5L pot · Feeds 20–25',
+    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=900&q=80&auto=format&fit=crop',
+    items: [
+      { id: 'white-rice',  name: 'White Rice',  price: 45, size: '5L · Feeds 20–25' },
+      { id: 'jollof-rice', name: 'Jollof Rice', price: 80, size: '5L · Feeds 20–25' },
+      { id: 'fried-rice',  name: 'Fried Rice',  price: 75, size: '5L · Feeds 20–25' },
+      { id: 'rice-peas',   name: 'Rice & Peas', price: 65, size: '5L · Feeds 20–25' },
+    ],
+  },
+  {
+    id: 'proteins',
+    label: 'Proteins',
+    note: null,
+    img: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=900&q=80&auto=format&fit=crop',
+    items: [
+      { id: 'grilled-chicken',  name: 'Grilled Chicken',  price: 80, size: '30 pieces' },
+      { id: 'peppered-chicken', name: 'Peppered Chicken', price: 90, size: '30 pieces' },
+      { id: 'grilled-wings',    name: 'Grilled Wings',    price: 40, size: '18–20 wings' },
+      { id: 'peppered-wings',   name: 'Peppered Wings',   price: 50, size: '18–20 wings' },
+      { id: 'bbq-wings',        name: 'BBQ Wings',        price: 45, size: '18–20 wings' },
+      { id: 'grilled-turkey',   name: 'Grilled Turkey',   price: 75, size: '20 servings' },
+      { id: 'peppered-turkey',  name: 'Peppered Turkey',  price: 85, size: '20 servings' },
+    ],
+  },
+  {
+    id: 'soups',
+    label: 'Soups & Stews',
+    note: 'All soups and stews come in a 4L tub',
+    img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=900&q=80&auto=format&fit=crop',
+    items: [
+      { id: 'egusi',         name: 'Egusi',           price: 95,  size: '4L' },
+      { id: 'assorted-okro', name: 'Assorted Okro',   price: 80,  size: '4L' },
+      { id: 'red-ofada',     name: 'Red Ofada Sauce', price: 80,  size: '4L' },
+      { id: 'beef-obe-ata',  name: 'Beef Obe Ata',    price: 110, size: '4L' },
+      { id: 'chicken-stew',  name: 'Chicken Stew',    price: 70,  size: '4L' },
+      { id: 'turkey-stew',   name: 'Turkey Stew',     price: 70,  size: '4L' },
+      { id: 'fish-obe-ata',  name: 'Fish Obe Ata',    price: 95,  size: '4L' },
+      { id: 'curry-goat',    name: 'Curry Goat',      price: 85,  size: '4L' },
+    ],
+  },
+  {
+    id: 'sides',
+    label: 'Sides',
+    note: null,
+    img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=80&auto=format&fit=crop',
+    items: [
+      { id: 'gizdodo',             name: 'Gizdodo',                  price: 65, size: '4L' },
+      { id: 'coleslaw',            name: 'Coleslaw',                 price: 50, size: 'Feeds ~100' },
+      { id: 'plain-puff-puff',     name: 'Plain Puff Puff',          price: 35, size: '60 pieces' },
+      { id: 'cinnamon-puff-puff',  name: 'Cinnamon Sugar Puff Puff', price: 40, size: '60 pieces' },
+    ],
+  },
+];
+
+export const FOOD_BOXES = [
+  {
+    id: 'jollof',
+    name: 'Jollof Box',
+    price: 15,
+    contents: ['Jollof rice', 'Grilled chicken', 'Fried plantain'],
+    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'fried-rice',
+    name: 'Fried Rice Box',
+    price: 15,
+    contents: ['Fried rice', 'Grilled chicken', 'Fried plantain'],
+    img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'half-half',
+    name: 'Half & Half Box',
+    price: 15,
+    contents: ['Jollof + fried rice', 'Grilled chicken', 'Fried plantain'],
+    img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop',
+  },
+];
+
 const initialState = {
   step: 1,
   service: null,
@@ -294,6 +376,22 @@ const initialState = {
     eventDate: '', startTime: '', venue: '',
     dietary: '',
   },
+
+  // Main Menu flow
+  mainMenuStep: 1,
+  mainMenuFulfillment: 'delivery',
+  mainMenuDate: '',
+  mainMenuAddress: '',
+  mainMenuNotes: '',
+  mainMenuItems: {},
+  mainMenuContact: { name: '', email: '', phone: '' },
+
+  // Food Box flow
+  foodBoxStep: 1,
+  foodBoxBoxes: { jollof: 0, 'fried-rice': 0, 'half-half': 0 },
+  foodBoxDate: '',
+  foodBoxContact: { name: '', email: '', phone: '' },
+  foodBoxNotes: '',
 };
 
 function reducer(state, action) {
@@ -348,6 +446,24 @@ function reducer(state, action) {
       return { ...state, fsSelectedItems: { ...state.fsSelectedItems, [category]: next } };
     }
     case 'UPDATE_FS_DETAILS': return { ...state, fsDetails: { ...state.fsDetails, ...action.payload } };
+
+    // Main Menu flow
+    case 'SET_MAIN_MENU_STEP':   return { ...state, mainMenuStep: action.payload };
+    case 'SET_MAIN_MENU_FIELD':  return { ...state, [action.payload.key]: action.payload.val };
+    case 'UPDATE_MAIN_MENU_ITEM': {
+      const { id, qty } = action.payload;
+      const next = { ...state.mainMenuItems };
+      if (qty <= 0) delete next[id]; else next[id] = qty;
+      return { ...state, mainMenuItems: next };
+    }
+    case 'UPDATE_MAIN_MENU_CONTACT': return { ...state, mainMenuContact: { ...state.mainMenuContact, ...action.payload } };
+
+    // Food Box flow
+    case 'SET_FOOD_BOX_STEP':    return { ...state, foodBoxStep: action.payload };
+    case 'SET_FOOD_BOX_FIELD':   return { ...state, [action.payload.key]: action.payload.val };
+    case 'UPDATE_FOOD_BOX_QTY':  return { ...state, foodBoxBoxes: { ...state.foodBoxBoxes, [action.payload.id]: Math.max(0, action.payload.qty) } };
+    case 'UPDATE_FOOD_BOX_CONTACT': return { ...state, foodBoxContact: { ...state.foodBoxContact, ...action.payload } };
+
     default: return state;
   }
 }
@@ -390,7 +506,15 @@ export function OrderProvider({ children, menuSections: menuSectionsProp, fsPack
     const fsTotalItems = Object.values(state.fsSelectedItems).reduce((s, arr) => s + arr.length, 0);
     const fsMaxItems = fsPkg ? Object.values(fsPkg.allocation).reduce((s, n) => s + n, 0) : 0;
 
-    return { basePrice, menuTotal, brunchTotal, menuSubtotal, staffCost, subtotal, vat, total, budgetLeft, budgetPct, platterSubtotal, platterFee, platterTotal, fsPkg, fsTotal, fsTotalItems, fsMaxItems };
+    const allMainMenuItems = MAIN_MENU_SECTIONS.flatMap(s => s.items);
+    const mainMenuTotal = allMainMenuItems.reduce(
+      (sum, item) => sum + (state.mainMenuItems[item.id] ?? 0) * item.price, 0,
+    );
+
+    const foodBoxCount = Object.values(state.foodBoxBoxes).reduce((s, n) => s + n, 0);
+    const foodBoxTotal = foodBoxCount * 15;
+
+    return { basePrice, menuTotal, brunchTotal, menuSubtotal, staffCost, subtotal, vat, total, budgetLeft, budgetPct, platterSubtotal, platterFee, platterTotal, fsPkg, fsTotal, fsTotalItems, fsMaxItems, mainMenuTotal, foodBoxCount, foodBoxTotal };
   }, [state, activeSections, activePackages, activeStaffConfig]);
 
   return (
