@@ -11,6 +11,41 @@ const STEP_LABELS = ['Order Details', 'Menu Selection', 'Review & Send'];
 
 function fmt(n) { return `£${n.toFixed(2)}`; }
 
+function getMainMenuMinDate() {
+  const now = new Date();
+  const day = now.getDay(); // 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
+  const hour = now.getHours();
+
+  // Order window: Sat(6), Sun(0), Mon before 12:00
+  const inOrderWindow = day === 6 || day === 0 || (day === 1 && hour < 12);
+
+  const min = new Date(now);
+  if (inOrderWindow) {
+    // Dispatch from Tuesday → minimum delivery date is today + 3
+    min.setDate(min.getDate() + 3);
+  } else {
+    // Window closed (Mon 12pm – Fri 23:59) → next Tuesday
+    // Mon after 12: +8, Tue: +7, Wed: +6, Thu: +5, Fri: +4
+    const daysToNextTue = day === 1 ? 8 : day === 2 ? 7 : (9 - day);
+    min.setDate(min.getDate() + daysToNextTue);
+  }
+  return min.toISOString().split('T')[0];
+}
+
+function getOrderWindowNote() {
+  const now = new Date();
+  const day = now.getDay();
+  const hour = now.getHours();
+
+  if (day === 6 || day === 0) {
+    return { text: 'Order window is open — closes Monday at 12pm. Dispatch from Tuesday.', warn: false };
+  }
+  if (day === 1 && hour < 12) {
+    return { text: 'Order window closes today at 12pm. Dispatch from tomorrow (Tuesday).', warn: true };
+  }
+  return { text: 'Order window is closed (Mon 12pm – Fri). Earliest available date is next Tuesday.', warn: true };
+}
+
 function Progress({ current, onBack }) {
   return (
     <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4 sticky top-16 z-30">
@@ -127,9 +162,28 @@ function Step1({ state, dispatch, onNext }) {
               <svg className="w-4 h-4 text-dark-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              <input type="date" value={mainMenuDate} onChange={e => field('mainMenuDate', e.target.value)} className="input-field pl-10" />
+              <input
+                type="date"
+                min={getMainMenuMinDate()}
+                value={mainMenuDate}
+                onChange={e => field('mainMenuDate', e.target.value)}
+                className="input-field pl-10"
+              />
             </div>
-            <p className="text-xs text-dark-600 mt-1">Orders placed Sat–Mon (close 12pm Mon) are dispatched from Tuesday.</p>
+            {(() => {
+              const note = getOrderWindowNote();
+              return (
+                <p className={`text-xs mt-1.5 flex items-start gap-1.5 ${note.warn ? 'text-amber-600' : 'text-green-700'}`}>
+                  <svg className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={note.warn
+                      ? 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
+                      : 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+                    } />
+                  </svg>
+                  {note.text}
+                </p>
+              );
+            })()}
           </div>
 
           {mainMenuFulfillment === 'delivery' && (

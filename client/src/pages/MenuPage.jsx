@@ -6,6 +6,31 @@ import { saveOrder } from '../utils/api';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=1600&q=80&auto=format&fit=crop';
 
+function getMainMenuMinDate() {
+  const now = new Date();
+  const day = now.getDay(); // 0=Sun 1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat
+  const hour = now.getHours();
+  // Order window: Sat(6), Sun(0), Mon before 12:00
+  const inOrderWindow = day === 6 || day === 0 || (day === 1 && hour < 12);
+  const min = new Date(now);
+  if (inOrderWindow) {
+    min.setDate(min.getDate() + 3);
+  } else {
+    const daysToNextTue = day === 1 ? 8 : day === 2 ? 7 : (9 - day);
+    min.setDate(min.getDate() + daysToNextTue);
+  }
+  return min.toISOString().split('T')[0];
+}
+
+function getOrderWindowNote() {
+  const now = new Date();
+  const day = now.getDay();
+  const hour = now.getHours();
+  if (day === 6 || day === 0) return { text: 'Order window is open — closes Monday at 12pm. Dispatch from Tuesday.', warn: false };
+  if (day === 1 && hour < 12) return { text: 'Order window closes today at 12pm. Dispatch from tomorrow (Tuesday).', warn: true };
+  return { text: 'Order window is closed (Mon 12pm – Fri). Earliest available date is next Tuesday.', warn: true };
+}
+
 const HOW_IT_WORKS = [
   { label: 'Minimum Order', value: '£150', desc: 'Choose any combination of dishes from our Main Menu.' },
   { label: 'Order Window', value: 'Sat – Mon', desc: 'Orders open every Saturday and close at 12pm on Monday.' },
@@ -214,18 +239,33 @@ function Step1({ fulfillment, setFulfillment, eventDate, setEventDate, address, 
           </div>
 
           <div className="mb-4">
-            <label className="text-xs font-medium text-dark-600 block mb-1.5">Preferred Date</label>
+            <label className="text-xs font-medium text-dark-600 block mb-1.5">Preferred Dispatch / Delivery Date</label>
             <div className="relative">
               <svg className="w-4 h-4 text-dark-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <input
                 type="date"
+                min={getMainMenuMinDate()}
                 value={eventDate}
                 onChange={e => setEventDate(e.target.value)}
                 className="input-field pl-10"
               />
             </div>
+            {(() => {
+              const note = getOrderWindowNote();
+              return (
+                <p className={`text-xs mt-1.5 flex items-start gap-1.5 ${note.warn ? 'text-amber-600' : 'text-green-700'}`}>
+                  <svg className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={note.warn
+                      ? 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
+                      : 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+                    } />
+                  </svg>
+                  {note.text}
+                </p>
+              );
+            })()}
           </div>
 
           {fulfillment === 'delivery' && (

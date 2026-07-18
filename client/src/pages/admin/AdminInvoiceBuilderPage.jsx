@@ -3,7 +3,7 @@ import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { downloadInvoicePdf, getInvoicePdfBase64, preloadLogo } from '../../utils/generateInvoicePdf';
-import { MENU_SECTIONS as DEFAULT_MENU_SECTIONS } from '../../context/OrderContext';
+import { MENU_SECTIONS as DEFAULT_MENU_SECTIONS, MAIN_MENU_SECTIONS, FOOD_BOXES } from '../../context/OrderContext';
 
 const STATUSES = ['draft', 'sent', 'paid', 'overdue', 'cancelled'];
 
@@ -22,9 +22,108 @@ function emptyItem(isExtra = true) {
 const STAFF_RATE = 16.67;
 const STAFF_MIN_HOURS = 6;
 
+const SERVICE_LABELS = {
+  'grazing-table': 'Grazing Table',
+  'main-menu': 'Main Menu',
+  'food-boxes': 'Individual Food Boxes',
+  grazing: 'Grazing Table',
+  platter: 'Platter',
+  'full-service': 'Full-Service Catering',
+};
+
 function buildLineItemsFromOrder(order, menuSections = DEFAULT_MENU_SECTIONS) {
   const { serviceType, orderData, estimatedTotal } = order;
 
+  // ── Main Menu ──────────────────────────────────────────────────────────────
+  if (serviceType === 'main-menu' && orderData?.items?.length) {
+    return orderData.items.map(item => {
+      const unitPrice = item.qty > 0 ? +(item.price / item.qty).toFixed(2) : +(item.price || 0);
+      return {
+        description: item.name,
+        quantity: item.qty || 1,
+        unitPrice,
+        total: +(item.price || 0),
+        isExtra: false,
+      };
+    });
+  }
+
+  // ── Individual Food Boxes ──────────────────────────────────────────────────
+  if (serviceType === 'food-boxes') {
+    const BOX_NAMES = { jollof: 'Jollof Box', 'fried-rice': 'Fried Rice Box', 'half-half': 'Half & Half Box' };
+    const boxes = orderData?.boxes || {};
+    const lines = Object.entries(boxes)
+      .filter(([, qty]) => qty > 0)
+      .map(([id, qty]) => ({
+        description: BOX_NAMES[id] || id,
+        quantity: qty,
+        unitPrice: 15,
+        total: +(qty * 15).toFixed(2),
+        isExtra: false,
+      }));
+    if (lines.length > 0) return lines;
+    const total = orderData?.totalBoxes ? orderData.totalBoxes * 15 : +(estimatedTotal || 0);
+    return [{ description: 'Individual Food Boxes (£15 each)', quantity: orderData?.totalBoxes || 1, unitPrice: 15, total, isExtra: false }];
+  }
+
+  // ── Grazing Table (current + legacy) ──────────────────────────────────────
+  if (serviceType === 'grazing-table' || serviceType === 'grazing') {
+    const lines = [];
+
+    const tier = orderData?.guestTier;
+    if (tier) {
+      lines.push({
+        description: `Grazing Table – ${tier.label} Tier (${tier.guests} guests)`,
+        quantity: 1,
+        unitPrice: +(tier.price || 0),
+        total: +(tier.price || 0),
+        isExtra: false,
+      });
+    }
+
+    for (const [id, qty] of Object.entries(orderData?.menuItems || {})) {
+      for (const section of menuSections) {
+        const item = section.items.find(i => i.id === id);
+        if (item) {
+          lines.push({
+            description: `${item.name} (${section.label})`,
+            quantity: qty,
+            unitPrice: item.price,
+            total: +(qty * item.price).toFixed(2),
+            isExtra: false,
+          });
+          break;
+        }
+      }
+    }
+
+    for (const pkg of (orderData?.brunchPackages || [])) {
+      lines.push({
+        description: pkg.name,
+        quantity: 1,
+        unitPrice: +(pkg.price || 0),
+        total: +(pkg.price || 0),
+        isExtra: false,
+      });
+    }
+
+    const lg = orderData?.logistics || {};
+    if (lg.staffCount > 0) {
+      const hours = Math.max(Number(lg.staffHours) || 0, STAFF_MIN_HOURS);
+      const staffTotal = +(lg.staffCount * hours * STAFF_RATE).toFixed(2);
+      lines.push({
+        description: `Staff (${lg.staffCount} × ${hours}hrs @ £${STAFF_RATE}/hr)`,
+        quantity: 1,
+        unitPrice: staffTotal,
+        total: staffTotal,
+        isExtra: false,
+      });
+    }
+
+    if (lines.length > 0) return lines;
+  }
+
+  // ── Legacy: Platter ────────────────────────────────────────────────────────
   if (serviceType === 'platter' && orderData?.items?.length) {
     const items = orderData.items.map(item => ({
       description: item.name + (item.detail ? ` (${item.detail})` : ''),
@@ -35,12 +134,11 @@ function buildLineItemsFromOrder(order, menuSections = DEFAULT_MENU_SECTIONS) {
     }));
     const subtotal = items.reduce((s, i) => s + i.unitPrice, 0);
     const fee = +(subtotal * 0.05).toFixed(2);
-    if (fee > 0) {
-      items.push({ description: 'Service Fee (5%)', quantity: 1, unitPrice: fee, total: fee, isExtra: false });
-    }
+    if (fee > 0) items.push({ description: 'Service Fee (5%)', quantity: 1, unitPrice: fee, total: fee, isExtra: false });
     return items;
   }
 
+  // ── Legacy: Full-Service ───────────────────────────────────────────────────
   if (serviceType === 'full-service' && orderData?.package) {
     const pkg = orderData.package;
     const guests = orderData.guests || 1;
@@ -60,68 +158,8 @@ function buildLineItemsFromOrder(order, menuSections = DEFAULT_MENU_SECTIONS) {
     }];
   }
 
-  if (serviceType === 'grazing') {
-    const lines = [];
-
-    // 1. Guest tier base price
-    const tier = orderData?.guestTier;
-    if (tier) {
-      lines.push({
-        description: `Grazing Table – ${tier.label} Tier (${tier.guests} guests)`,
-        quantity: 1,
-        unitPrice: +(tier.price || 0),
-        total: +(tier.price || 0),
-        isExtra: false,
-      });
-    }
-
-    // 2. Menu items — look up price from MENU_SECTIONS
-    for (const [id, qty] of Object.entries(orderData?.menuItems || {})) {
-      for (const section of menuSections) {
-        const item = section.items.find(i => i.id === id);
-        if (item) {
-          lines.push({
-            description: `${item.name} (${section.label})`,
-            quantity: qty,
-            unitPrice: item.price,
-            total: +(qty * item.price).toFixed(2),
-            isExtra: false,
-          });
-          break;
-        }
-      }
-    }
-
-    // 3. Brunch packages — price stored directly on each package
-    for (const pkg of (orderData?.brunchPackages || [])) {
-      lines.push({
-        description: pkg.name,
-        quantity: 1,
-        unitPrice: +(pkg.price || 0),
-        total: +(pkg.price || 0),
-        isExtra: false,
-      });
-    }
-
-    // 4. Staff cost
-    const lg = orderData?.logistics || {};
-    if (lg.staffCount > 0) {
-      const hours = Math.max(Number(lg.staffHours) || 0, STAFF_MIN_HOURS);
-      const staffTotal = +(lg.staffCount * hours * STAFF_RATE).toFixed(2);
-      lines.push({
-        description: `Staff (${lg.staffCount} × ${hours}hrs @ £${STAFF_RATE}/hr)`,
-        quantity: 1,
-        unitPrice: staffTotal,
-        total: staffTotal,
-        isExtra: false,
-      });
-    }
-
-    if (lines.length > 0) return lines;
-  }
-
-  // Fallback
-  const label = serviceType === 'grazing' ? 'Grazing Table' : serviceType === 'platter' ? 'Platter Delivery' : 'Full-Service Catering';
+  // ── Fallback ───────────────────────────────────────────────────────────────
+  const label = SERVICE_LABELS[serviceType] || serviceType;
   return [{
     description: `${label} – see order notes`,
     quantity: 1,
@@ -206,15 +244,14 @@ export default function AdminInvoiceBuilderPage() {
           const r = await axios.get(`/api/admin/orders/${orderId}`, { headers: authHeader });
           const order = r.data.data;
           const c = order.contact || {};
-          const serviceLabel = order.serviceType === 'grazing' ? 'Grazing Table' : order.serviceType === 'platter' ? 'Platter Delivery' : 'Full-Service Catering';
+          const serviceLabel = SERVICE_LABELS[order.serviceType] || order.serviceType;
           setInvoice(prev => ({
             ...prev,
             orderId: order._id,
             client: { name: c.name || '', email: c.email || '', phone: c.phone || '' },
             serviceDescription: `${serviceLabel} – ${c.name || ''}`,
             lineItems: buildLineItemsFromOrder(order),
-            // Platters use a 5% service fee (already in line items), not VAT
-            vatRate: order.serviceType === 'platter' ? 0 : 20,
+            vatRate: 20,
           }));
         }
       } catch (e) {

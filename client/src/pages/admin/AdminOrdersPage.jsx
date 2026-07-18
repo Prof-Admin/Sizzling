@@ -4,7 +4,16 @@ import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 
 const STATUSES = ['all', 'new', 'confirmed', 'in-progress', 'completed', 'cancelled'];
-const TYPES = ['all', 'grazing', 'platter', 'full-service'];
+const TYPES = ['all', 'grazing-table', 'main-menu', 'food-boxes', 'grazing', 'platter', 'full-service'];
+
+const TYPE_LABELS = {
+  'grazing-table': 'Grazing Table',
+  'main-menu': 'Main Menu',
+  'food-boxes': 'Food Boxes',
+  grazing: 'Grazing Table (legacy)',
+  platter: 'Platter (legacy)',
+  'full-service': 'Full Service (legacy)',
+};
 
 const STATUS_COLORS = {
   new: 'bg-blue-100 text-blue-700',
@@ -82,7 +91,7 @@ export default function AdminOrdersPage() {
         <div>
           <label className="text-xs text-gray-500 block mb-1">Type</label>
           <select value={typeFilter} onChange={e => setTypeFilter(e.target.value)} className="text-sm border border-gray-300 rounded-sm px-2.5 py-1.5 bg-white focus:outline-none">
-            {TYPES.map(t => <option key={t} value={t}>{t === 'all' ? 'All Types' : t.charAt(0).toUpperCase() + t.slice(1)}</option>)}
+            {TYPES.map(t => <option key={t} value={t}>{t === 'all' ? 'All Types' : (TYPE_LABELS[t] || t)}</option>)}
           </select>
         </div>
         <div>
@@ -124,7 +133,7 @@ export default function AdminOrdersPage() {
                         <p className="font-medium text-gray-900">{o.contact?.name}</p>
                         <p className="text-xs text-gray-400">{o.contact?.email}</p>
                       </td>
-                      <td className="px-4 py-3 text-gray-600 capitalize">{o.serviceType}</td>
+                      <td className="px-4 py-3 text-gray-600">{TYPE_LABELS[o.serviceType] || o.serviceType}</td>
                       <td className="px-4 py-3 font-bold text-gray-900">£{o.estimatedTotal?.toFixed(2)}</td>
                       <td className="px-4 py-3"><StatusBadge status={o.status} /></td>
                       <td className="px-4 py-3 text-xs text-gray-400">{new Date(o.createdAt).toLocaleDateString('en-GB')}</td>
@@ -166,7 +175,7 @@ export default function AdminOrdersPage() {
               </button>
             </div>
             <div className="space-y-3 text-xs">
-              <div><span className="text-gray-500">Service</span><p className="font-medium capitalize mt-0.5">{selected.serviceType}</p></div>
+              <div><span className="text-gray-500">Service</span><p className="font-medium mt-0.5">{TYPE_LABELS[selected.serviceType] || selected.serviceType}</p></div>
               <div><span className="text-gray-500">Customer</span><p className="font-medium mt-0.5">{selected.contact?.name}</p><p className="text-gray-400">{selected.contact?.email}</p><p className="text-gray-400">{selected.contact?.phone}</p></div>
               <div><span className="text-gray-500">Total</span><p className="font-bold text-base text-gray-900 mt-0.5">£{selected.estimatedTotal?.toFixed(2)}</p></div>
               <div><span className="text-gray-500">Status</span>
