@@ -17,14 +17,8 @@ function SectionBlock({ label, children }) {
 export default function LiveSummaryPanel() {
   const { state, dispatch, computed } = useOrder();
   const { menuSections } = useMenuConfig();
-  const { step, service, guestTier, style, primaryColor, accentColor, menuItems, addedPackages } = state;
-  const { basePrice, menuSubtotal, staffCost, subtotal, vat, total } = computed;
-
-  const serviceLabel = service === 'grazing-table' ? 'Grazing Table'
-    : service === 'platter' ? 'Platter'
-    : service === 'full-service' ? 'Full-Service' : '—';
-
-  const tierLabel = guestTier ? `${guestTier.label} (${guestTier.guests} guests)` : '—';
+  const { step, style, primaryColor, accentColor, menuItems, addedPackages } = state;
+  const { tableStylingCost, logisticsCost, menuSubtotal, staffCost, subtotal, vat, total } = computed;
 
   const allItems = menuSections.flatMap(s => s.items);
   const selectedItems = Object.entries(menuItems)
@@ -50,32 +44,22 @@ export default function LiveSummaryPanel() {
         <h3 className="font-semibold text-sm text-dark">Live Summary</h3>
       </div>
 
-      {/* Service */}
-      <SectionBlock label="Service Selection">
-        <div className="flex items-start justify-between">
-          <div>
-            <p className="text-sm font-semibold text-dark">
-              {guestTier?.label ?? ''} {serviceLabel}
-            </p>
-            <p className="text-xs text-dark-600 mt-0.5">Estimated for {guestTier?.guests ?? 0} Guests</p>
+      {/* Table Styling */}
+      <SectionBlock label="Table Styling">
+        {style ? (
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-dark">
+                {style === 'traditional' ? 'Traditional Heritage' : style === 'minimalist' ? 'Modern Minimalist' : 'Vibrant Celebration'}
+              </p>
+              <p className="text-xs text-dark-600 mt-0.5">Linen, florals, styling & equipment</p>
+            </div>
+            <span className="text-sm font-bold text-primary ml-2 shrink-0">{fmt(tableStylingCost)}</span>
           </div>
-          <span className="text-sm font-bold text-primary ml-2 shrink-0">{fmt(basePrice)}</span>
-        </div>
+        ) : (
+          <p className="text-xs text-dark-600 italic">Select a table theme to add styling (£250)</p>
+        )}
       </SectionBlock>
-
-      {/* Style */}
-      {style && (
-        <SectionBlock label="Style Choice">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-dark capitalize">
-              {style === 'traditional' ? 'Traditional Heritage' : style === 'minimalist' ? 'Modern Minimalist' : 'Vibrant Celebration'}
-            </p>
-            <svg className="w-4 h-4 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-        </SectionBlock>
-      )}
 
       {/* Color Palette */}
       <SectionBlock label="Color Palette">
@@ -110,18 +94,30 @@ export default function LiveSummaryPanel() {
 
       {/* Totals */}
       <div className="border-t border-gray-100 pt-4 space-y-2">
+        {tableStylingCost > 0 && (
+          <div className="flex justify-between text-sm">
+            <span className="text-dark-600">Table Styling</span>
+            <span className="font-medium text-dark">{fmt(tableStylingCost)}</span>
+          </div>
+        )}
         <div className="flex justify-between text-sm">
-          <span className="text-dark-600">Menu & Tier</span>
-          <span className="font-medium text-dark">{fmt(basePrice + menuSubtotal)}</span>
+          <span className="text-dark-600">Logistics (est. min.)</span>
+          <span className="font-medium text-dark">{fmt(logisticsCost)}</span>
         </div>
+        {menuSubtotal > 0 && (
+          <div className="flex justify-between text-sm">
+            <span className="text-dark-600">Food</span>
+            <span className="font-medium text-dark">{fmt(menuSubtotal)}</span>
+          </div>
+        )}
         {staffCost > 0 && (
           <div className="flex justify-between text-sm">
             <span className="text-dark-600">Staffing</span>
             <span className="font-medium text-dark">{fmt(staffCost)}</span>
           </div>
         )}
-        <div className="flex justify-between text-sm">
-          <span className="text-dark-600">Tax (VAT 20%)</span>
+        <div className="flex justify-between text-sm border-t border-gray-100 pt-2">
+          <span className="text-dark-600">VAT (20%)</span>
           <span className="text-dark-600">{fmt(vat)}</span>
         </div>
         <div className="flex justify-between text-base font-bold pt-1">

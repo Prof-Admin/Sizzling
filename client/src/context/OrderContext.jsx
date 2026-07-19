@@ -516,7 +516,7 @@ export function OrderProvider({ children, menuSections: menuSectionsProp, fsPack
 
     const brunchTotal = state.addedPackages.reduce((s, p) => s + p.price, 0);
     const menuSubtotal = menuTotal + brunchTotal;
-    const tableStylingCost = 250;
+    const tableStylingCost = state.style ? 250 : 0; // added when a theme is selected
     const logisticsCost = 100; // minimum — actual cost confirmed by location
     const staffCost = state.staffCount * Math.max(state.staffHours, 4) * 15; // £15/hr, 4hr min
     const subtotal = tableStylingCost + logisticsCost + menuSubtotal + staffCost;
