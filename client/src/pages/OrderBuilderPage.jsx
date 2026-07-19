@@ -22,6 +22,11 @@ function OrderBuilderContent() {
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // Scroll to top on every main step change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [step]);
+
   useEffect(() => {
     const param = searchParams.get('service');
     if (param && VALID_SERVICES.includes(param) && step === 1) {

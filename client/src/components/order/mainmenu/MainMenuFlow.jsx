@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useOrder } from '../../../context/OrderContext';
 import { MAIN_MENU_SECTIONS } from '../../../context/OrderContext';
@@ -60,10 +60,13 @@ function Progress({ current, onBack }) {
           </svg>
         </button>
         <div className="flex-1">
-          <p className="text-xs font-bold tracking-widest text-primary uppercase mb-3">
-            MAIN MENU · STEP 0{current} OF 03
-          </p>
-          <div className="flex items-center">
+          <div className="flex items-center gap-3">
+            <p className="text-xs font-bold tracking-widest text-primary uppercase">
+              STEP 0{current} OF 03
+            </p>
+            <p className="text-xs text-dark-600 font-medium">{STEP_LABELS[current - 1]}</p>
+          </div>
+          <div className="flex items-center mt-3">
             {STEP_LABELS.map((label, i) => {
               const n = i + 1;
               return (
@@ -78,12 +81,12 @@ function Progress({ current, onBack }) {
                         </svg>
                       ) : n}
                     </div>
-                    <span className={`text-[10px] sm:text-xs mt-1 whitespace-nowrap ${n === current ? 'text-primary font-semibold' : n < current ? 'text-dark-600' : 'text-gray-400'}`}>
+                    <span className={`hidden sm:block text-xs mt-1 whitespace-nowrap ${n === current ? 'text-primary font-semibold' : n < current ? 'text-dark-600' : 'text-gray-400'}`}>
                       {label}
                     </span>
                   </div>
                   {i < STEP_LABELS.length - 1 && (
-                    <div className={`w-8 sm:w-14 h-0.5 mx-1 sm:mx-2 mb-4 ${n < current ? 'bg-primary/40' : 'bg-gray-200'}`} />
+                    <div className={`w-8 sm:w-16 h-0.5 mx-1.5 sm:mx-2 ${n < current ? 'bg-primary/40' : 'bg-gray-200'} ${n < current ? '' : 'mb-0 sm:mb-4'} mb-0`} />
                   )}
                 </div>
               );
@@ -544,6 +547,10 @@ export default function MainMenuFlow() {
   const { mainMenuTotal } = computed;
   const [submitted, setSubmitted] = useState(false);
   const [waMessage, setWaMessage] = useState('');
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [mainMenuStep]);
 
   function goBack() { dispatch({ type: 'SET_STEP', payload: 1 }); }
 

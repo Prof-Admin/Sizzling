@@ -170,7 +170,7 @@ export default function PackagesPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </Link>
-            <Link to="/contact" className="btn-outline-light px-7 py-3">
+            <Link to="/contact" className="btn-secondary px-7 py-3">
               Request a Quote
             </Link>
           </div>
