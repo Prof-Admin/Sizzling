@@ -42,7 +42,7 @@ function OrderBuilderContent() {
 
   if (isMainMenuFlow) {
     return (
-      <div className="min-h-screen bg-offwhite overflow-x-hidden" style={{ paddingTop: '4rem' }}>
+      <div className="min-h-screen bg-offwhite" style={{ paddingTop: '4rem' }}>
         <MainMenuFlow />
       </div>
     );
@@ -50,14 +50,14 @@ function OrderBuilderContent() {
 
   if (isFoodBoxFlow) {
     return (
-      <div className="min-h-screen bg-offwhite overflow-x-hidden" style={{ paddingTop: '4rem' }}>
+      <div className="min-h-screen bg-offwhite" style={{ paddingTop: '4rem' }}>
         <FoodBoxFlow />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-offwhite overflow-x-hidden" style={{ paddingTop: '4rem' }}>
+    <div className="min-h-screen bg-offwhite" style={{ paddingTop: '4rem' }}>
       {/* Mobile step bar */}
       <div className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-16 z-30">
         <div>
