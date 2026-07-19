@@ -92,7 +92,7 @@ function OrderBuilderContent() {
         </div>
 
         <div className="flex flex-1 min-w-0">
-          <main className="flex-1 min-w-0 overflow-y-auto pb-24 lg:pb-0">
+          <main className="flex-1 min-w-0 overflow-y-auto pb-24 lg:pb-0 pt-4 lg:pt-0">
             {step === 1 && <Step1Service />}
             {step === 2 && <Step2Configuration />}
             {step === 3 && <Step3Menu />}

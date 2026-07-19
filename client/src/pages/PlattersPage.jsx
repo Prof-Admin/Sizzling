@@ -8,19 +8,19 @@ const BOXES = [
     name: 'Jollof Box',
     price: '£15',
     contents: ['Jollof rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1664993101841-036f189719b6?w=600&q=80&auto=format&fit=crop',
   },
   {
     name: 'Fried Rice Box',
     price: '£15',
     contents: ['Fried rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80&auto=format&fit=crop',
   },
   {
     name: 'Half & Half Box',
     price: '£15',
     contents: ['Jollof rice and fried rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1664992960082-0ea299a9c53e?w=600&q=80&auto=format&fit=crop',
   },
 ];
 

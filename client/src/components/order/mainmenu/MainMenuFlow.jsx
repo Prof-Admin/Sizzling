@@ -133,7 +133,7 @@ function Step1({ state, dispatch, onNext }) {
   const canContinue = mainMenuDate && (mainMenuFulfillment === 'collection' || mainMenuAddress.trim());
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-8 sm:py-8">
       <div className="grid md:grid-cols-[1fr_300px] gap-6 items-start">
 
         <div className="bg-white border border-gray-200 rounded-sm p-6">
@@ -253,7 +253,7 @@ function Step2({ state, dispatch, total, onBack, onNext }) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 pb-28 lg:pb-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-28 lg:pb-8">
       <div className="grid lg:grid-cols-[1fr_268px] gap-6 items-start">
 
         <div>
@@ -417,7 +417,7 @@ function Step3({ state, dispatch, total, onBack, onSubmit, submitted, waMessage 
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 sm:py-8">
       <div className="mb-7">
         <h2 className="text-2xl font-serif font-bold text-dark">Review Your Order</h2>
         <p className="text-sm text-dark-600 mt-1">Check everything looks right then add your contact details.</p>

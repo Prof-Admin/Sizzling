@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
 const HERO_IMAGE = 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=1600&q=80&auto=format&fit=crop';
-const MENU_IMAGE = 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80&auto=format&fit=crop';
-const BOXES_IMAGE = 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80&auto=format&fit=crop';
+const MENU_IMAGE = 'https://images.unsplash.com/photo-1665332195309-9d75071138f0?w=800&q=80&auto=format&fit=crop';
+const BOXES_IMAGE = 'https://images.unsplash.com/photo-1664334997177-6ae654a62735?w=800&q=80&auto=format&fit=crop';
 const GRAZING_IMAGE = '/image 4.jpg';
 
 const SERVICES = [
@@ -161,10 +161,10 @@ export default function HomePage() {
             <img
               src={GRAZING_IMAGE}
               alt="Beautiful grazing table display"
-              className="w-full h-64 md:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-96 md:h-80 object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-dark/55 flex flex-col md:flex-row md:items-center md:justify-between p-8 md:p-10 gap-5">
+            <div className="absolute inset-0 bg-dark/55 flex flex-col md:flex-row md:items-center md:justify-between p-6 md:p-10 gap-4">
               <div className="max-w-xl">
                 <span className="inline-block bg-gold/20 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-sm mb-3">
                   Grazing Tables
