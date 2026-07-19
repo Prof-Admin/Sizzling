@@ -22,12 +22,6 @@ export const GUEST_TIERS = [
 
 export const SERVICES = [
   {
-    id: 'grazing-table',
-    name: 'Grazing Tables',
-    desc: 'Canapés, bowl food and desserts, fully styled to your event\'s colour palette — a display, not just a delivery. Minimum 3 weeks\' notice.',
-    img: 'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=600&q=80&auto=format&fit=crop',
-  },
-  {
     id: 'main-menu',
     name: 'Main Menu',
     desc: 'Large portions of our dishes, perfect for feeding a crowd. Order any combination — rice, proteins, soups & sides. Minimum order £150, free delivery until 31 Aug 2026.',
@@ -38,6 +32,12 @@ export const SERVICES = [
     name: 'Individual Food Boxes',
     desc: 'Individually packed meals — ideal when you want each guest to have their own box. £15 per box, minimum 10 boxes. At least 1 week\'s notice required.',
     img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop',
+  },
+  {
+    id: 'grazing-table',
+    name: 'Grazing Tables',
+    desc: 'Canapés, bowl food and desserts, fully styled to your event\'s colour palette — a display, not just a delivery. Minimum 3 weeks\' notice.',
+    img: 'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=600&q=80&auto=format&fit=crop',
   },
 ];
 
@@ -67,39 +67,63 @@ export const STYLES = [
 
 export const MENU_SECTIONS = [
   {
-    id: 'small-chops',
-    label: 'Small Chops',
-    subtitle: 'Authentic finger foods priced per piece',
-    img: '/image 2.jpg',
+    id: 'abula-station',
+    label: 'Abula Station',
+    subtitle: '£13 per person · MOQ 50 people',
+    img: '/image 4.jpg',
+    countInServings: true,
     items: [
-      { id: 'puff-puff',    name: 'Spicy Puff Puff',   price: 1.50, unit: 'pc', min: 20, img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=120&q=80' },
-      { id: 'scotch-eggs',  name: 'Mini Scotch Eggs',  price: 1.80, unit: 'pc', min: 20, img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=120&q=80' },
-      { id: 'akara',        name: 'Akara Bites',        price: 1.20, unit: 'pc', min: 20, img: 'https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=120&q=80' },
-      { id: 'plantain-fry', name: 'Fried Plantain',    price: 0.90, unit: 'pc', min: 20, img: 'https://images.unsplash.com/photo-1596097635121-14b38d6fd3f5?w=120&q=80' },
+      { id: 'abula-station', name: 'Abula Station', price: 13, unit: 'person', min: 50 },
+    ],
+  },
+  {
+    id: 'canapes',
+    label: 'Canapés',
+    subtitle: 'Priced per piece · MOQ 20 per item',
+    img: '/image 2.jpg',
+    countInServings: true,
+    items: [
+      { id: 'puff-puff',       name: 'Puff Puff',            price: 0.50, unit: 'piece',   min: 20 },
+      { id: 'spring-rolls',    name: 'Spring Rolls',         price: 0.50, unit: 'piece',   min: 20 },
+      { id: 'samosas',         name: 'Samosas',              price: 1.00, unit: 'piece',   min: 20 },
+      { id: 'shawarma-rolls',  name: 'Mini Shawarma Rolls',  price: 2.00, unit: 'roll',    min: 20 },
+      { id: 'fried-plantain',  name: 'Fried Plantain',       price: 1.00, unit: 'serving', min: 20 },
+      { id: 'chicken-waffles', name: 'Chicken & Waffles',    price: 3.50, unit: 'portion', min: 20 },
+      { id: 'bbq-niblets',     name: 'BBQ Chicken Niblets',  price: 1.50, unit: 'piece',   min: 20 },
+      { id: 'suya-wings',      name: 'Suya Chicken Wings',   price: 1.50, unit: 'wing',    min: 20 },
+      { id: 'corn-cob',        name: 'Corn on the Cob',      price: 1.00, unit: 'piece',   min: 20 },
     ],
   },
   {
     id: 'bowl-food',
     label: 'Bowl Food',
-    subtitle: 'Substantial portions for networking events',
+    subtitle: 'Priced per portion · MOQ 20 portions',
     img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=900&q=80&auto=format&fit=crop',
+    countInServings: true,
     items: [
-      { id: 'jollof-bowl',  name: 'Signature Jollof Bowl',  price: 12.00, unit: 'portion', min: 1 },
-      { id: 'goat-bowl',    name: 'Curry Goat Rice Bowl',   price: 14.50, unit: 'portion', min: 1 },
-      { id: 'egusi-bowl',   name: 'Egusi Soup Bowl',        price: 11.00, unit: 'portion', min: 1 },
-      { id: 'pepper-soup',  name: 'Pepper Soup',            price:  9.50, unit: 'portion', min: 1 },
+      { id: 'jollof-rice-bowl',   name: 'Jollof Rice',                 price: 4.00, unit: 'portion', min: 20 },
+      { id: 'fried-rice-bowl',    name: 'Fried Rice',                  price: 3.50, unit: 'portion', min: 20 },
+      { id: 'rice-peas-goat',     name: 'Rice & Peas with Curry Goat', price: 4.00, unit: 'portion', min: 20 },
+      { id: 'gizdodo-bowl',       name: 'Gizdodo',                     price: 3.00, unit: 'portion', min: 20 },
+      { id: 'peppered-chk-bowl',  name: 'Peppered Chicken',            price: 2.50, unit: 'piece',   min: 20 },
+      { id: 'peppered-beef',      name: 'Peppered Beef',               price: 2.50, unit: 'portion', min: 20 },
+      { id: 'peppered-fish',      name: 'Peppered Fish',               price: 3.50, unit: 'portion', min: 20 },
     ],
   },
   {
-    id: 'drinks',
-    label: 'Drinks & Refreshments',
-    subtitle: 'Curated Mocktails & Cocktails priced per guest',
-    img: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=900&q=80&auto=format&fit=crop',
+    id: 'sweets-desserts',
+    label: 'Sweets & Desserts',
+    subtitle: 'Priced per box or serving dish · Feeds 10–12 per dish',
+    img: '/image 1.jpg',
+    countInServings: false,
     items: [
-      { id: 'hibiscus',  name: 'Hibiscus Zest Mocktail', price: 6.50, unit: 'guest', min: 1 },
-      { id: 'rum-punch', name: 'Spiced Rum Punch',        price: 9.50, unit: 'guest', min: 1 },
-      { id: 'chapman',   name: "Chapman's Classic",       price: 7.00, unit: 'guest', min: 1 },
-      { id: 'zobo',      name: 'Zobo Cooler',             price: 5.00, unit: 'guest', min: 1 },
+      { id: 'brookies-6',      name: 'Cookie Butter Brookies (Box of 6)',  price: 25, unit: 'box',  min: 1 },
+      { id: 'brookies-12',     name: 'Cookie Butter Brookies (Box of 12)', price: 38, unit: 'box',  min: 1 },
+      { id: 'berry-cream',     name: 'Berry Me in Cream',                  price: 35, unit: 'dish', min: 1 },
+      { id: 'red-y-not',       name: 'Red-y or Not',                       price: 35, unit: 'dish', min: 1 },
+      { id: 'tiramisu-crazy',  name: 'Tirr-a-mi-crazyy',                   price: 35, unit: 'dish', min: 1 },
+      { id: 'choc-dream',      name: 'Chocolate Dream',                    price: 40, unit: 'dish', min: 1 },
+      { id: 'creme-brulee',    name: 'Crème Brûlée Cheesecake',            price: 40, unit: 'dish', min: 1 },
     ],
   },
 ];
@@ -337,6 +361,7 @@ export const FOOD_BOXES = [
 const initialState = {
   step: 1,
   service: null,
+  guestCount: 50,
   guestTier: GUEST_TIERS[2],
   style: null,
   primaryColor: PALETTE[0],
@@ -398,6 +423,7 @@ function reducer(state, action) {
   switch (action.type) {
     case 'SET_STEP':         return { ...state, step: action.payload };
     case 'SET_SERVICE':      return { ...state, service: action.payload };
+    case 'SET_GUEST_COUNT':  return { ...state, guestCount: action.payload };
     case 'SET_GUEST_TIER':   return { ...state, guestTier: action.payload };
     case 'SET_STYLE':        return { ...state, style: action.payload };
     case 'SET_PRIMARY':      return { ...state, primaryColor: action.payload };
@@ -478,7 +504,7 @@ export function OrderProvider({ children, menuSections: menuSectionsProp, fsPack
   const activeStaffConfig = staffConfigProp || { hourlyRate: 16.67, minHours: 6 };
 
   const computed = useMemo(() => {
-    const basePrice = state.guestTier?.price ?? 0;
+    const basePrice = 0; // kept for backward compat — tier pricing removed
 
     const menuTotal = Object.entries(state.menuItems).reduce((sum, [id, qty]) => {
       for (const section of activeSections) {
@@ -490,8 +516,10 @@ export function OrderProvider({ children, menuSections: menuSectionsProp, fsPack
 
     const brunchTotal = state.addedPackages.reduce((s, p) => s + p.price, 0);
     const menuSubtotal = menuTotal + brunchTotal;
-    const staffCost = state.staffCount * Math.max(state.staffHours, activeStaffConfig.minHours) * activeStaffConfig.hourlyRate;
-    const subtotal = basePrice + menuSubtotal + staffCost;
+    const tableStylingCost = 250;
+    const logisticsCost = 100; // minimum — actual cost confirmed by location
+    const staffCost = state.staffCount * Math.max(state.staffHours, 4) * 15; // £15/hr, 4hr min
+    const subtotal = tableStylingCost + logisticsCost + menuSubtotal + staffCost;
     const vat = subtotal * 0.2;
     const total = subtotal + vat;
     const budgetLeft = state.budget - menuSubtotal;
@@ -514,7 +542,7 @@ export function OrderProvider({ children, menuSections: menuSectionsProp, fsPack
     const foodBoxCount = Object.values(state.foodBoxBoxes).reduce((s, n) => s + n, 0);
     const foodBoxTotal = foodBoxCount * 15;
 
-    return { basePrice, menuTotal, brunchTotal, menuSubtotal, staffCost, subtotal, vat, total, budgetLeft, budgetPct, platterSubtotal, platterFee, platterTotal, fsPkg, fsTotal, fsTotalItems, fsMaxItems, mainMenuTotal, foodBoxCount, foodBoxTotal };
+    return { basePrice, menuTotal, brunchTotal, menuSubtotal, tableStylingCost, logisticsCost, staffCost, subtotal, vat, total, budgetLeft, budgetPct, platterSubtotal, platterFee, platterTotal, fsPkg, fsTotal, fsTotalItems, fsMaxItems, mainMenuTotal, foodBoxCount, foodBoxTotal };
   }, [state, activeSections, activePackages, activeStaffConfig]);
 
   return (

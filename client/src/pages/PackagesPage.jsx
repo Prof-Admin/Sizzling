@@ -140,7 +140,17 @@ export default function PackagesPage() {
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-end pt-16" aria-label="Grazing tables hero">
         <div className="absolute inset-0 z-0">
-          <img src={HERO_IMG} alt="Beautiful grazing table display" className="w-full h-full object-cover" loading="eager" />
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={HERO_IMG}
+          >
+            <source src="/video 1.mp4" type="video/mp4" />
+            <img src={HERO_IMG} alt="Grazing table setup" className="w-full h-full object-cover" />
+          </video>
           <div className="absolute inset-0 bg-dark/60" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-16">

@@ -11,8 +11,8 @@ const SERVICES = [
     label: 'Main Menu',
     heading: 'Large Portions for a Crowd',
     desc: 'Choose from our full menu of rice dishes, proteins, soups and stews, and sides. Perfect for feeding family, friends, or event guests. Minimum order £150.',
-    cta: 'Browse the Menu',
-    to: '/menu',
+    cta: 'Order Now',
+    to: '/order-builder?service=main-menu',
     img: MENU_IMAGE,
     badge: 'Min. order £150 · Free delivery*',
   },
@@ -20,8 +20,8 @@ const SERVICES = [
     label: 'Individual Food Boxes',
     heading: 'A Box for Every Guest',
     desc: 'Individually packed meals — each box includes rice, grilled chicken, and fried plantain. Ideal when you want each guest to have their own box. From £15 per box.',
-    cta: 'View Food Boxes',
-    to: '/platters',
+    cta: 'Order Now',
+    to: '/order-builder?service=food-boxes',
     img: BOXES_IMAGE,
     badge: '£15 per box · Min. 10 boxes',
   },
@@ -99,14 +99,14 @@ export default function HomePage() {
               Twin sisters bringing authentic Nigerian food and culture to London — for your family gatherings, celebrations, and events.
             </p>
             <div className="flex flex-col xs:flex-row gap-3">
-              <Link to="/contact" className="btn-primary text-base px-8 py-3.5">
-                Make an Enquiry
+              <Link to="/order-builder" className="btn-primary text-base px-8 py-3.5">
+                Order Now
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
-              <Link to="/menu" className="btn-secondary text-base px-8 py-3.5">
-                View Menu
+              <Link to="/contact" className="btn-secondary text-base px-8 py-3.5">
+                Make an Enquiry
               </Link>
             </div>
           </div>
@@ -177,8 +177,8 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="flex flex-col gap-3 flex-shrink-0">
-                <Link to="/packages" className="btn-gold text-sm px-6 py-3 text-center">
-                  View Grazing Tables
+                <Link to="/order-builder?service=grazing-table" className="btn-gold text-sm px-6 py-3 text-center">
+                  Order Now
                 </Link>
                 <span className="text-xs text-white/70 text-center">Minimum 3 weeks' notice</span>
               </div>

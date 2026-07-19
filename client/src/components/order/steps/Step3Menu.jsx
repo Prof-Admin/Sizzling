@@ -168,10 +168,12 @@ function BrunchSection() {
   );
 }
 
-function FloatingSummary() {
+function FloatingSummary({ totalServings, guestCount }) {
   const { state, dispatch, computed } = useOrder();
-  const { budget } = state;
-  const { menuSubtotal, budgetLeft, budgetPct } = computed;
+  const { menuSubtotal } = computed;
+  const recommended = guestCount + 10;
+  const insufficient = totalServings > 0 && totalServings < guestCount;
+  const ideal        = totalServings >= recommended;
 
   return (
     <div className="hidden lg:block fixed top-24 right-6 w-64 bg-white border border-gray-200 rounded-sm shadow-lg z-30 p-4">
@@ -183,26 +185,38 @@ function FloatingSummary() {
         <p className="text-sm font-semibold text-dark">Live Summary</p>
       </div>
 
+      {/* Serving tracker */}
+      <div className={`rounded-sm px-3 py-2 mb-3 ${insufficient ? 'bg-amber-50 border border-amber-200' : ideal ? 'bg-green-50 border border-green-200' : 'bg-offwhite border border-gray-100'}`}>
+        <div className="flex justify-between items-center mb-1">
+          <span className="text-xs text-dark-600">Portions selected</span>
+          <span className={`text-sm font-bold ${insufficient ? 'text-amber-600' : ideal ? 'text-green-700' : 'text-dark'}`}>{totalServings}</span>
+        </div>
+        <div className="flex justify-between items-center mb-1.5">
+          <span className="text-xs text-dark-600">Recommended ({guestCount}+10)</span>
+          <span className="text-xs font-medium text-dark-600">{recommended}</span>
+        </div>
+        <div className="w-full bg-white rounded-full h-1.5">
+          <div
+            className={`h-1.5 rounded-full transition-all ${ideal ? 'bg-green-500' : insufficient ? 'bg-amber-500' : 'bg-gray-300'}`}
+            style={{ width: `${Math.min(100, Math.round((totalServings / recommended) * 100))}%` }}
+          />
+        </div>
+        {insufficient && (
+          <p className="text-[10px] text-amber-700 mt-1.5">⚠ May not be sufficient for {guestCount} guests</p>
+        )}
+        {ideal && (
+          <p className="text-[10px] text-green-700 mt-1.5">✓ Great portion count for your guests</p>
+        )}
+      </div>
+
       {menuSubtotal === 0 ? (
         <p className="text-xs text-dark-600 italic mb-3">No items selected yet</p>
       ) : (
-        <p className="text-xs text-dark-600 mb-1">Items: {Object.keys(state.menuItems).length + state.addedPackages.length}</p>
+        <div className="flex justify-between text-sm mb-3">
+          <span className="text-dark-600">Food Subtotal</span>
+          <span className="font-bold text-dark">£{menuSubtotal.toFixed(2)}</span>
+        </div>
       )}
-
-      <div className="flex justify-between text-sm mb-1">
-        <span className="text-dark-600">Estimated Total</span>
-        <span className="font-bold text-dark">£{menuSubtotal.toFixed(2)}</span>
-      </div>
-      <div className="flex justify-between text-xs mb-2">
-        <span className="text-dark-600">Budget Left (£{budget.toFixed(0)})</span>
-        <span className={`font-medium ${budgetLeft < 0 ? 'text-red-600' : 'text-dark'}`}>£{budgetLeft.toFixed(2)}</span>
-      </div>
-      <div className="w-full bg-gray-200 rounded-full h-1.5 mb-4">
-        <div
-          className={`h-1.5 rounded-full transition-all ${budgetLeft < 0 ? 'bg-red-500' : 'bg-gold'}`}
-          style={{ width: `${Math.min(100, budgetPct)}%` }}
-        />
-      </div>
 
       <button
         onClick={() => dispatch({ type: 'SET_STEP', payload: 4 })}
@@ -217,19 +231,79 @@ function FloatingSummary() {
   );
 }
 
+function ServingTracker({ guestCount, totalServings }) {
+  const recommended = guestCount + 10;
+  const pct = Math.min(100, Math.round((totalServings / recommended) * 100));
+  const insufficient = totalServings > 0 && totalServings < guestCount;
+  const sufficient   = totalServings >= guestCount && totalServings < recommended;
+  const ideal        = totalServings >= recommended;
+
+  return (
+    <div className={`rounded-sm border px-4 py-3 mb-6 ${
+      ideal        ? 'bg-green-50 border-green-200' :
+      sufficient   ? 'bg-blue-50 border-blue-200' :
+      insufficient ? 'bg-amber-50 border-amber-300' :
+                     'bg-offwhite border-gray-200'
+    }`}>
+      <div className="flex items-center justify-between gap-4 mb-2">
+        <div>
+          <p className="text-sm font-semibold text-dark">
+            {ideal        ? `✓ Looking good — ${totalServings} portions for ${guestCount} guests` :
+             sufficient   ? `${totalServings} portions selected — add a few more to be safe` :
+             insufficient ? `⚠ Only ${totalServings} portions for ${guestCount} guests — this may not be enough` :
+                            `Serving ${guestCount} guests`}
+          </p>
+          <p className="text-xs text-dark-600 mt-0.5">
+            We recommend at least <strong>{recommended} portions</strong> ({guestCount} guests + 10 buffer).
+          </p>
+        </div>
+        <div className="text-right shrink-0">
+          <p className="text-xl font-bold text-dark leading-none">{totalServings}</p>
+          <p className="text-[10px] text-dark-600 uppercase tracking-wide">of {recommended}</p>
+        </div>
+      </div>
+      <div className="w-full bg-white/60 rounded-full h-2 overflow-hidden">
+        <div
+          className={`h-2 rounded-full transition-all duration-300 ${
+            ideal      ? 'bg-green-500' :
+            sufficient ? 'bg-blue-500' :
+            insufficient && totalServings > 0 ? 'bg-amber-500' :
+            'bg-gray-300'
+          }`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function Step3Menu() {
-  const { dispatch } = useOrder();
+  const { state, dispatch } = useOrder();
   const { menuSections } = useMenuConfig();
+  const { guestCount, menuItems } = state;
+
+  // Only count sections flagged countInServings (abula, canapés, bowl food — not desserts)
+  const totalServings = menuSections
+    .filter(s => s.countInServings !== false)
+    .flatMap(s => s.items)
+    .reduce((sum, item) => sum + (menuItems[item.id] ?? 0), 0);
 
   return (
     <div className="px-4 sm:px-6 py-8 max-w-2xl">
-      <FloatingSummary />
+      <FloatingSummary totalServings={totalServings} guestCount={guestCount} />
+
+      <ServingTracker guestCount={guestCount} totalServings={totalServings} />
 
       {menuSections.map(section => (
-        <RegularSection key={section.id} section={section} />
+        <div key={section.id}>
+          <RegularSection section={section} />
+          {section.countInServings === false && (
+            <p className="text-xs text-dark-600 italic -mt-7 mb-10 px-1">
+              Desserts feed 10–12 per dish and are not counted in your portion total above.
+            </p>
+          )}
+        </div>
       ))}
-
-      <BrunchSection />
 
       <div className="flex justify-between pt-4 border-t border-gray-200">
         <button onClick={() => dispatch({ type: 'SET_STEP', payload: 2 })} className="btn-outline-dark text-sm">

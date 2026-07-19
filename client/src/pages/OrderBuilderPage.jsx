@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useOrder } from '../context/OrderContext';
 import OrderSidebar from '../components/order/OrderSidebar';
 import LiveSummaryPanel from '../components/order/LiveSummaryPanel';
@@ -12,11 +13,23 @@ import FoodBoxFlow from '../components/order/foodbox/FoodBoxFlow';
 
 const STEP_NAMES = ['', 'Service Selection', 'Style & Tier', 'Menu Selection', 'Logistics', 'Final Details'];
 
+const VALID_SERVICES = ['main-menu', 'food-boxes', 'grazing-table'];
+
 function OrderBuilderContent() {
-  const { state, computed } = useOrder();
+  const { state, computed, dispatch } = useOrder();
   const { step, service } = state;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const param = searchParams.get('service');
+    if (param && VALID_SERVICES.includes(param) && step === 1) {
+      dispatch({ type: 'SET_SERVICE', payload: param });
+      dispatch({ type: 'SET_STEP', payload: 2 });
+      setSearchParams({}, { replace: true }); // clean URL after consuming
+    }
+  }, []);
 
   const isMainMenuFlow = service === 'main-menu'   && step > 1;
   const isFoodBoxFlow  = service === 'food-boxes'  && step > 1;

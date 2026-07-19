@@ -201,37 +201,49 @@ function Step2({ state, dispatch, count, total, onBack, onNext }) {
       <div className="grid md:grid-cols-[1fr_280px] gap-6 items-start">
 
         <div className="space-y-5">
-          {/* Fulfilment info */}
+          {/* Fulfilment selector */}
           <div className="bg-white border border-gray-200 rounded-sm p-5">
-            <h3 className="text-sm font-semibold text-dark mb-4">Collection & Delivery</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div className="border border-green-200 bg-green-50 rounded-sm p-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-4 h-4 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-dark">Collection — Free</p>
-                    <p className="text-xs text-dark-600 mt-1 leading-relaxed">Collect from our London kitchen at an agreed time. No charge.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="border border-gray-200 bg-offwhite rounded-sm p-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-4 h-4 text-dark-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-dark">Delivery — Customer Arranged</p>
-                    <p className="text-xs text-dark-600 mt-1 leading-relaxed">Arrange and pay for Uber delivery directly to your location.</p>
-                  </div>
-                </div>
-              </div>
+            <h3 className="text-sm font-semibold text-dark mb-4">How would you like to receive your boxes?</h3>
+            <div className="grid sm:grid-cols-2 gap-3 mb-4">
+              {[
+                {
+                  id: 'collection',
+                  label: 'Collection',
+                  sub: 'Free — collect from our London kitchen',
+                  icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
+                },
+                {
+                  id: 'delivery',
+                  label: 'Delivery',
+                  sub: 'Customer arranges & pays for Uber delivery',
+                  icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" /></svg>,
+                },
+              ].map(opt => {
+                const active = state.foodBoxFulfillment === opt.id;
+                return (
+                  <button
+                    key={opt.id}
+                    onClick={() => field('foodBoxFulfillment', opt.id)}
+                    className={`flex items-start gap-3 p-4 rounded-sm border-2 text-left transition-all
+                      ${active ? 'bg-primary border-primary text-white' : 'border-gray-200 text-dark hover:border-gray-300 bg-white'}`}
+                  >
+                    <span className={`mt-0.5 shrink-0 ${active ? 'text-white' : 'text-dark-600'}`}>{opt.icon}</span>
+                    <span>
+                      <span className="block text-sm font-semibold">{opt.label}</span>
+                      <span className={`block text-xs mt-0.5 leading-snug ${active ? 'text-white/80' : 'text-dark-600'}`}>{opt.sub}</span>
+                    </span>
+                  </button>
+                );
+              })}
             </div>
+            {state.foodBoxFulfillment === 'delivery' && (
+              <p className="text-xs text-amber-600 flex items-start gap-1.5">
+                <svg className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                You will arrange and pay for an Uber delivery directly to your location. We will let you know when the order is ready for collection by the driver.
+              </p>
+            )}
           </div>
 
           {/* Date */}
@@ -330,7 +342,7 @@ function Step2({ state, dispatch, count, total, onBack, onNext }) {
 
 /* ─── STEP 3: Review & Send ─── */
 function Step3({ state, dispatch, count, total, onBack, onSubmit, submitted, waMessage }) {
-  const { foodBoxBoxes, foodBoxDate, foodBoxContact, foodBoxNotes } = state;
+  const { foodBoxBoxes, foodBoxDate, foodBoxContact, foodBoxNotes, foodBoxFulfillment } = state;
   const selectedBoxes = FOOD_BOXES.filter(b => (foodBoxBoxes[b.id] ?? 0) > 0);
   const canSubmit = foodBoxContact.name && foodBoxContact.email && foodBoxContact.phone && count >= MIN_BOXES && foodBoxDate;
 
@@ -403,7 +415,7 @@ function Step3({ state, dispatch, count, total, onBack, onSubmit, submitted, waM
             </h3>
             {[
               { label: 'Date', value: foodBoxDate },
-              { label: 'Collection / Delivery', value: 'Collection free · Uber delivery at your cost' },
+              { label: 'Fulfilment', value: foodBoxFulfillment === 'delivery' ? 'Delivery — customer arranges Uber' : 'Collection — free from our kitchen' },
               foodBoxNotes ? { label: 'Notes', value: foodBoxNotes } : null,
             ].filter(Boolean).map(row => (
               <div key={row.label} className="flex justify-between py-2 border-b border-gray-100 last:border-0">

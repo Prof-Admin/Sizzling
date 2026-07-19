@@ -158,7 +158,7 @@ export function buildMainMenuMessage(state, computed) {
 }
 
 export function buildFoodBoxMessage(state, computed) {
-  const { foodBoxBoxes, foodBoxDate, foodBoxContact, foodBoxNotes } = state;
+  const { foodBoxBoxes, foodBoxDate, foodBoxContact, foodBoxNotes, foodBoxFulfillment } = state;
   const { foodBoxCount, foodBoxTotal } = computed;
 
   const boxLines = FOOD_BOXES
@@ -169,7 +169,7 @@ export function buildFoodBoxMessage(state, computed) {
     `📦 *NEW FOOD BOX ORDER — Sizzling Sensations*`,
     ``,
     `📅 *Date*: ${foodBoxDate}`,
-    `🏠 *Fulfilment*: Collection free · Uber delivery at customer's cost`,
+    `🚚 *Fulfilment*: ${foodBoxFulfillment === 'delivery' ? 'Delivery — customer arranges Uber' : 'Collection — free from kitchen'}`,
     foodBoxNotes ? `📝 *Notes*: ${foodBoxNotes}` : null,
     ``,
     `━━━━━━━━━━━━━━━━━━`,
