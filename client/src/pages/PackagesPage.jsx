@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1555244162-803834f70033?w=1600&q=80&auto=format&fit=crop';
+const HERO_IMG = '/image 3.jpg';
 
 const GRAZING_SECTIONS = [
   {
@@ -163,6 +163,16 @@ export default function PackagesPage() {
           </div>
         </div>
       </section>
+
+      {/* Real event photo strip */}
+      <div className="grid grid-cols-2 gap-0.5" aria-hidden="true">
+        <div className="overflow-hidden h-48 sm:h-64">
+          <img src="/Image 5.jpg" alt="Seekh kebab wraps on a gold tray" className="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div className="overflow-hidden h-48 sm:h-64">
+          <img src="/Image 6.jpg" alt="Beef samosas arranged on a gold tray" className="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
 
       {/* Notice banner */}
       <div className="bg-primary-50 border-b border-primary/20 py-3">

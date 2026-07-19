@@ -70,7 +70,7 @@ export const MENU_SECTIONS = [
     id: 'small-chops',
     label: 'Small Chops',
     subtitle: 'Authentic finger foods priced per piece',
-    img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=900&q=80&auto=format&fit=crop',
+    img: '/image 2.jpg',
     items: [
       { id: 'puff-puff',    name: 'Spicy Puff Puff',   price: 1.50, unit: 'pc', min: 20, img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=120&q=80' },
       { id: 'scotch-eggs',  name: 'Mini Scotch Eggs',  price: 1.80, unit: 'pc', min: 20, img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=120&q=80' },

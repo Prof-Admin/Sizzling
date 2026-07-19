@@ -4,7 +4,7 @@ import SEO from '../components/common/SEO';
 const HERO_IMAGE = 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=1600&q=80&auto=format&fit=crop';
 const MENU_IMAGE = 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80&auto=format&fit=crop';
 const BOXES_IMAGE = 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80&auto=format&fit=crop';
-const GRAZING_IMAGE = 'https://images.unsplash.com/photo-1555244162-803834f70033?w=1200&q=80&auto=format&fit=crop';
+const GRAZING_IMAGE = '/image 4.jpg';
 
 const SERVICES = [
   {
@@ -71,13 +71,17 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative min-h-[85vh] md:min-h-screen flex items-center pt-16" aria-label="Hero">
         <div className="absolute inset-0 z-0">
-          <img
-            src={HERO_IMAGE}
-            alt="Authentic Nigerian cuisine spread"
+          <video
             className="w-full h-full object-cover"
-            loading="eager"
-            fetchpriority="high"
-          />
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={HERO_IMAGE}
+          >
+            <source src="/video 2.mp4" type="video/mp4" />
+            <img src={HERO_IMAGE} alt="Authentic Nigerian cuisine spread" className="w-full h-full object-cover" />
+          </video>
           <div className="absolute inset-0 bg-hero-overlay" />
         </div>
 

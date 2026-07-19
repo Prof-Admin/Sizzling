@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&q=80&auto=format&fit=crop';
-const FOOD_IMG_1 = 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600&q=80&auto=format&fit=crop';
-const FOOD_IMG_2 = 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80&auto=format&fit=crop';
+const FOOD_IMG_1 = '/image 1.jpg';
+const FOOD_IMG_2 = '/Image 6.jpg';
 
 const PILLARS = [
   {
