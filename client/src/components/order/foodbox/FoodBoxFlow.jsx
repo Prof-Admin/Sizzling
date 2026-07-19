@@ -13,51 +13,66 @@ function fmt(n) { return `£${n.toFixed(2)}`; }
 
 function Progress({ current, onBack }) {
   return (
-    <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-4 sticky top-16 z-30">
-      <div className="max-w-5xl mx-auto flex items-start gap-6">
-        <button
-          onClick={onBack}
-          className="mt-1 text-dark-600 hover:text-primary transition-colors shrink-0"
-          aria-label="Change service"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <div className="flex-1">
-          <div className="flex items-center gap-3">
-            <p className="text-xs font-bold tracking-widest text-primary uppercase">
-              STEP 0{current} OF 03
-            </p>
-            <p className="text-xs text-dark-600 font-medium">{STEP_LABELS[current - 1]}</p>
-          </div>
-          <div className="flex items-center mt-3">
-            {STEP_LABELS.map((label, i) => {
-              const n = i + 1;
-              return (
-                <div key={n} className="flex items-center">
-                  <div className="flex flex-col items-center">
-                    <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold border-2 transition-colors
-                      ${n === current ? 'bg-primary border-primary text-white' : n < current ? 'bg-primary/20 border-primary/30 text-primary' : 'bg-white border-gray-200 text-gray-400'}`}
-                    >
-                      {n < current ? (
-                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      ) : n}
-                    </div>
-                    <span className={`hidden sm:block text-xs mt-1 whitespace-nowrap ${n === current ? 'text-primary font-semibold' : n < current ? 'text-dark-600' : 'text-gray-400'}`}>
-                      {label}
-                    </span>
-                  </div>
-                  {i < STEP_LABELS.length - 1 && (
-                    <div className={`w-8 sm:w-16 h-0.5 mx-1.5 sm:mx-2 ${n < current ? 'bg-primary/40' : 'bg-gray-200'}`} />
-                  )}
-                </div>
-              );
-            })}
+    <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 sticky top-16 z-30">
+      <div className="max-w-5xl mx-auto">
+
+        {/* Mobile: compact single row */}
+        <div className="flex items-center gap-3 sm:hidden">
+          <button onClick={onBack} className="text-dark-600 hover:text-primary transition-colors shrink-0" aria-label="Change service">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <p className="text-xs font-bold text-primary uppercase tracking-widest shrink-0">Step {current}/3</p>
+          <p className="text-xs text-dark-600 font-medium truncate">{STEP_LABELS[current - 1]}</p>
+          <div className="flex items-center gap-1 ml-auto shrink-0">
+            {[1, 2, 3].map(n => (
+              <div key={n} className={`w-1.5 h-1.5 rounded-full transition-colors ${n === current ? 'bg-primary' : n < current ? 'bg-primary/40' : 'bg-gray-200'}`} />
+            ))}
           </div>
         </div>
+
+        {/* Desktop: full progress with circles */}
+        <div className="hidden sm:flex items-start gap-6">
+          <button onClick={onBack} className="mt-1 text-dark-600 hover:text-primary transition-colors shrink-0" aria-label="Change service">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <div className="flex-1">
+            <div className="flex items-center gap-3">
+              <p className="text-xs font-bold tracking-widest text-primary uppercase">STEP 0{current} OF 03</p>
+              <p className="text-xs text-dark-600 font-medium">{STEP_LABELS[current - 1]}</p>
+            </div>
+            <div className="flex items-center mt-3">
+              {STEP_LABELS.map((label, i) => {
+                const n = i + 1;
+                return (
+                  <div key={n} className="flex items-center">
+                    <div className="flex flex-col items-center">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-colors
+                        ${n === current ? 'bg-primary border-primary text-white' : n < current ? 'bg-primary/20 border-primary/30 text-primary' : 'bg-white border-gray-200 text-gray-400'}`}
+                      >
+                        {n < current ? (
+                          <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        ) : n}
+                      </div>
+                      <span className={`text-xs mt-1 whitespace-nowrap ${n === current ? 'text-primary font-semibold' : n < current ? 'text-dark-600' : 'text-gray-400'}`}>
+                        {label}
+                      </span>
+                    </div>
+                    {i < STEP_LABELS.length - 1 && (
+                      <div className={`w-16 h-0.5 mx-2 mb-4 ${n < current ? 'bg-primary/40' : 'bg-gray-200'}`} />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
@@ -97,7 +112,7 @@ function Step1({ state, dispatch, count, total, onNext }) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-28 lg:pb-8">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 pb-28 lg:pb-8">
       <div className="text-center mb-8">
         <p className="section-label mb-2">Each box contains rice, grilled chicken & fried plantain</p>
         <h2 className="text-2xl font-serif font-bold text-dark">Choose Your Boxes</h2>
@@ -200,7 +215,7 @@ function Step2({ state, dispatch, count, total, onBack, onNext }) {
   const canContinue = foodBoxDate && foodBoxContact.name && foodBoxContact.email && foodBoxContact.phone;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 sm:py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
       <div className="grid md:grid-cols-[1fr_280px] gap-6 items-start">
 
         <div className="space-y-5">
@@ -378,7 +393,7 @@ function Step3({ state, dispatch, count, total, onBack, onSubmit, submitted, waM
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 sm:py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
       <div className="mb-7">
         <h2 className="text-2xl font-serif font-bold text-dark">Review Your Order</h2>
         <p className="text-sm text-dark-600 mt-1">Check everything looks right before sending.</p>
