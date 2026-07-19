@@ -66,10 +66,14 @@ export default function AdminDashboardPage() {
 
       {/* Orders by type */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        {['grazing', 'platter', 'full-service'].map(t => (
-          <div key={t} className="bg-white border border-gray-200 rounded-sm p-4 text-center">
-            <p className="text-2xl font-bold text-gray-900">{typeMap[t] || 0}</p>
-            <p className="text-xs text-gray-500 mt-0.5 capitalize">{t === 'full-service' ? 'Full Service' : t}</p>
+        {[
+          { id: 'grazing-table', label: 'Grazing Table' },
+          { id: 'main-menu',     label: 'Main Menu' },
+          { id: 'food-boxes',    label: 'Food Boxes' },
+        ].map(({ id, label }) => (
+          <div key={id} className="bg-white border border-gray-200 rounded-sm p-4 text-center">
+            <p className="text-2xl font-bold text-gray-900">{(typeMap[id] || 0) + (id === 'grazing-table' ? (typeMap['grazing'] || 0) : 0)}</p>
+            <p className="text-xs text-gray-500 mt-0.5">{label}</p>
           </div>
         ))}
       </div>

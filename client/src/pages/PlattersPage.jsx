@@ -46,7 +46,7 @@ export default function PlattersPage() {
       <SEO
         title="Individual Food Boxes — Sizzling Sensations"
         description="Individually packed Nigerian food boxes. Choose Jollof, Fried Rice, or Half & Half — each box includes rice, grilled chicken and fried plantain. Minimum 10 boxes."
-        canonical="/platters"
+        canonical="/food-boxes"
         structuredData={SCHEMA}
       />
 
@@ -63,9 +63,15 @@ export default function PlattersPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white leading-tight mb-3">
             A Box for Every Guest
           </h1>
-          <p className="text-white/80 text-sm md:text-base max-w-xl">
+          <p className="text-white/80 text-sm md:text-base max-w-xl mb-6">
             Individually packed meals — ideal when you want each guest to have their own box. Perfect for parties, celebrations, and corporate events.
           </p>
+          <Link to="/order-builder?service=food-boxes" className="btn-primary px-7 py-3">
+            Order Now
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
       </section>
 
@@ -174,8 +180,13 @@ export default function PlattersPage() {
             Submit an enquiry with your box choice, quantity, and event date. We'll confirm availability and guide you through the next steps.
           </p>
           <div className="flex flex-col xs:flex-row gap-3 justify-center">
-            <Link to="/contact" className="btn-primary px-8 py-3.5">Make an Enquiry</Link>
-            <Link to="/menu" className="btn-outline-dark px-8 py-3.5">View Main Menu</Link>
+            <Link to="/order-builder?service=food-boxes" className="btn-primary px-8 py-3.5">
+              Order Now
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+            <Link to="/contact" className="btn-outline-dark px-8 py-3.5">Make an Enquiry</Link>
           </div>
         </div>
       </section>

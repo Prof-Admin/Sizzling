@@ -23,6 +23,9 @@ import FAQPage from './pages/FAQPage';
 import ContactPage from './pages/ContactPage';
 import PlattersPage from './pages/PlattersPage';
 import OrderBuilderPage from './pages/OrderBuilderPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
+import RefundPolicyPage from './pages/RefundPolicyPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function ScrollRestoration() {
@@ -49,13 +52,18 @@ function PublicRoutes() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/menu" element={<MenuPage />} />
+          <Route path="/grazing-tables" element={<PackagesPage />} />
           <Route path="/packages" element={<PackagesPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/food-boxes" element={<PlattersPage />} />
           <Route path="/platters" element={<PlattersPage />} />
           <Route path="/order-builder" element={<OrderBuilderPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/refund-policy" element={<RefundPolicyPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

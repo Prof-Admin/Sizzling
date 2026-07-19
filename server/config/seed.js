@@ -18,33 +18,51 @@ const DEFAULT_CONFIGS = {
   ],
   'grazing-menu': [
     {
-      id: 'small-chops', label: 'Small Chops', subtitle: 'Authentic finger foods priced per piece',
-      img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=900&q=80&auto=format&fit=crop',
+      id: 'abula-station', label: 'Abula Station', subtitle: '£13 per person · MOQ 50 people',
+      img: '/image 4.jpg', countInServings: true,
       items: [
-        { id: 'puff-puff', name: 'Spicy Puff Puff', price: 1.50, unit: 'pc', min: 20 },
-        { id: 'scotch-eggs', name: 'Mini Scotch Eggs', price: 1.80, unit: 'pc', min: 20 },
-        { id: 'akara', name: 'Akara Bites', price: 1.20, unit: 'pc', min: 20 },
-        { id: 'plantain-fry', name: 'Fried Plantain', price: 0.90, unit: 'pc', min: 20 },
+        { id: 'abula-station', name: 'Abula Station', price: 13, unit: 'person', min: 50 },
       ],
     },
     {
-      id: 'bowl-food', label: 'Bowl Food', subtitle: 'Substantial portions for networking events',
-      img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=900&q=80&auto=format&fit=crop',
+      id: 'canapes', label: 'Canapés', subtitle: 'Priced per piece · MOQ 20 per item',
+      img: '/image 2.jpg', countInServings: true,
       items: [
-        { id: 'jollof-bowl', name: 'Signature Jollof Bowl', price: 12.00, unit: 'portion', min: 1 },
-        { id: 'goat-bowl', name: 'Curry Goat Rice Bowl', price: 14.50, unit: 'portion', min: 1 },
-        { id: 'egusi-bowl', name: 'Egusi Soup Bowl', price: 11.00, unit: 'portion', min: 1 },
-        { id: 'pepper-soup', name: 'Pepper Soup', price: 9.50, unit: 'portion', min: 1 },
+        { id: 'puff-puff',       name: 'Puff Puff',           price: 0.50, unit: 'piece',   min: 20 },
+        { id: 'spring-rolls',    name: 'Spring Rolls',        price: 0.50, unit: 'piece',   min: 20 },
+        { id: 'samosas',         name: 'Samosas',             price: 1.00, unit: 'piece',   min: 20 },
+        { id: 'shawarma-rolls',  name: 'Mini Shawarma Rolls', price: 2.00, unit: 'roll',    min: 20 },
+        { id: 'fried-plantain',  name: 'Fried Plantain',      price: 1.00, unit: 'serving', min: 20 },
+        { id: 'chicken-waffles', name: 'Chicken & Waffles',   price: 3.50, unit: 'portion', min: 20 },
+        { id: 'bbq-niblets',     name: 'BBQ Chicken Niblets', price: 1.50, unit: 'piece',   min: 20 },
+        { id: 'suya-wings',      name: 'Suya Chicken Wings',  price: 1.50, unit: 'wing',    min: 20 },
+        { id: 'corn-cob',        name: 'Corn on the Cob',     price: 1.00, unit: 'piece',   min: 20 },
       ],
     },
     {
-      id: 'drinks', label: 'Drinks & Refreshments', subtitle: 'Curated Mocktails & Cocktails priced per guest',
-      img: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=900&q=80&auto=format&fit=crop',
+      id: 'bowl-food', label: 'Bowl Food', subtitle: 'Priced per portion · MOQ 20 portions',
+      img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=900&q=80&auto=format&fit=crop', countInServings: true,
       items: [
-        { id: 'hibiscus', name: 'Hibiscus Zest Mocktail', price: 6.50, unit: 'guest', min: 1 },
-        { id: 'rum-punch', name: 'Spiced Rum Punch', price: 9.50, unit: 'guest', min: 1 },
-        { id: 'chapman', name: "Chapman's Classic", price: 7.00, unit: 'guest', min: 1 },
-        { id: 'zobo', name: 'Zobo Cooler', price: 5.00, unit: 'guest', min: 1 },
+        { id: 'jollof-rice-bowl',  name: 'Jollof Rice',                 price: 4.00, unit: 'portion', min: 20 },
+        { id: 'fried-rice-bowl',   name: 'Fried Rice',                  price: 3.50, unit: 'portion', min: 20 },
+        { id: 'rice-peas-goat',    name: 'Rice & Peas with Curry Goat', price: 4.00, unit: 'portion', min: 20 },
+        { id: 'gizdodo-bowl',      name: 'Gizdodo',                     price: 3.00, unit: 'portion', min: 20 },
+        { id: 'peppered-chk-bowl', name: 'Peppered Chicken',            price: 2.50, unit: 'piece',   min: 20 },
+        { id: 'peppered-beef',     name: 'Peppered Beef',               price: 2.50, unit: 'portion', min: 20 },
+        { id: 'peppered-fish',     name: 'Peppered Fish',               price: 3.50, unit: 'portion', min: 20 },
+      ],
+    },
+    {
+      id: 'sweets-desserts', label: 'Sweets & Desserts', subtitle: 'Priced per box or serving dish · Feeds 10–12 per dish',
+      img: '/image 1.jpg', countInServings: false,
+      items: [
+        { id: 'brookies-6',     name: 'Cookie Butter Brookies (Box of 6)',  price: 25, unit: 'box',  min: 1 },
+        { id: 'brookies-12',    name: 'Cookie Butter Brookies (Box of 12)', price: 38, unit: 'box',  min: 1 },
+        { id: 'berry-cream',    name: 'Berry Me in Cream',                  price: 35, unit: 'dish', min: 1 },
+        { id: 'red-y-not',      name: 'Red-y or Not',                       price: 35, unit: 'dish', min: 1 },
+        { id: 'tiramisu-crazy', name: 'Tirr-a-mi-crazyy',                   price: 35, unit: 'dish', min: 1 },
+        { id: 'choc-dream',     name: 'Chocolate Dream',                    price: 40, unit: 'dish', min: 1 },
+        { id: 'creme-brulee',   name: 'Crème Brûlée Cheesecake',            price: 40, unit: 'dish', min: 1 },
       ],
     },
   ],
@@ -97,8 +115,8 @@ const DEFAULT_CONFIGS = {
     { id: 'premium', name: '3 Courses', badge: 'Premium', badgeCls: 'bg-gold text-dark', desc: 'The full journey including starters, mains, and desserts.', pricePerGuest: 85, allocation: { starters: 1, mains: 2, desserts: 1 }, features: [{ label: 'Starter & Appetizers', ok: true }, { label: 'Signature Main Entrée', ok: true }, { label: 'Gourmet Dessert', ok: true }], icon: 'plate' },
   ],
   'staff-config': {
-    hourlyRate: 16.67,
-    minHours: 6,
+    hourlyRate: 15,
+    minHours: 4,
   },
   'payment-settings': {
     companyDetails: {
@@ -153,10 +171,31 @@ async function seed() {
   }
 
   for (const [key, data] of Object.entries(DEFAULT_CONFIGS)) {
-    const exists = await MenuConfig.findOne({ key });
-    if (!exists) {
+    const existing = await MenuConfig.findOne({ key });
+    if (!existing) {
       await MenuConfig.create({ key, data });
       console.log(`Seeded menu config: ${key}`);
+      continue;
+    }
+
+    // One-time migration: grazing-menu — replace if it still has the old placeholder sections
+    if (key === 'grazing-menu') {
+      const OLD_IDS = ['small-chops', 'drinks'];
+      const isOldFormat = Array.isArray(existing.data) && existing.data.some(s => OLD_IDS.includes(s.id));
+      if (isOldFormat) {
+        await MenuConfig.findOneAndUpdate({ key }, { data }, { new: true });
+        console.log('Migrated grazing-menu from old placeholder format to current menu');
+      }
+      continue;
+    }
+
+    // One-time migration: staff-config — replace if still using old £16.67/hr or 6hr minimum
+    if (key === 'staff-config') {
+      const isOldRate = existing.data.hourlyRate === 16.67 || existing.data.minHours === 6;
+      if (isOldRate) {
+        await MenuConfig.findOneAndUpdate({ key }, { data }, { new: true });
+        console.log('Migrated staff-config to £15/hr, 4hr minimum');
+      }
     }
   }
 }

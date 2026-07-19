@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
+import { MENU_SECTIONS as DEFAULT_GRAZING_MENU } from '../../context/OrderContext';
 
 function useMenuKey(key, authHeader) {
   const [data, setData] = useState(null);
@@ -134,7 +135,7 @@ function GrazingEditor({ authHeader }) {
     menu.setData(menu.data.map((sec, si) => si !== sIdx ? sec : { ...sec, [field]: val }));
   }
   function addSection() {
-    menu.setData([...menu.data, { id: `section-${Date.now()}`, label: 'New Section', subtitle: '', img: '', items: [] }]);
+    menu.setData([...menu.data, { id: `section-${Date.now()}`, label: 'New Section', subtitle: '', img: '', countInServings: true, items: [] }]);
   }
   function delSection(sIdx) { menu.setData(menu.data.filter((_, si) => si !== sIdx)); }
 
@@ -193,11 +194,28 @@ function GrazingEditor({ authHeader }) {
 
       {/* Menu Sections */}
       <Section title="Menu Sections & Items">
+        <div className="flex items-center gap-3 mb-4 p-3 bg-amber-50 border border-amber-200 rounded-sm">
+          <svg className="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p className="text-xs text-amber-800 flex-1">If the grazing table menu in the order builder looks wrong, click <strong>Reset to Defaults</strong> then <strong>Save Changes</strong>.</p>
+          <button
+            onClick={() => menu.save(DEFAULT_GRAZING_MENU)}
+            disabled={menu.saving}
+            className="shrink-0 text-xs font-semibold px-3 py-1.5 bg-amber-600 text-white rounded-sm hover:bg-amber-700 disabled:opacity-40 transition-colors"
+          >
+            {menu.saving ? 'Resetting…' : 'Reset to Defaults'}
+          </button>
+        </div>
         {menu.data.map((sec, si) => (
           <div key={si} className="mb-5 border border-gray-200 rounded-sm overflow-hidden">
             <div className="bg-gray-50 px-4 py-3 flex items-center gap-3">
               <input value={sec.label} onChange={e => updateSection(si, 'label', e.target.value)} className="flex-1 text-sm font-semibold bg-transparent border-0 focus:outline-none" />
               <input value={sec.subtitle} onChange={e => updateSection(si, 'subtitle', e.target.value)} placeholder="Subtitle" className="flex-1 text-xs bg-transparent border-0 focus:outline-none text-gray-500" />
+              <label className="flex items-center gap-1.5 text-xs text-gray-500 whitespace-nowrap shrink-0" title="Include in guest serving count">
+                <input type="checkbox" checked={sec.countInServings !== false} onChange={e => updateSection(si, 'countInServings', e.target.checked)} className="accent-gray-700" />
+                Count servings
+              </label>
               <DelBtn onClick={() => delSection(si)} />
             </div>
             <div className="p-4">

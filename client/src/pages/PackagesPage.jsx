@@ -133,7 +133,7 @@ export default function PackagesPage() {
       <SEO
         title="Grazing Tables — Sizzling Sensations"
         description="Our grazing tables bring together food and beautiful table styling to create a food display designed around your event. Canapés, bowl food, desserts and full styling."
-        canonical="/packages"
+        canonical="/grazing-tables"
         structuredData={SCHEMA}
       />
 
@@ -164,11 +164,14 @@ export default function PackagesPage() {
             Our grazing tables bring together food and beautiful table styling to create a food display that's as stunning as it is delicious.
           </p>
           <div className="flex flex-col xs:flex-row gap-3">
-            <Link to="/contact" className="btn-primary px-7 py-3">
-              Request a Quote
+            <Link to="/order-builder?service=grazing-table" className="btn-primary px-7 py-3">
+              Order Now
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
+            </Link>
+            <Link to="/contact" className="btn-outline-light px-7 py-3">
+              Request a Quote
             </Link>
           </div>
         </div>
@@ -264,9 +267,15 @@ export default function PackagesPage() {
           <p className="section-subtitle mx-auto mb-7">
             Share your event details, guest count, and colour palette with us and we'll put together a bespoke proposal.
           </p>
-          <Link to="/contact" className="btn-primary px-8 py-3.5">
-            Request a Quote
-          </Link>
+          <div className="flex flex-col xs:flex-row gap-3 justify-center">
+            <Link to="/order-builder?service=grazing-table" className="btn-primary px-8 py-3.5">
+              Order Now
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+            <Link to="/contact" className="btn-outline-dark px-8 py-3.5">Request a Quote</Link>
+          </div>
         </div>
       </section>
     </>

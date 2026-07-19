@@ -3,7 +3,7 @@ import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { downloadInvoicePdf, getInvoicePdfBase64, preloadLogo } from '../../utils/generateInvoicePdf';
-import { MENU_SECTIONS as DEFAULT_MENU_SECTIONS, MAIN_MENU_SECTIONS, FOOD_BOXES } from '../../context/OrderContext';
+import { MENU_SECTIONS as DEFAULT_MENU_SECTIONS } from '../../context/OrderContext';
 
 const STATUSES = ['draft', 'sent', 'paid', 'overdue', 'cancelled'];
 

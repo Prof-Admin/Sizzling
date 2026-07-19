@@ -45,7 +45,7 @@ function SectionBanner({ section }) {
   );
 }
 
-function RegularSection({ section }) {
+function RegularSection({ section, guestCount }) {
   const { state, dispatch } = useOrder();
   const { menuItems } = state;
 
@@ -53,10 +53,13 @@ function RegularSection({ section }) {
     dispatch({ type: 'UPDATE_MENU_QTY', payload: { id, qty } });
   }
 
+  const sectionServings = section.items.reduce((sum, item) => sum + (menuItems[item.id] ?? 0), 0);
+  const showTracker = section.countInServings !== false;
+
   return (
     <div className="mb-10">
       <SectionBanner section={section} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
         {section.items.map(item => {
           const qty = menuItems[item.id] ?? 0;
           return (
@@ -76,6 +79,12 @@ function RegularSection({ section }) {
           );
         })}
       </div>
+      {showTracker && <ServingTracker guestCount={guestCount} totalServings={sectionServings} />}
+      {!showTracker && (
+        <p className="text-xs text-dark-600 italic px-1">
+          Desserts feed 10–12 per dish and are not counted in your portion total.
+        </p>
+      )}
     </div>
   );
 }
@@ -292,17 +301,8 @@ export default function Step3Menu() {
     <div className="px-4 sm:px-6 py-8 max-w-2xl">
       <FloatingSummary totalServings={totalServings} guestCount={guestCount} />
 
-      <ServingTracker guestCount={guestCount} totalServings={totalServings} />
-
       {menuSections.map(section => (
-        <div key={section.id}>
-          <RegularSection section={section} />
-          {section.countInServings === false && (
-            <p className="text-xs text-dark-600 italic -mt-7 mb-10 px-1">
-              Desserts feed 10–12 per dish and are not counted in your portion total above.
-            </p>
-          )}
-        </div>
+        <RegularSection key={section.id} section={section} guestCount={guestCount} />
       ))}
 
       <div className="flex justify-between pt-4 border-t border-gray-200">

@@ -3,8 +3,8 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const NAV_LINKS = [
   { label: 'Main Menu', to: '/menu' },
-  { label: 'Food Boxes', to: '/platters' },
-  { label: 'Grazing Tables', to: '/packages' },
+  { label: 'Food Boxes', to: '/food-boxes' },
+  { label: 'Grazing Tables', to: '/grazing-tables' },
   { label: 'About', to: '/about' },
 ];
 
