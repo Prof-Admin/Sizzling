@@ -5,7 +5,7 @@ const KITCHEN_OPTIONS = [
   { id: 'full',    label: 'Full working kitchen / prep space available' },
   { id: 'limited', label: 'Limited facilities (sink / power only)' },
   { id: 'none',    label: 'No kitchen (outdoor / marquee)' },
-  { id: 'check',   label: 'Not sure — please check with the venue' },
+  { id: 'check',   label: 'Not sure, please check with the venue' },
 ];
 
 const SETUP_TIMES = [

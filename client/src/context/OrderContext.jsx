@@ -24,19 +24,19 @@ export const SERVICES = [
   {
     id: 'main-menu',
     name: 'Main Menu',
-    desc: 'Large portions of our dishes, perfect for feeding a crowd. Order any combination — rice, proteins, soups & sides. Minimum order £150, free delivery until 31 Aug 2026.',
+    desc: 'Large portions of our dishes, perfect for feeding a crowd. Order any combination of rice, proteins, soups & sides. Minimum order £150, free delivery until 31 Aug 2026.',
     img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80&auto=format&fit=crop',
   },
   {
     id: 'food-boxes',
     name: 'Individual Food Boxes',
-    desc: 'Individually packed meals — ideal when you want each guest to have their own box. £15 per box, minimum 10 boxes. At least 1 week\'s notice required.',
+    desc: 'Individually packed meals, ideal when you want each guest to have their own box. £15 per box, minimum 10 boxes. At least 1 week\'s notice required.',
     img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop',
   },
   {
     id: 'grazing-table',
     name: 'Grazing Tables',
-    desc: 'Canapés, bowl food and desserts, fully styled to your event\'s colour palette — a display, not just a delivery. Minimum 3 weeks\' notice.',
+    desc: 'Canapés, bowl food and desserts, fully styled to your event\'s colour palette. A beautiful display designed around your event. Minimum 3 weeks\' notice.',
     img: 'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=600&q=80&auto=format&fit=crop',
   },
 ];
@@ -212,7 +212,7 @@ export const FS_MENU = {
     label: 'Desserts',
     items: [
       { id: 'malva-pudding', name: 'Classic Malva Pudding', badge: null, desc: 'Sweet, apricot-infused caramelized sponge pudding served warm with vanilla cream.', img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&q=80&auto=format&fit=crop' },
-      { id: 'chin-chin', name: 'Chin-Chin & Puff-Puff Basket', badge: null, desc: 'A sharing basket of crispy fried dough bites — sweet and lightly spiced.', img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80&auto=format&fit=crop' },
+      { id: 'chin-chin', name: 'Chin-Chin & Puff-Puff Basket', badge: null, desc: 'A sharing basket of crispy fried dough bites, sweet and lightly spiced.', img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80&auto=format&fit=crop' },
     ],
   },
 };

@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <>
       <SEO
-        title="Privacy Policy — Sizzling Sensations"
+        title="Privacy Policy | Sizzling Sensations"
         description="How Sizzling Sensations collects, uses, and protects your personal information."
         canonical="/privacy"
       />

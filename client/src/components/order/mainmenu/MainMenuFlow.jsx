@@ -38,7 +38,7 @@ function getOrderWindowNote() {
   const hour = now.getHours();
 
   if (day === 6 || day === 0) {
-    return { text: 'Order window is open — closes Monday at 12pm. Dispatch from Tuesday.', warn: false };
+    return { text: 'Order window is open. Closes Monday at 12pm. Dispatch from Tuesday.', warn: false };
   }
   if (day === 1 && hour < 12) {
     return { text: 'Order window closes today at 12pm. Dispatch from tomorrow (Tuesday).', warn: true };

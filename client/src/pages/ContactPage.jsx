@@ -79,7 +79,7 @@ export default function ContactPage() {
   return (
     <>
       <SEO
-        title="Request a Quote — Talk it Through"
+        title="Request a Quote | Talk it Through"
         description="Not sure which catering option suits your event? Tell us about your occasion and we'll come back to you with a tailored proposal. No obligation."
         canonical="/contact"
       />
@@ -101,7 +101,7 @@ export default function ContactPage() {
               Talk it through?
             </h1>
             <p className="mt-3 text-sm md:text-base text-dark-600 max-w-lg mx-auto">
-              Not sure which option suits your event, or simply prefer a more personal approach? Tell us about your occasion and we'll come back to you with a tailored proposal — no obligation.
+              Not sure which option suits your event, or simply prefer a more personal approach? Tell us about your occasion and we'll come back to you with a tailored proposal. No obligation.
             </p>
           </div>
 

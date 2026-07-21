@@ -34,9 +34,9 @@ const HOW_IT_WORKS = [
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Individual Food Boxes — Sizzling Sensations',
+  name: 'Individual Food Boxes | Sizzling Sensations',
   provider: { '@type': 'Organization', name: 'Sizzling Sensations' },
-  description: 'Individually packed Nigerian food boxes — Jollof, Fried Rice, or Half & Half — ideal for events where each guest has their own box.',
+  description: 'Individually packed Nigerian food boxes: Jollof, Fried Rice, or Half & Half. Ideal for events where each guest has their own box.',
   areaServed: 'London',
 };
 
@@ -44,8 +44,8 @@ export default function PlattersPage() {
   return (
     <>
       <SEO
-        title="Individual Food Boxes — Sizzling Sensations"
-        description="Individually packed Nigerian food boxes. Choose Jollof, Fried Rice, or Half & Half — each box includes rice, grilled chicken and fried plantain. Minimum 10 boxes."
+        title="Individual Food Boxes | Sizzling Sensations"
+        description="Individually packed Nigerian food boxes. Choose Jollof, Fried Rice, or Half & Half. Each box includes rice, grilled chicken and fried plantain. Minimum 10 boxes."
         canonical="/food-boxes"
         structuredData={SCHEMA}
       />
@@ -64,7 +64,7 @@ export default function PlattersPage() {
             A Box for Every Guest
           </h1>
           <p className="text-white/80 text-sm md:text-base max-w-xl mb-6">
-            Individually packed meals — ideal when you want each guest to have their own box. Perfect for parties, celebrations, and corporate events.
+            Individually packed meals, ideal when you want each guest to have their own box. Perfect for parties, celebrations, and corporate events.
           </p>
           <Link to="/order-builder?service=food-boxes" className="btn-primary px-7 py-3">
             Order Now
@@ -150,7 +150,7 @@ export default function PlattersPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-dark mb-1">Collection — Free</h3>
+                  <h3 className="font-semibold text-dark mb-1">Collection (Free)</h3>
                   <p className="text-sm text-dark-600 leading-relaxed">Collect from our London kitchen at an agreed time. No charge for collection.</p>
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function PlattersPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-dark mb-1">Delivery — Customer Arranged</h3>
+                  <h3 className="font-semibold text-dark mb-1">Delivery (Customer Arranged)</h3>
                   <p className="text-sm text-dark-600 leading-relaxed">Customers can arrange and pay for Uber delivery directly to their event location.</p>
                 </div>
               </div>

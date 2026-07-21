@@ -85,7 +85,7 @@ const STAFFING = [
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Grazing Tables — Sizzling Sensations',
+  name: 'Grazing Tables | Sizzling Sensations',
   provider: { '@type': 'Organization', name: 'Sizzling Sensations' },
   description: 'Nigerian-inspired grazing tables with canapés, bowl food, and beautiful styling for events in London.',
   areaServed: 'London',
@@ -131,7 +131,7 @@ export default function PackagesPage() {
   return (
     <>
       <SEO
-        title="Grazing Tables — Sizzling Sensations"
+        title="Grazing Tables | Sizzling Sensations"
         description="Our grazing tables bring together food and beautiful table styling to create a food display designed around your event. Canapés, bowl food, desserts and full styling."
         canonical="/grazing-tables"
         structuredData={SCHEMA}

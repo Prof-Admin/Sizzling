@@ -257,9 +257,9 @@ function ServingTracker({ guestCount, totalServings }) {
       <div className="flex items-center justify-between gap-4 mb-2">
         <div>
           <p className="text-sm font-semibold text-dark">
-            {ideal        ? `✓ Looking good — ${totalServings} portions for ${guestCount} guests` :
-             sufficient   ? `${totalServings} portions selected — add a few more to be safe` :
-             insufficient ? `⚠ Only ${totalServings} portions for ${guestCount} guests — this may not be enough` :
+            {ideal        ? `✓ Looking good: ${totalServings} portions for ${guestCount} guests` :
+             sufficient   ? `${totalServings} portions selected, add a few more to be safe` :
+             insufficient ? `⚠ Only ${totalServings} portions for ${guestCount} guests. This may not be enough.` :
                             `Serving ${guestCount} guests`}
           </p>
           <p className="text-xs text-dark-600 mt-0.5">

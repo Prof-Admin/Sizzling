@@ -19,7 +19,7 @@ const SERVICES = [
   {
     label: 'Individual Food Boxes',
     heading: 'A Box for Every Guest',
-    desc: 'Individually packed meals — each box includes rice, grilled chicken, and fried plantain. Ideal when you want each guest to have their own box. From £15 per box.',
+    desc: 'Individually packed meals, each with rice, grilled chicken, and fried plantain. Ideal when you want each guest to have their own box. From £15 per box.',
     cta: 'Order Now',
     to: '/order-builder?service=food-boxes',
     img: BOXES_IMAGE,
@@ -62,8 +62,8 @@ export default function HomePage() {
   return (
     <>
       <SEO
-        title="Nigerian Catering for Events & Gatherings — London"
-        description="Sizzling Sensations — twin sisters bringing authentic Nigerian food and culture to London. Main menu catering, individual food boxes, and grazing tables for your event."
+        title="Nigerian Catering for Events & Gatherings in London"
+        description="Sizzling Sensations brings authentic Nigerian food to London. Main menu catering, individual food boxes, and grazing tables for your event."
         canonical="/"
         structuredData={SCHEMA}
       />
@@ -91,12 +91,11 @@ export default function HomePage() {
               Nigerian Catering · London
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-white leading-tight mb-4">
-              The Flavours We{' '}
-              <span className="text-gold">Grew Up With</span>,<br />
-              For Your Table
+              Stress-free catering for{' '}
+              <span className="text-gold">life's special moments.</span>
             </h1>
             <p className="text-base md:text-lg text-white/85 mb-8 max-w-lg leading-relaxed">
-              Twin sisters bringing authentic Nigerian food and culture to London — for your family gatherings, celebrations, and events.
+              Beautifully presented Nigerian catering, platters and grazing tables for weddings, celebrations and corporate events.
             </p>
             <div className="flex flex-col xs:flex-row gap-3">
               <Link to="/order-builder" className="btn-primary text-base px-8 py-3.5">
@@ -119,7 +118,7 @@ export default function HomePage() {
           <p className="section-label mb-2" id="ways-heading">Three Ways to Order</p>
           <h2 className="section-title mb-3">Whether You're Feeding a Crowd or Planning an Event</h2>
           <p className="text-sm text-dark-600 max-w-xl mx-auto">
-            Whether you're feeding family and friends, planning an event, or looking for individually packed meals — there are three ways to enjoy Sizzling Sensations.
+            Whether you're feeding family and friends, planning an event, or looking for individually packed meals, there are three ways to enjoy Sizzling Sensations.
           </p>
         </div>
       </section>
@@ -201,11 +200,11 @@ export default function HomePage() {
                 icon: (
                   <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 ),
-                title: 'Authentic Recipes',
-                desc: 'Every dish is rooted in the Nigerian flavours we grew up with — cooked the way it should taste.',
+                title: 'Reliable Catering & Delivery',
+                desc: 'From your first enquiry to your event day, we\'re committed to providing reliable service and on-time delivery.',
               },
               {
                 color: 'text-gold',
@@ -215,8 +214,8 @@ export default function HomePage() {
                       d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                   </svg>
                 ),
-                title: 'Beautiful Presentation',
-                desc: 'We bring our own touch to how the food is presented and experienced — from a pot of jollof to a full grazing table.',
+                title: '5-Star Food Hygiene',
+                desc: 'We proudly hold a 5-star Food Hygiene Rating, so you can order with confidence.',
               },
               {
                 color: 'text-primary',
@@ -226,8 +225,8 @@ export default function HomePage() {
                       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
                 ),
-                title: 'Made with Love',
-                desc: 'This isn\'t just a business — it\'s a passion. Every order is made with the care and attention of someone cooking for family.',
+                title: '100% Halal Menu',
+                desc: 'Every dish on our menu is prepared using halal ingredients.',
               },
             ].map((f) => (
               <div key={f.title} className="text-center">
@@ -270,7 +269,7 @@ export default function HomePage() {
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-3">Ready to Place an Order?</h2>
           <p className="text-white/80 text-sm md:text-base mb-8 max-w-lg mx-auto">
-            Tell us what you're looking for and we'll guide you through the next steps — no obligation.
+            Tell us what you're looking for and we'll guide you through the next steps. No obligation.
           </p>
           <div className="flex flex-col xs:flex-row gap-3 justify-center">
             <Link to="/contact" className="btn-secondary px-8 py-3.5">

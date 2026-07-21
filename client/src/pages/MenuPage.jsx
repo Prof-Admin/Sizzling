@@ -122,8 +122,8 @@ export default function MenuPage() {
   return (
     <>
       <SEO
-        title="Main Menu — Authentic Nigerian Catering"
-        description="Explore Sizzling Sensations' catering menu. Rice dishes, proteins, soups & stews, and sides — freshly prepared in large quantities for your event or gathering."
+        title="Main Menu | Authentic Nigerian Catering"
+        description="Explore Sizzling Sensations' catering menu. Rice dishes, proteins, soups & stews, and sides, freshly prepared in large quantities for your event or gathering."
         canonical="/menu"
         structuredData={SCHEMA}
       />
@@ -142,7 +142,7 @@ export default function MenuPage() {
             Large Portions, Big Flavour
           </h1>
           <p className="text-white/80 text-sm md:text-base mb-6 max-w-xl">
-            Perfect for feeding a crowd. Choose any combination of dishes — minimum order £150. Free delivery until 31 Aug 2026.
+            Perfect for feeding a crowd. Choose any combination of dishes. Minimum order £150. Free delivery until 31 Aug 2026.
           </p>
           <Link to="/order-builder?service=main-menu" className="btn-primary px-8 py-3.5 text-base">
             Order Now

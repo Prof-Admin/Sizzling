@@ -24,7 +24,7 @@ const PILLARS = [
       </svg>
     ),
     title: 'Presentation',
-    desc: 'Food is art. We bring our own touch to how every dish is plated, styled, and experienced — whether it\'s a pot of jollof or a full grazing table.',
+    desc: 'Food is art. We bring our own touch to how every dish is plated, styled, and experienced, from a pot of jollof to a full grazing table.',
   },
   {
     icon: (
@@ -50,7 +50,7 @@ export default function AboutPage() {
   return (
     <>
       <SEO
-        title="Our Story — Sizzling Sensations"
+        title="Our Story | Sizzling Sensations"
         description="We're twin sisters who grew up in Nigeria with a love for cooking. Sizzling Sensations is our way of showcasing the Nigerian food and culture we grew up with."
         canonical="/about"
         structuredData={SCHEMA}
@@ -135,7 +135,7 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-3">Want to Experience the Food?</h2>
           <p className="text-white/80 text-sm md:text-base mb-8 max-w-lg mx-auto">
-            Whether you're feeding family and friends, planning an event, or looking for individually packed meals — we'd love to hear from you.
+            Whether you're feeding family and friends, planning an event, or looking for individually packed meals, we'd love to hear from you.
           </p>
           <div className="flex flex-col xs:flex-row gap-3 justify-center">
             <Link to="/contact" className="btn-secondary px-8 py-3.5">

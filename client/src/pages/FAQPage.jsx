@@ -77,8 +77,8 @@ export default function FAQPage() {
   return (
     <>
       <SEO
-        title="FAQ — Frequently Asked Questions"
-        description="Everything you need to know about ordering from Sizzling Sensations — how to order, lead times, dietary requirements, delivery, and more."
+        title="FAQ | Frequently Asked Questions"
+        description="Everything you need to know about ordering from Sizzling Sensations: how to order, lead times, dietary requirements, delivery, and more."
         canonical="/faq"
         structuredData={SCHEMA}
       />

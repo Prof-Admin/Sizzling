@@ -14,7 +14,7 @@ export default function RefundPolicyPage() {
   return (
     <>
       <SEO
-        title="Refund Policy — Sizzling Sensations"
+        title="Refund Policy | Sizzling Sensations"
         description="Sizzling Sensations' cancellation and refund policy for Main Menu orders, Individual Food Boxes, and Grazing Tables."
         canonical="/refund-policy"
       />
@@ -47,7 +47,7 @@ export default function RefundPolicyPage() {
                   </tr>
                   <tr className="bg-gray-50">
                     <td className="px-4 py-3">After Monday 12pm (order window closed)</td>
-                    <td className="px-4 py-3 text-red-600 font-medium">No refund — preparation has begun</td>
+                    <td className="px-4 py-3 text-red-600 font-medium">No refund (preparation has begun)</td>
                   </tr>
                 </tbody>
               </table>
@@ -102,7 +102,7 @@ export default function RefundPolicyPage() {
                   </tr>
                   <tr>
                     <td className="px-4 py-3">Less than 7 days before the event</td>
-                    <td className="px-4 py-3 text-red-600 font-medium">No refund — full balance due</td>
+                    <td className="px-4 py-3 text-red-600 font-medium">No refund (full balance due)</td>
                   </tr>
                 </tbody>
               </table>

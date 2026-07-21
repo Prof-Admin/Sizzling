@@ -88,7 +88,7 @@ export default function EventsPage() {
   return (
     <>
       <SEO
-        title="Full-Service Catering — Corporate Events & Weddings"
+        title="Full-Service Catering | Corporate Events & Weddings"
         description="Experience the pinnacle of full-service event catering. From corporate functions to intimate galas, Sizzling Sensations brings the soul of African cuisine to London's most prestigious tables."
         canonical="/events"
         structuredData={SCHEMA}
