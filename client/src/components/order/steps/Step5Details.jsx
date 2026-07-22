@@ -98,10 +98,9 @@ export default function Step5Details() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 className="text-3xl font-serif font-bold text-dark mb-3">Order Submitted!</h2>
-        <p className="text-dark-600 mb-2">Thank you, {details.name}. Your catering enquiry has been received.</p>
-        <p className="text-dark-600 mb-6">We will be in touch at <span className="font-medium text-dark">{details.email}</span> within 24 hours to confirm your booking.</p>
-        <p className="text-2xl font-bold text-primary mb-4">Estimated Total: £{total.toFixed(2)}</p>
+        <h2 className="text-3xl font-serif font-bold text-dark mb-3">Quotation Request Sent!</h2>
+        <p className="text-dark-600 mb-2">Thank you, {details.name}.</p>
+        <p className="text-dark-600 mb-6">We'll review your event details and send you a full quotation to <span className="font-medium text-dark">{details.email}</span> shortly.</p>
         <p className="text-sm text-dark-600 mb-6">Your WhatsApp message was opened automatically. If it didn't open, <button onClick={() => openWhatsApp(waMessage)} className="text-primary underline font-medium">click here to resend</button>.</p>
         <Link to="/" className="btn-outline-dark justify-center">Back to Home</Link>
       </div>
@@ -243,7 +242,7 @@ export default function Step5Details() {
           disabled={!details.name || !details.email || !details.phone}
           className={`btn-primary text-sm ${(!details.name || !details.email || !details.phone) ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
-          Send Order via WhatsApp
+          Request a Quotation
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>

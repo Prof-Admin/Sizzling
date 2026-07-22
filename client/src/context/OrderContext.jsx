@@ -417,6 +417,10 @@ const initialState = {
   foodBoxDate: '',
   foodBoxContact: { name: '', email: '', phone: '' },
   foodBoxNotes: '',
+
+  // Grazing Table flow
+  grazingColors: '',
+  grazingHexCode: '',
 };
 
 function reducer(state, action) {
@@ -489,6 +493,9 @@ function reducer(state, action) {
     case 'SET_FOOD_BOX_FIELD':   return { ...state, [action.payload.key]: action.payload.val };
     case 'UPDATE_FOOD_BOX_QTY':  return { ...state, foodBoxBoxes: { ...state.foodBoxBoxes, [action.payload.id]: Math.max(0, action.payload.qty) } };
     case 'UPDATE_FOOD_BOX_CONTACT': return { ...state, foodBoxContact: { ...state.foodBoxContact, ...action.payload } };
+
+    // Grazing Table flow
+    case 'SET_GRAZING_FIELD': return { ...state, [action.payload.key]: action.payload.val };
 
     default: return state;
   }

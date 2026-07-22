@@ -36,8 +36,14 @@ function OrderBuilderContent() {
     }
   }, []);
 
-  const isMainMenuFlow = service === 'main-menu'   && step > 1;
-  const isFoodBoxFlow  = service === 'food-boxes'  && step > 1;
+  // Read URL param synchronously so the correct flow renders on the very first
+  // paint — before the effect above has a chance to update context state.
+  const urlParam = searchParams.get('service');
+  const activeService = (urlParam && VALID_SERVICES.includes(urlParam)) ? urlParam : service;
+  const activeStep    = (urlParam && VALID_SERVICES.includes(urlParam)) ? 2 : step;
+
+  const isMainMenuFlow = activeService === 'main-menu'  && activeStep > 1;
+  const isFoodBoxFlow  = activeService === 'food-boxes' && activeStep > 1;
   const showRightPanel = !isMainMenuFlow && !isFoodBoxFlow && (step === 2 || step === 3);
 
   if (isMainMenuFlow) {
