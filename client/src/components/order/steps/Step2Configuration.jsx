@@ -1,5 +1,9 @@
 import { useOrder } from '../../../context/OrderContext';
 
+function isValidHex(val) {
+  return /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(val.trim());
+}
+
 const INCLUDED = [
   'Professional grazing table styling and setup',
   'Table linen',
@@ -78,6 +82,17 @@ export default function Step2Configuration() {
               placeholder="#1E3A8A (Navy Blue)"
               className="input-field"
             />
+            {isValidHex(grazingHexCode) && (
+              <div className="flex items-center gap-3 mt-2.5">
+                <span
+                  className="w-8 h-8 rounded-full border border-gray-200 shadow-sm shrink-0"
+                  style={{ background: grazingHexCode.trim() }}
+                />
+                <span className="text-xs text-dark-600">
+                  Preview of <span className="font-mono font-medium text-dark">{grazingHexCode.trim()}</span>
+                </span>
+              </div>
+            )}
           </div>
           <p className="text-xs text-dark-600 leading-relaxed">
             You can find your colour's HEX code by asking your event decorator or stationery designer, or by using an online colour picker such as{' '}
