@@ -115,7 +115,10 @@ function PricingTable({ section }) {
                 key={`${item.name}-${i}`}
                 className={`border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}
               >
-                <td className="px-5 py-3.5 font-medium text-dark">{item.name}</td>
+                <td className="px-5 py-3.5 font-medium text-dark">
+                  {item.name}
+                  <span className="block text-xs text-dark-600 font-semibold sm:hidden">{item.moq}</span>
+                </td>
                 <td className="px-5 py-3.5 text-right font-bold text-primary">{item.price}</td>
                 <td className="px-5 py-3.5 text-right text-dark-600 hidden sm:table-cell">{item.moq}</td>
               </tr>

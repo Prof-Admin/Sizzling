@@ -15,12 +15,11 @@ const MENU_SECTIONS = [
   {
     id: 'rice',
     label: 'Rice Dishes',
-    note: 'All rice dishes come in a 5L pot.',
     items: [
-      { name: 'White Rice',  price: '£45', size: '5L · Feeds 20–25' },
-      { name: 'Jollof Rice', price: '£80', size: '5L · Feeds 20–25' },
-      { name: 'Fried Rice',  price: '£75', size: '5L · Feeds 20–25' },
-      { name: 'Rice & Peas', price: '£65', size: '5L · Feeds 20–25' },
+      { name: 'White Rice',  price: '£45', size: '5L · Serves 20–25 people' },
+      { name: 'Jollof Rice', price: '£80', size: '5L · Serves 20–25 people' },
+      { name: 'Fried Rice',  price: '£75', size: '5L · Serves 20–25 people' },
+      { name: 'Rice & Peas', price: '£65', size: '5L · Serves 20–25 people' },
     ],
   },
   {
@@ -55,8 +54,8 @@ const MENU_SECTIONS = [
     id: 'sides',
     label: 'Sides',
     items: [
-      { name: 'Gizdodo',                  price: '£65', size: '4L' },
-      { name: 'Coleslaw',                 price: '£50', size: 'Feeds approx. 100' },
+      { name: 'Gizdodo',                  price: '£65', size: '4L · Serves approx. 20 people' },
+      { name: 'Coleslaw',                 price: '£50', size: 'Serves approx. 100 people' },
       { name: 'Plain Puff Puff',          price: '£35', size: '60 pieces' },
       { name: 'Cinnamon Sugar Puff Puff', price: '£40', size: '60 pieces' },
     ],
@@ -100,7 +99,10 @@ function MenuTable({ section }) {
               <tr key={item.name}
                 className={`border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}
               >
-                <td className="px-5 py-3.5 font-medium text-dark">{item.name}</td>
+                <td className="px-5 py-3.5 font-medium text-dark">
+                  {item.name}
+                  <span className="block text-xs text-dark-600 font-semibold sm:hidden">{item.size}</span>
+                </td>
                 <td className="px-5 py-3.5 text-right font-bold text-primary">{item.price}</td>
                 <td className="px-5 py-3.5 text-right text-dark-600 hidden sm:table-cell">{item.size}</td>
               </tr>

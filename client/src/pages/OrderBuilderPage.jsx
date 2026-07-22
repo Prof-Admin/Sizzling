@@ -29,7 +29,7 @@ function OrderBuilderContent() {
 
   useEffect(() => {
     const param = searchParams.get('service');
-    if (param && VALID_SERVICES.includes(param) && step === 1) {
+    if (param && VALID_SERVICES.includes(param)) {
       dispatch({ type: 'SET_SERVICE', payload: param });
       dispatch({ type: 'SET_STEP', payload: 2 });
       setSearchParams({}, { replace: true }); // clean URL after consuming

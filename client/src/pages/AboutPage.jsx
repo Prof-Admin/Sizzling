@@ -64,7 +64,7 @@ export default function AboutPage() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-20">
           <div className="inline-flex items-center bg-gold/20 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-sm mb-4">
-            Our Story
+            The Story Behind Sizzling Sensations
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight">
             Built on Flavour,<br className="hidden sm:block" /> Rooted in Culture.

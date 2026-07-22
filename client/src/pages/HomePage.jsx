@@ -191,7 +191,6 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="section-label mb-2" id="why-heading">Why Sizzling Sensations</p>
-            <h2 className="section-title">Rooted in Nigerian Culture</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
