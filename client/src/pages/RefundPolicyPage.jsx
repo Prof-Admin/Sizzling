@@ -15,7 +15,7 @@ export default function RefundPolicyPage() {
     <>
       <SEO
         title="Refund Policy | Sizzling Sensations"
-        description="Sizzling Sensations' cancellation and refund policy for Main Menu orders, Individual Food Boxes, and Grazing Tables."
+        description="Sizzling Sensations' cancellation and refund policy for Bowl Food orders, Individual Food Boxes, and Grazing Tables."
         canonical="/refund-policy"
       />
 
@@ -31,7 +31,7 @@ export default function RefundPolicyPage() {
             <p>We understand that plans can change. This policy explains how cancellations and refunds are handled for each of our three services. If you need to cancel, please contact us as early as possible at <a href="mailto:hello@sizzlingsensations.co.uk" className="text-primary underline">hello@sizzlingsensations.co.uk</a>.</p>
           </Section>
 
-          <Section title="Main Menu Orders">
+          <Section title="Bowl Food Orders">
             <div className="bg-offwhite border border-gray-200 rounded-sm overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-gray-100 border-b border-gray-200">

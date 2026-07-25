@@ -1,6 +1,6 @@
 import { useOrder } from '../../../context/OrderContext';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80&auto=format&fit=crop';
+const HERO_IMG = '/image 4.webp';
 
 const BENEFITS = [
   'Individual gourmet plating for each guest.',

@@ -1,7 +1,7 @@
 import { useOrder } from '../../../context/OrderContext';
 import { useMenuConfig } from '../../../context/MenuConfigContext';
 
-const INSPIRE_IMG = 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=400&q=80&auto=format&fit=crop';
+const INSPIRE_IMG = '/IMG-20260710-WA0000.webp';
 
 const STEP_DEFS = [
   {

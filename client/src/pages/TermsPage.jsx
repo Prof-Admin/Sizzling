@@ -35,13 +35,13 @@ export default function TermsPage() {
           <Section title="Our Services">
             <p>We offer three catering services:</p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li><strong>Main Menu:</strong> Large-portion Nigerian dishes (rice, proteins, soups & stews, sides) for delivery or collection. Minimum order £150.</li>
+              <li><strong>Bowl Food:</strong> Large-portion Nigerian dishes (rice, proteins, soups & stews, sides) for delivery or collection. Minimum order £150.</li>
               <li><strong>Individual Food Boxes:</strong> Individually packed meals at £15 per box. Minimum 10 boxes. London only.</li>
               <li><strong>Grazing Tables:</strong> Fully styled food displays for events, including canapés, bowl food, desserts, and table styling.</li>
             </ul>
           </Section>
 
-          <Section title="Ordering: Main Menu">
+          <Section title="Ordering: Bowl Food">
             <ul className="list-disc pl-5 space-y-1.5">
               <li>Orders open every Saturday and close at 12pm on Monday.</li>
               <li>Orders received after Monday 12pm will be processed in the following week's batch.</li>

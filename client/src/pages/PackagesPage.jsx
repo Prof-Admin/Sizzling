@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
-const HERO_IMG = '/image 3.jpg';
+const HERO_IMG = '/image 4.webp';
 
 const GRAZING_SECTIONS = [
   {
@@ -40,6 +40,8 @@ const GRAZING_SECTIONS = [
       { name: 'Peppered Chicken', price: '£2.50 per piece', moq: '20 pieces' },
       { name: 'Peppered Beef', price: '£2.50 per portion', moq: '20 portions' },
       { name: 'Peppered Fish', price: '£3.50 per portion', moq: '20 portions' },
+      { name: 'Catfish Pepper Soup', price: '£3.50 per portion', moq: '20 portions' },
+      { name: 'Assorted Meat Pepper Soup', price: '£3 per portion', moq: '20 portions' },
     ],
   },
   {
@@ -141,7 +143,7 @@ export default function PackagesPage() {
       />
 
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-end pt-16" aria-label="Grazing tables hero">
+      <section className="relative min-h-[85vh] flex items-end pt-16" aria-label="Grazing tables hero">
         <div className="absolute inset-0 z-0">
           <video
             className="w-full h-full object-cover"
@@ -179,16 +181,6 @@ export default function PackagesPage() {
           </div>
         </div>
       </section>
-
-      {/* Real event photo strip */}
-      <div className="grid grid-cols-2 gap-0.5" aria-hidden="true">
-        <div className="overflow-hidden h-48 sm:h-64">
-          <img src="/Image 5.jpg" alt="Seekh kebab wraps on a gold tray" className="w-full h-full object-cover" loading="lazy" />
-        </div>
-        <div className="overflow-hidden h-48 sm:h-64">
-          <img src="/Image 6.jpg" alt="Beef samosas arranged on a gold tray" className="w-full h-full object-cover" loading="lazy" />
-        </div>
-      </div>
 
       {/* Notice banner */}
       <div className="bg-primary-50 border-b border-primary/20 py-3">

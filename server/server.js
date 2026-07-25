@@ -40,6 +40,7 @@ const allowedOrigins = [
   process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, '') : 'http://localhost:5173',
   'http://localhost:5173',
   'http://localhost:3000',
+  'https://sizzling-cyan.vercel.app',
 ];
 app.use(
   cors({

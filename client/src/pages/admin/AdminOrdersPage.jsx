@@ -8,7 +8,7 @@ const TYPES = ['all', 'grazing-table', 'main-menu', 'food-boxes', 'grazing', 'pl
 
 const TYPE_LABELS = {
   'grazing-table': 'Grazing Table',
-  'main-menu': 'Main Menu',
+  'main-menu': 'Bowl Food',
   'food-boxes': 'Food Boxes',
   grazing: 'Grazing Table (legacy)',
   platter: 'Platter (legacy)',

@@ -27,7 +27,7 @@ export default function PrivacyPage() {
           </div>
 
           <Section title="Who We Are">
-            <p>Sizzling Sensations is a Nigerian catering business based in London, United Kingdom. We provide Main Menu catering, Individual Food Boxes, and Grazing Table services for events and gatherings.</p>
+            <p>Sizzling Sensations is a Nigerian catering business based in London, United Kingdom. We provide Bowl Food catering, Individual Food Boxes, and Grazing Table services for events and gatherings.</p>
             <p>You can reach us at <a href="mailto:hello@sizzlingsensations.co.uk" className="text-primary underline">hello@sizzlingsensations.co.uk</a>.</p>
           </Section>
 

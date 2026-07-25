@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&q=80&auto=format&fit=crop';
-const FOOD_IMG_1 = '/image 1.jpg';
-const FOOD_IMG_2 = '/Image 6.jpg';
+const HERO_IMG = '/IMG-20260710-WA0000.webp';
+const FOOD_IMG_1 = '/image 1.webp';
+const FOOD_IMG_2 = '/Image 6.webp';
 
 const PILLARS = [
   {
@@ -66,10 +66,7 @@ export default function AboutPage() {
           <div className="inline-flex items-center bg-gold/20 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-sm mb-4">
             The Story Behind Sizzling Sensations
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight">
-            Built on Flavour,<br className="hidden sm:block" /> Rooted in Culture.
-          </h1>
-          <p className="mt-4 text-white/80 text-sm md:text-base max-w-xl">
+          <p className="text-white/80 text-sm md:text-base max-w-xl">
             Twin sisters sharing the Nigerian food and culture they grew up with.
           </p>
         </div>

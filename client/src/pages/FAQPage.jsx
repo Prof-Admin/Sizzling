@@ -9,11 +9,11 @@ const FAQ_ITEMS = [
   },
   {
     q: 'How far in advance should I order?',
-    a: 'Main Menu orders open every Saturday and close at 12pm on Monday, with dispatch beginning from Tuesday. Individual Food Boxes require a minimum of one week\'s notice. Grazing Tables require a minimum of three weeks\' notice.',
+    a: 'Bowl Food orders open every Saturday and close at 12pm on Monday, with dispatch beginning from Tuesday. Individual Food Boxes require a minimum of one week\'s notice. Grazing Tables require a minimum of three weeks\' notice.',
   },
   {
     q: 'When is my order or booking confirmed?',
-    a: 'Main Menu and Individual Food Box orders are confirmed once full payment has been received. Grazing Table bookings are secured with a 50% deposit, with the remaining balance due 14 days before your event.',
+    a: 'Bowl Food and Individual Food Box orders are confirmed once full payment has been received. Grazing Table bookings are secured with a 50% deposit, with the remaining balance due 14 days before your event.',
   },
   {
     q: 'Is your food halal, and can you cater for dietary requirements?',

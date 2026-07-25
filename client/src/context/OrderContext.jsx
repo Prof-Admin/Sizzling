@@ -23,21 +23,21 @@ export const GUEST_TIERS = [
 export const SERVICES = [
   {
     id: 'main-menu',
-    name: 'Main Menu',
+    name: 'Bowl Food',
     desc: 'Large portions of our dishes, perfect for feeding a crowd. Order any combination of rice, proteins, soups & sides. Minimum order £150, free delivery until 31 Aug 2026.',
-    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80&auto=format&fit=crop',
+    img: '/image 2.webp',
   },
   {
     id: 'food-boxes',
     name: 'Individual Food Boxes',
     desc: 'Individually packed meals, ideal when you want each guest to have their own box. £15 per box, minimum 10 boxes. At least 1 week\'s notice required.',
-    img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop',
+    img: '/image 3.webp',
   },
   {
     id: 'grazing-table',
     name: 'Grazing Tables',
     desc: 'Canapés, bowl food and desserts, fully styled to your event\'s colour palette. A beautiful display designed around your event. Minimum 3 weeks\' notice.',
-    img: 'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=600&q=80&auto=format&fit=crop',
+    img: '/image 4.webp',
   },
 ];
 
@@ -47,21 +47,21 @@ export const STYLES = [
     name: 'Traditional Heritage',
     tag: 'AUTHENTIC & WARM',
     desc: 'Earth-toned linens, hand-carved accents, and woven textures inspired by West African artistry.',
-    img: 'https://images.unsplash.com/photo-1555244162-803834f70033?w=500&q=80&auto=format&fit=crop',
+    img: '/image 1.webp',
   },
   {
     id: 'minimalist',
     name: 'Modern Minimalist',
     tag: 'CLEAN & SLEEK',
     desc: 'Monochromatic palette, architectural serving pieces, and spacious negative-space layouts.',
-    img: 'https://images.unsplash.com/photo-1517456480724-33fa07bf7949?w=500&q=80&auto=format&fit=crop',
+    img: '/Image 5.webp',
   },
   {
     id: 'vibrant',
     name: 'Vibrant Celebration',
     tag: 'JOYOUS & BOLD',
     desc: 'High-contrast patterns, tropical flora, and an explosion of celebratory colors and textures.',
-    img: 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=500&q=80&auto=format&fit=crop',
+    img: '/Image 6.webp',
   },
 ];
 
@@ -70,7 +70,7 @@ export const MENU_SECTIONS = [
     id: 'abula-station',
     label: 'Abula Station',
     subtitle: '£13 per person · MOQ 50 people',
-    img: '/image 4.jpg',
+    img: '/image 4.webp',
     countInServings: true,
     items: [
       { id: 'abula-station', name: 'Abula Station', price: 13, unit: 'person', min: 50 },
@@ -80,7 +80,7 @@ export const MENU_SECTIONS = [
     id: 'canapes',
     label: 'Canapés',
     subtitle: 'Priced per piece · MOQ 20 per item',
-    img: '/image 2.jpg',
+    img: '/image 2.webp',
     countInServings: true,
     items: [
       { id: 'puff-puff',       name: 'Puff Puff',            price: 0.50, unit: 'piece',   min: 20 },
@@ -98,23 +98,25 @@ export const MENU_SECTIONS = [
     id: 'bowl-food',
     label: 'Bowl Food',
     subtitle: 'Priced per portion · MOQ 20 portions',
-    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=900&q=80&auto=format&fit=crop',
+    img: '/image 1.webp',
     countInServings: true,
     items: [
       { id: 'jollof-rice-bowl',   name: 'Jollof Rice',                 price: 4.00, unit: 'portion', min: 20 },
       { id: 'fried-rice-bowl',    name: 'Fried Rice',                  price: 3.50, unit: 'portion', min: 20 },
       { id: 'rice-peas-goat',     name: 'Rice & Peas with Curry Goat', price: 4.00, unit: 'portion', min: 20 },
       { id: 'gizdodo-bowl',       name: 'Gizdodo',                     price: 3.00, unit: 'portion', min: 20 },
-      { id: 'peppered-chk-bowl',  name: 'Peppered Chicken',            price: 2.50, unit: 'piece',   min: 20 },
-      { id: 'peppered-beef',      name: 'Peppered Beef',               price: 2.50, unit: 'portion', min: 20 },
-      { id: 'peppered-fish',      name: 'Peppered Fish',               price: 3.50, unit: 'portion', min: 20 },
+      { id: 'peppered-chk-bowl',      name: 'Peppered Chicken',            price: 2.50, unit: 'piece',   min: 20 },
+      { id: 'peppered-beef',          name: 'Peppered Beef',               price: 2.50, unit: 'portion', min: 20 },
+      { id: 'peppered-fish',          name: 'Peppered Fish',               price: 3.50, unit: 'portion', min: 20 },
+      { id: 'catfish-pep-soup-bowl',  name: 'Catfish Pepper Soup',         price: 3.50, unit: 'portion', min: 20 },
+      { id: 'assorted-meat-pep-bowl', name: 'Assorted Meat Pepper Soup',   price: 3.00, unit: 'portion', min: 20 },
     ],
   },
   {
     id: 'sweets-desserts',
     label: 'Sweets & Desserts',
     subtitle: 'Priced per box or serving dish · Feeds 10–12 per dish',
-    img: '/image 1.jpg',
+    img: '/image 3.webp',
     countInServings: false,
     items: [
       { id: 'brookies-6',      name: 'Cookie Butter Brookies (Box of 6)',  price: 25, unit: 'box',  min: 1 },
@@ -195,24 +197,24 @@ export const FS_MENU = {
   starters: {
     label: 'Starters',
     items: [
-      { id: 'suya-skewers', name: 'Spiced Beef Suya Skewers', badge: 'Signature', desc: 'Thinly sliced beef marinated in a complex kuli-kuli peanut spice blend, flame-grilled to smoky perfection.', img: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=500&q=80&auto=format&fit=crop' },
-      { id: 'injera-wraps', name: 'Mini Injera Wraps', badge: null, desc: 'Bite-sized fermented teff bread rolls filled with savory Misir Wot and Gomen stews.', img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80&auto=format&fit=crop' },
-      { id: 'heritage-platter', name: 'Heritage Starter Platter', badge: null, desc: 'A curated board of Suya Wagyu sliders, Mini Kelewele, and Puff-Puff bites.', img: 'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=500&q=80&auto=format&fit=crop' },
+      { id: 'suya-skewers', name: 'Spiced Beef Suya Skewers', badge: 'Signature', desc: 'Thinly sliced beef marinated in a complex kuli-kuli peanut spice blend, flame-grilled to smoky perfection.', img: '/image 1.webp' },
+      { id: 'injera-wraps', name: 'Mini Injera Wraps', badge: null, desc: 'Bite-sized fermented teff bread rolls filled with savory Misir Wot and Gomen stews.', img: '/image 2.webp' },
+      { id: 'heritage-platter', name: 'Heritage Starter Platter', badge: null, desc: 'A curated board of Suya Wagyu sliders, Mini Kelewele, and Puff-Puff bites.', img: '/image 3.webp' },
     ],
   },
   mains: {
     label: 'Main Courses',
     items: [
-      { id: 'jollof-rice', name: 'Smoky Party Jollof Rice', badge: null, desc: 'Long-grain parboiled rice slow-cooked in a rich tomato, pepper, and onion reduction.', img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=500&q=80&auto=format&fit=crop' },
-      { id: 'lamb-curry', name: 'Cape Malay Lamb Curry', badge: null, desc: 'A sweet and spicy aromatic curry featuring tender lamb, apricots, and warming spices.', img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500&q=80&auto=format&fit=crop' },
-      { id: 'royal-main', name: 'The Royal Main', badge: "Chef's Pick", desc: 'Signature Smoked Jollof Rice with grilled chicken, crispy plantain, and house pepper sauce.', img: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80&auto=format&fit=crop' },
+      { id: 'jollof-rice', name: 'Smoky Party Jollof Rice', badge: null, desc: 'Long-grain parboiled rice slow-cooked in a rich tomato, pepper, and onion reduction.', img: '/image 4.webp' },
+      { id: 'lamb-curry', name: 'Cape Malay Lamb Curry', badge: null, desc: 'A sweet and spicy aromatic curry featuring tender lamb, apricots, and warming spices.', img: '/Image 5.webp' },
+      { id: 'royal-main', name: 'The Royal Main', badge: "Chef's Pick", desc: 'Signature Smoked Jollof Rice with grilled chicken, crispy plantain, and house pepper sauce.', img: '/Image 6.webp' },
     ],
   },
   desserts: {
     label: 'Desserts',
     items: [
-      { id: 'malva-pudding', name: 'Classic Malva Pudding', badge: null, desc: 'Sweet, apricot-infused caramelized sponge pudding served warm with vanilla cream.', img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&q=80&auto=format&fit=crop' },
-      { id: 'chin-chin', name: 'Chin-Chin & Puff-Puff Basket', badge: null, desc: 'A sharing basket of crispy fried dough bites, sweet and lightly spiced.', img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80&auto=format&fit=crop' },
+      { id: 'malva-pudding', name: 'Classic Malva Pudding', badge: null, desc: 'Sweet, apricot-infused caramelized sponge pudding served warm with vanilla cream.', img: '/IMG_7900.HEIC.webp' },
+      { id: 'chin-chin', name: 'Chin-Chin & Puff-Puff Basket', badge: null, desc: 'A sharing basket of crispy fried dough bites, sweet and lightly spiced.', img: '/IMG_7902.HEIC.webp' },
     ],
   },
 };
@@ -223,7 +225,7 @@ export const PLATTER_TRAYS = [
     name: 'Smokey Jollof Tray',
     badge: 'Bestseller',
     desc: 'Our signature firewood-flavored jollof rice served with your choice of protein.',
-    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=500&q=80&auto=format&fit=crop',
+    img: '/image 4.webp',
     volumes: [
       { label: '3L',  price: 45  },
       { label: '6L',  price: 85  },
@@ -236,7 +238,7 @@ export const PLATTER_TRAYS = [
     name: 'Egusi & Pounded Yam',
     badge: null,
     desc: 'Rich melon seed soup with spinach and assorted meats. Served with fluffy yam.',
-    img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500&q=80&auto=format&fit=crop',
+    img: '/image 1.webp',
     volumes: [
       { label: '3L',  price: 55  },
       { label: '6L',  price: 105 },
@@ -250,7 +252,7 @@ export const PLATTER_SMALL_CHOPS = {
   id: 'signature-mix',
   name: 'Signature Mix Box',
   desc: 'A curated selection of Puff-Puff, Samosas, Spring Rolls, and Peppered Gizzard. Our most popular appetizer option.',
-  img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300&q=80&auto=format&fit=crop',
+  img: '/image 2.webp',
   tiers: [
     { pcs: 10,  pricePerPc: 2.50 },
     { pcs: 20,  pricePerPc: 2.25 },
@@ -265,14 +267,14 @@ export const PLATTER_BRUNCH = [
     name: 'The Naija Morning',
     desc: 'Yam chips, plantain, egg sauce with peppers, and freshly made Akara. Includes tea & coffee service.',
     pricePerGuest: 22.50,
-    img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80&auto=format&fit=crop',
+    img: '/image 3.webp',
   },
   {
     id: 'continental-lux',
     name: 'The Continental Lux',
     desc: 'Smashed avocado toast, smoked salmon bagels, seasonal fruit platter, and artisanal pastries.',
     pricePerGuest: 28.00,
-    img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80&auto=format&fit=crop',
+    img: '/Image 5.webp',
   },
 ];
 
@@ -281,7 +283,7 @@ export const MAIN_MENU_SECTIONS = [
     id: 'rice',
     label: 'Rice Dishes',
     note: 'All rice dishes come in a 5L pot · Feeds 20–25',
-    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=900&q=80&auto=format&fit=crop',
+    img: '/image 4.webp',
     items: [
       { id: 'white-rice',  name: 'White Rice',  price: 45, size: '5L · Feeds 20–25' },
       { id: 'jollof-rice', name: 'Jollof Rice', price: 80, size: '5L · Feeds 20–25' },
@@ -293,7 +295,7 @@ export const MAIN_MENU_SECTIONS = [
     id: 'proteins',
     label: 'Proteins',
     note: null,
-    img: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=900&q=80&auto=format&fit=crop',
+    img: '/image 1.webp',
     items: [
       { id: 'grilled-chicken',  name: 'Grilled Chicken',  price: 80, size: '30 pieces' },
       { id: 'peppered-chicken', name: 'Peppered Chicken', price: 90, size: '30 pieces' },
@@ -308,23 +310,26 @@ export const MAIN_MENU_SECTIONS = [
     id: 'soups',
     label: 'Soups & Stews',
     note: 'All soups and stews come in a 4L tub',
-    img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=900&q=80&auto=format&fit=crop',
+    img: '/image 2.webp',
     items: [
-      { id: 'egusi',         name: 'Egusi',           price: 95,  size: '4L' },
-      { id: 'assorted-okro', name: 'Assorted Okro',   price: 80,  size: '4L' },
-      { id: 'red-ofada',     name: 'Red Ofada Sauce', price: 80,  size: '4L' },
-      { id: 'beef-obe-ata',  name: 'Beef Obe Ata',    price: 110, size: '4L' },
-      { id: 'chicken-stew',  name: 'Chicken Stew',    price: 70,  size: '4L' },
-      { id: 'turkey-stew',   name: 'Turkey Stew',     price: 70,  size: '4L' },
-      { id: 'fish-obe-ata',  name: 'Fish Obe Ata',    price: 95,  size: '4L' },
-      { id: 'curry-goat',    name: 'Curry Goat',      price: 85,  size: '4L' },
+      { id: 'egusi',                   name: 'Egusi',                      price: 95,  size: '4L' },
+      { id: 'assorted-okro',           name: 'Assorted Okro',              price: 80,  size: '4L' },
+      { id: 'red-ofada',               name: 'Red Ofada Sauce',            price: 80,  size: '4L' },
+      { id: 'beef-obe-ata',            name: 'Beef Obe Ata',               price: 110, size: '4L' },
+      { id: 'chicken-stew',            name: 'Chicken Stew',               price: 70,  size: '4L' },
+      { id: 'turkey-stew',             name: 'Turkey Stew',                price: 70,  size: '4L' },
+      { id: 'fish-obe-ata',            name: 'Fish Obe Ata',               price: 95,  size: '4L' },
+      { id: 'curry-goat',              name: 'Curry Goat',                 price: 85,  size: '4L' },
+      { id: 'groundnut-soup',          name: 'Groundnut Soup',             price: 90,  size: '4L' },
+      { id: 'catfish-pepper-soup',     name: 'Catfish Pepper Soup',        price: 110, size: '4L' },
+      { id: 'assorted-meat-pep-soup',  name: 'Assorted Meat Pepper Soup',  price: 95,  size: '4L' },
     ],
   },
   {
     id: 'sides',
     label: 'Sides',
     note: null,
-    img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=80&auto=format&fit=crop',
+    img: '/image 3.webp',
     items: [
       { id: 'gizdodo',             name: 'Gizdodo',                  price: 65, size: '4L' },
       { id: 'coleslaw',            name: 'Coleslaw',                 price: 50, size: 'Feeds ~100' },
@@ -340,21 +345,21 @@ export const FOOD_BOXES = [
     name: 'Jollof Box',
     price: 15,
     contents: ['Jollof rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80&auto=format&fit=crop',
+    img: '/image 2.webp',
   },
   {
     id: 'fried-rice',
     name: 'Fried Rice Box',
     price: 15,
     contents: ['Fried rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80&auto=format&fit=crop',
+    img: '/image 3.webp',
   },
   {
     id: 'half-half',
     name: 'Half & Half Box',
     price: 15,
     contents: ['Jollof + fried rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop',
+    img: '/Image 5.webp',
   },
 ];
 

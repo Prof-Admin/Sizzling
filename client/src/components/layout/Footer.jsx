@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const EXPLORE = [
-  { label: 'Main Menu', to: '/menu' },
+  { label: 'Bowl Food', to: '/menu' },
   { label: 'Food Boxes', to: '/food-boxes' },
   { label: 'Grazing Tables', to: '/grazing-tables' },
   { label: 'Events', to: '/events' },

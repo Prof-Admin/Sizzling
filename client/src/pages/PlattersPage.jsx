@@ -1,26 +1,26 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1600&q=80&auto=format&fit=crop';
+const HERO_IMG = '/image 3.webp';
 
 const BOXES = [
   {
     name: 'Jollof Box',
     price: '£15',
     contents: ['Jollof rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1664993101841-036f189719b6?w=600&q=80&auto=format&fit=crop',
+    img: '/image 2.webp',
   },
   {
     name: 'Fried Rice Box',
     price: '£15',
     contents: ['Fried rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=600&q=80&auto=format&fit=crop',
+    img: '/Image 5.webp',
   },
   {
     name: 'Half & Half Box',
     price: '£15',
     contents: ['Jollof rice and fried rice', 'Grilled chicken', 'Fried plantain'],
-    img: 'https://images.unsplash.com/photo-1664992960082-0ea299a9c53e?w=600&q=80&auto=format&fit=crop',
+    img: '/Image 6.webp',
   },
 ];
 

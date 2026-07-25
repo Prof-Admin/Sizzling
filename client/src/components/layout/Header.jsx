@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const NAV_LINKS = [
-  { label: 'Main Menu', to: '/menu' },
+  { label: 'Bowl Food', to: '/menu' },
   { label: 'Food Boxes', to: '/food-boxes' },
   { label: 'Grazing Tables', to: '/grazing-tables' },
   { label: 'About', to: '/about' },

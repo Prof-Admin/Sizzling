@@ -24,7 +24,7 @@ const STAFF_MIN_HOURS = 6;
 
 const SERVICE_LABELS = {
   'grazing-table': 'Grazing Table',
-  'main-menu': 'Main Menu',
+  'main-menu': 'Bowl Food',
   'food-boxes': 'Individual Food Boxes',
   grazing: 'Grazing Table',
   platter: 'Platter',

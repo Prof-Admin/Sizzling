@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=1600&q=80&auto=format&fit=crop';
+const HERO_IMG = '/IMG-20260710-WA0000.webp';
 
 const HOW_IT_WORKS = [
-  { label: 'Minimum Order', value: '£150', desc: 'Choose any combination of dishes from our Main Menu.' },
+  { label: 'Minimum Order', value: '£150', desc: 'Choose any combination of dishes from our Bowl Food.' },
   { label: 'Order Window', value: 'Sat – Mon', desc: 'Orders open every Saturday and close at 12pm on Monday.' },
   { label: 'Dispatch', value: 'From Tuesday', desc: 'Orders are freshly prepared and dispatched from Tuesday.' },
   { label: 'Delivery', value: 'Free*', desc: 'Free delivery until 31st August 2026.' },
@@ -65,7 +65,7 @@ const MENU_SECTIONS = [
 const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Menu',
-  name: 'Sizzling Sensations Main Menu',
+  name: 'Sizzling Sensations Bowl Food',
   description: 'Authentic Nigerian catering dishes for events and gatherings in London',
   hasMenuSection: MENU_SECTIONS.map(sec => ({
     '@type': 'MenuSection',
@@ -124,7 +124,7 @@ export default function MenuPage() {
   return (
     <>
       <SEO
-        title="Main Menu | Authentic Nigerian Catering"
+        title="Bowl Food | Authentic Nigerian Catering"
         description="Explore Sizzling Sensations' catering menu. Rice dishes, proteins, soups & stews, and sides, freshly prepared in large quantities for your event or gathering."
         canonical="/menu"
         structuredData={SCHEMA}
@@ -138,7 +138,7 @@ export default function MenuPage() {
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 md:pb-14">
           <div className="inline-flex bg-gold/20 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-sm mb-3">
-            Main Menu
+            Bowl Food
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white mb-3">
             Large Portions, Big Flavour

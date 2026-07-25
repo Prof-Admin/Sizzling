@@ -68,7 +68,7 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-3 gap-4 mb-6">
         {[
           { id: 'grazing-table', label: 'Grazing Table' },
-          { id: 'main-menu',     label: 'Main Menu' },
+          { id: 'main-menu',     label: 'Bowl Food' },
           { id: 'food-boxes',    label: 'Food Boxes' },
         ].map(({ id, label }) => (
           <div key={id} className="bg-white border border-gray-200 rounded-sm p-4 text-center">

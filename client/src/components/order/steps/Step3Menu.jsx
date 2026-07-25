@@ -1,8 +1,8 @@
 import { useOrder } from '../../../context/OrderContext';
 import { useMenuConfig } from '../../../context/MenuConfigContext';
 
-const BRUNCH_IMG = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&q=80&auto=format&fit=crop';
-const BRUNCH_PKG_IMG = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=80&auto=format&fit=crop';
+const BRUNCH_IMG = '/image 1.webp';
+const BRUNCH_PKG_IMG = '/image 2.webp';
 
 function fmt(n) {
   return `£${n.toFixed(2)}`;

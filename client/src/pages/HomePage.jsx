@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 
-const HERO_IMAGE = 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=1600&q=80&auto=format&fit=crop';
-const MENU_IMAGE = 'https://images.unsplash.com/photo-1665332195309-9d75071138f0?w=800&q=80&auto=format&fit=crop';
-const BOXES_IMAGE = 'https://images.unsplash.com/photo-1664334997177-6ae654a62735?w=800&q=80&auto=format&fit=crop';
-const GRAZING_IMAGE = '/image 4.jpg';
+const HERO_IMAGE = '/image 1.webp';
+const MENU_IMAGE = '/image 2.webp';
+const BOXES_IMAGE = '/image 3.webp';
+const GRAZING_IMAGE = '/image 4.webp';
 
 const SERVICES = [
   {
-    label: 'Main Menu',
+    label: 'Bowl Food',
     heading: 'Large Portions for a Crowd',
     desc: 'Choose from our full menu of rice dishes, proteins, soups and stews, and sides. Perfect for feeding family, friends, or event guests. Minimum order £150.',
     cta: 'Order Now',
@@ -37,8 +37,8 @@ const FAQS_PREVIEW = [
     a: 'Yes, all our food is halal. Please let us know of any dietary requirements before placing your order.',
   },
   {
-    q: 'When do Main Menu orders open?',
-    a: 'Main Menu orders open every Saturday and close at 12pm on Monday, with dispatch beginning from Tuesday.',
+    q: 'When do Bowl Food orders open?',
+    a: 'Bowl Food orders open every Saturday and close at 12pm on Monday, with dispatch beginning from Tuesday.',
   },
 ];
 
