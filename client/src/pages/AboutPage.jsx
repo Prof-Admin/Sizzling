@@ -66,6 +66,9 @@ export default function AboutPage() {
           <div className="inline-flex items-center bg-gold/20 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-sm mb-4">
             The Story Behind Sizzling Sensations
           </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white leading-tight mb-4">
+            About Us
+          </h1>
           <p className="text-white/80 text-sm md:text-base max-w-xl">
             Twin sisters sharing the Nigerian food and culture they grew up with.
           </p>
