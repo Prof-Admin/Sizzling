@@ -1,4 +1,13 @@
 require('dotenv').config();
+
+// Validate required environment variables before anything else
+const REQUIRED_ENV = ['MONGO_URI', 'JWT_SECRET'];
+const missingEnv = REQUIRED_ENV.filter((key) => !process.env[key]);
+if (missingEnv.length > 0) {
+  console.error(`Fatal: Missing required environment variables: ${missingEnv.join(', ')}`);
+  process.exit(1);
+}
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -15,10 +24,13 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Connect to MongoDB then seed initial data
-connectDB().then(() => seed()).catch((err) => {
-  console.error('Startup error:', err);
-  process.exit(1);
-});
+// Seed failure is non-fatal — server can operate without seeded defaults
+connectDB()
+  .then(() => seed().catch((err) => console.error('Seed warning (non-fatal):', err.message)))
+  .catch((err) => {
+    console.error('Fatal: Could not connect to MongoDB:', err.message);
+    process.exit(1);
+  });
 
 // Security: HTTP headers
 app.use(
