@@ -15,7 +15,10 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Connect to MongoDB then seed initial data
-connectDB().then(() => seed().catch(console.error));
+connectDB().then(() => seed()).catch((err) => {
+  console.error('Startup error:', err);
+  process.exit(1);
+});
 
 // Security: HTTP headers
 app.use(
