@@ -6,7 +6,6 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
-const path = require('path');
 const connectDB = require('./config/db');
 const seed = require('./config/seed');
 
@@ -99,13 +98,6 @@ app.use('/api/admin/invoices', require('./routes/admin/invoices'));
 // Health check
 app.get('/api/health', (_, res) => res.json({ status: 'ok', env: process.env.NODE_ENV }));
 
-// Serve React in production
-if (process.env.NODE_ENV === 'production') {
-  const clientBuild = path.join(__dirname, '../client/dist');
-  app.use(express.static(clientBuild));
-  app.get('*', (_, res) => res.sendFile(path.join(clientBuild, 'index.html')));
-}
-
 // 404 handler
 app.use((req, res) => res.status(404).json({ success: false, message: 'Route not found' }));
 
@@ -116,6 +108,16 @@ app.use((err, req, res, _next) => {
     success: false,
     message: process.env.NODE_ENV === 'production' ? 'Something went wrong' : err.message,
   });
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err);
+  process.exit(1);
 });
 
 const PORT = process.env.PORT || 5000;
