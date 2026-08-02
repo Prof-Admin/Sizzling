@@ -113,6 +113,9 @@ app.use('/api/admin/invoices', require('./routes/admin/invoices'));
 // Health check
 app.get('/api/health', (_, res) => res.json({ status: 'ok', env: process.env.NODE_ENV }));
 
+// Root — prevents Apache 403 fallback if proxy hits /
+app.get('/', (_, res) => res.json({ status: 'ok', name: 'Sizzling Sensations API' }));
+
 // 404 handler
 app.use((req, res) => res.status(404).json({ success: false, message: 'Route not found' }));
 
@@ -126,13 +129,14 @@ app.use((err, req, res, _next) => {
 });
 
 process.on('uncaughtException', (err) => {
-  console.error('Uncaught Exception:', err);
-  process.exit(1);
+  console.error('Uncaught Exception:', err.message);
+  // Only exit for truly fatal errors
+  if (err.code === 'EADDRINUSE' || err.code === 'EACCES') process.exit(1);
 });
 
 process.on('unhandledRejection', (err) => {
-  console.error('Unhandled Rejection:', err);
-  process.exit(1);
+  console.error('Unhandled Rejection:', err?.message || err);
+  // Log but don't crash — let the app keep running
 });
 
 const PORT = process.env.PORT || 5000;
