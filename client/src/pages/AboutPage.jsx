@@ -42,7 +42,7 @@ const SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   name: 'About Sizzling Sensations',
-  url: 'https://sizzlingsensation.co.uk/about',
+  url: 'https://sizzlingsensations.co.uk/about',
   description: 'Twin sisters from Nigeria sharing the food and culture they grew up with through Sizzling Sensations.',
 };
 

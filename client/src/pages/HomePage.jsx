@@ -47,8 +47,8 @@ const SCHEMA = {
   '@type': 'FoodEstablishment',
   name: 'Sizzling Sensations',
   description: 'Nigerian catering for events, gatherings, and celebrations in London',
-  url: 'https://sizzlingsensation.co.uk',
-  email: 'hello@sizzlingsensation.co.uk',
+  url: 'https://sizzlingsensations.co.uk',
+  email: 'hello@sizzlingsensations.co.uk',
   servesCuisine: 'Nigerian',
   priceRange: '££',
 };

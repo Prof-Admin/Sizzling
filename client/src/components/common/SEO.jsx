@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const SITE_NAME = 'Sizzling Sensations';
-const SITE_URL = 'https://sizzlingsensation.co.uk';
+const SITE_URL = 'https://sizzlingsensations.co.uk';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 export default function SEO({

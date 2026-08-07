@@ -138,8 +138,8 @@ export default function Footer() {
             </ul>
             <h3 className="text-xs font-semibold tracking-widest uppercase text-white/70 mb-3">Contact</h3>
             <address className="not-italic space-y-1">
-              <a href="mailto:hello@sizzlingsensation.co.uk" className="text-sm text-white/70 hover:text-white transition-colors block">
-                hello@sizzlingsensation.co.uk
+              <a href="mailto:hello@sizzlingsensations.co.uk" className="text-sm text-white/70 hover:text-white transition-colors block">
+                hello@sizzlingsensations.co.uk
               </a>
             </address>
           </div>
