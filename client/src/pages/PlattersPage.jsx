@@ -89,13 +89,8 @@ export default function PlattersPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {BOXES.map((box) => (
               <div key={box.name} className="border border-gray-100 rounded-sm overflow-hidden shadow-sm group">
-                <div className="relative overflow-hidden">
-                  <img
-                    src={box.img}
-                    alt={box.name}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
+                <div className="relative">
+                  <div className="w-full h-48 bg-white" />
                   <div className="absolute top-3 right-3 bg-primary text-white font-bold text-sm px-2.5 py-1 rounded-sm">
                     {box.price}
                   </div>
