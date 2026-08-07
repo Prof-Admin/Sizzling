@@ -14,18 +14,61 @@ const INCLUDED = [
   'Coordinated décor and styling elements',
 ];
 
+const GUEST_OPTIONS = [20, 30, 40, 50, 60, 75, 100, 120, 150, 200];
+
 export default function Step2Configuration() {
   const { state, dispatch } = useOrder();
-  const { grazingColors = '', grazingHexCode = '' } = state;
+  const { grazingColors = '', grazingHexCode = '', guestCount = 50 } = state;
 
-  const canContinue = grazingColors.trim().length > 0;
+  const canContinue = grazingColors.trim().length > 0 && guestCount > 0;
 
   function setField(key, val) {
     dispatch({ type: 'SET_GRAZING_FIELD', payload: { key, val } });
   }
 
+  function setGuests(val) {
+    const num = parseInt(val, 10);
+    if (!isNaN(num) && num > 0) {
+      dispatch({ type: 'SET_GUEST_COUNT', payload: num });
+    }
+  }
+
   return (
     <div className="px-4 sm:px-6 py-8 max-w-2xl">
+
+      {/* Guest count */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-serif font-bold text-dark mb-1">Number of Guests</h2>
+        <p className="text-sm text-dark-600 mb-4">How many guests are you expecting? This helps us recommend the right amount of food and staffing.</p>
+        <div className="bg-white border border-gray-200 rounded-sm p-5">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {GUEST_OPTIONS.map(n => (
+              <button
+                key={n}
+                onClick={() => dispatch({ type: 'SET_GUEST_COUNT', payload: n })}
+                className={`px-4 py-2 text-sm font-medium rounded-sm border transition-colors ${
+                  guestCount === n
+                    ? 'bg-primary text-white border-primary'
+                    : 'bg-white text-dark-600 border-gray-200 hover:border-primary hover:text-primary'
+                }`}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-3">
+            <label className="text-xs font-medium text-dark-600 whitespace-nowrap">Or enter a number:</label>
+            <input
+              type="number"
+              min="1"
+              value={guestCount}
+              onChange={e => setGuests(e.target.value)}
+              className="input-field w-28 text-center"
+            />
+            <span className="text-sm text-dark-600">guests</span>
+          </div>
+        </div>
+      </div>
 
       {/* Styling fee card */}
       <div className="mb-8">
