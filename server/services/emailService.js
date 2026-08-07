@@ -68,9 +68,14 @@ function baseTemplate(bodyHtml) {
 
           <!-- Header -->
           <tr>
-            <td style="background:${BRAND_RED};padding:28px 36px;">
-              <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:bold;letter-spacing:0.5px;">${COMPANY_NAME}</h1>
-              <p style="margin:4px 0 0;color:rgba(255,255,255,0.75);font-size:12px;letter-spacing:1px;text-transform:uppercase;">London's Premier African Catering</p>
+            <td style="background:${BRAND_RED};padding:24px 36px;">
+              <img
+                src="https://sizzlingsensations.co.uk/logo-white.png"
+                alt="${COMPANY_NAME}"
+                width="160"
+                style="display:block;max-width:160px;height:auto;margin-bottom:8px;"
+              />
+              <p style="margin:0;color:rgba(255,255,255,0.70);font-size:11px;letter-spacing:1px;text-transform:uppercase;">London's Premier African Catering</p>
             </td>
           </tr>
 
