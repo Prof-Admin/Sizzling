@@ -4,15 +4,15 @@ import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 
 const STATUSES = ['all', 'new', 'confirmed', 'in-progress', 'completed', 'cancelled'];
-const TYPES = ['all', 'grazing-table', 'main-menu', 'food-boxes', 'grazing', 'platter', 'full-service'];
+const TYPES = ['all', 'main-menu', 'food-boxes', 'grazing', 'grazing-table', 'platter', 'full-service'];
 
 const TYPE_LABELS = {
-  'grazing-table': 'Grazing Table',
   'main-menu': 'Bowl Food',
   'food-boxes': 'Food Boxes',
-  grazing: 'Grazing Table (legacy)',
-  platter: 'Platter (legacy)',
-  'full-service': 'Full Service (legacy)',
+  grazing: 'Grazing Table',
+  'grazing-table': 'Grazing Table',
+  platter: 'Platter',
+  'full-service': 'Full-Service Catering',
 };
 
 const STATUS_COLORS = {

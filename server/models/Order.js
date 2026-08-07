@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema(
     serviceType: {
       type: String,
       required: true,
-      enum: ['grazing', 'platter', 'full-service'],
+      enum: ['grazing', 'grazing-table', 'platter', 'full-service', 'main-menu', 'food-boxes'],
     },
     status: {
       type: String,

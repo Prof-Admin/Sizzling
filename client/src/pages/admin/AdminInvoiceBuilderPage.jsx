@@ -19,8 +19,8 @@ function emptyItem(isExtra = true) {
   return { description: '', quantity: 1, unitPrice: 0, total: 0, isExtra };
 }
 
-const STAFF_RATE = 16.67;
-const STAFF_MIN_HOURS = 6;
+const STAFF_RATE = 15;
+const STAFF_MIN_HOURS = 4;
 
 const SERVICE_LABELS = {
   'grazing-table': 'Grazing Table',
