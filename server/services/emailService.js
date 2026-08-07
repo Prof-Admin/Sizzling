@@ -5,6 +5,13 @@ const COMPANY_NAME = 'Sizzling Sensations';
 const COMPANY_EMAIL = process.env.ADMIN_EMAIL || 'hello@sizzlingsensations.co.uk';
 const COMPANY_WEBSITE = 'www.sizzlingsensations.co.uk';
 
+// Build admin recipients — primary + optional CC address
+function adminRecipients() {
+  return [process.env.ADMIN_EMAIL, process.env.ADMIN_EMAIL_CC]
+    .filter(Boolean)
+    .join(', ');
+}
+
 const SERVICE_LABELS = {
   'main-menu': 'Bowl Food',
   'food-boxes': 'Individual Food Boxes',
@@ -198,7 +205,7 @@ async function sendEnquiryConfirmation(enquiry) {
 
 async function sendEnquiryAdminAlert(enquiry) {
   const from = FROM_ADDRESS;
-  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminEmail = adminRecipients();
   if (!adminEmail) return;
 
   const transporter = createTransporter();
@@ -299,7 +306,7 @@ async function sendOrderConfirmation(order) {
 
 async function sendOrderAdminAlert(order) {
   const from = FROM_ADDRESS;
-  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminEmail = adminRecipients();
   if (!adminEmail) return;
 
   const transporter = createTransporter();
