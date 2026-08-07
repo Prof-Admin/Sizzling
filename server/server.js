@@ -55,6 +55,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'https://sizzling-cyan.vercel.app',
+  'https://sizzlingsensations.co.uk',
+  'https://www.sizzlingsensations.co.uk',
 ];
 app.use(
   cors({
