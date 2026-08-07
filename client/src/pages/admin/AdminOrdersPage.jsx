@@ -63,6 +63,7 @@ export default function AdminOrdersPage() {
     try {
       await axios.patch(`/api/admin/orders/${id}`, { status }, { headers: authHeader });
     } catch (err) {
+      console.error('Status update failed:', err);
       fetchOrders();
     }
   }
