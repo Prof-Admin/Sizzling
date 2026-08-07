@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adminAuth = require('../../middleware/adminAuth');
 const Enquiry = require('../../models/Enquiry');
+const { sendEnquiryStatusEmail } = require('../../services/emailService');
 
 router.get('/', adminAuth, async (req, res) => {
   try {
@@ -37,6 +38,7 @@ router.patch('/:id', adminAuth, async (req, res) => {
     const enquiry = await Enquiry.findByIdAndUpdate(req.params.id, { status }, { new: true, runValidators: true });
     if (!enquiry) return res.status(404).json({ success: false, message: 'Enquiry not found.' });
     res.json({ success: true, data: enquiry });
+    sendEnquiryStatusEmail(enquiry).catch(err => console.error('Enquiry status email error:', err.message));
   } catch (err) {
     res.status(500).json({ success: false, message: 'Server error.' });
   }

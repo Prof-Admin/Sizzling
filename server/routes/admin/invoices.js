@@ -3,7 +3,7 @@ const router = express.Router();
 const adminAuth = require('../../middleware/adminAuth');
 const Invoice = require('../../models/Invoice');
 const Order = require('../../models/Order');
-const { sendInvoiceEmail } = require('../../services/emailService');
+const { sendInvoiceEmail, sendPaymentReminder } = require('../../services/emailService');
 const MenuConfig = require('../../models/MenuConfig');
 
 // GET /api/admin/invoices
@@ -112,6 +112,7 @@ router.post('/:id/send-email', adminAuth, async (req, res) => {
 
     const settingsDoc = await MenuConfig.findOne({ key: 'payment-settings' });
     const company = settingsDoc?.data?.companyDetails || {};
+    const bankDetails = settingsDoc?.data?.bankTransfer || {};
 
     await sendInvoiceEmail({
       clientName: invoice.client.name,
@@ -120,6 +121,9 @@ router.post('/:id/send-email', adminAuth, async (req, res) => {
       pdfBase64,
       companyName: company.name || 'Sizzling Sensations',
       companyEmail: company.email,
+      invoice,
+      bankDetails,
+      stripeLink: invoice.stripePaymentLink,
     });
 
     invoice.status = invoice.status === 'draft' ? 'sent' : invoice.status;
@@ -129,6 +133,37 @@ router.post('/:id/send-email', adminAuth, async (req, res) => {
   } catch (err) {
     console.error('Send invoice email error:', err);
     res.status(500).json({ success: false, message: err.message || 'Failed to send email.' });
+  }
+});
+
+// POST /api/admin/invoices/:id/send-reminder
+router.post('/:id/send-reminder', adminAuth, async (req, res) => {
+  try {
+    const invoice = await Invoice.findById(req.params.id);
+    if (!invoice) return res.status(404).json({ success: false, message: 'Invoice not found.' });
+    if (!['sent', 'overdue'].includes(invoice.status)) {
+      return res.status(400).json({ success: false, message: 'Reminders can only be sent for sent or overdue invoices.' });
+    }
+
+    const settingsDoc = await MenuConfig.findOne({ key: 'payment-settings' });
+    const company = settingsDoc?.data?.companyDetails || {};
+    const bankDetails = settingsDoc?.data?.bankTransfer || {};
+
+    await sendPaymentReminder({
+      clientName: invoice.client.name,
+      clientEmail: invoice.client.email,
+      invoiceNumber: invoice.invoiceNumber,
+      invoice,
+      bankDetails,
+      stripeLink: invoice.stripePaymentLink,
+      companyName: company.name || 'Sizzling Sensations',
+      companyEmail: company.email,
+    });
+
+    res.json({ success: true, message: `Reminder sent to ${invoice.client.email}` });
+  } catch (err) {
+    console.error('Send reminder error:', err);
+    res.status(500).json({ success: false, message: err.message || 'Failed to send reminder.' });
   }
 });
 

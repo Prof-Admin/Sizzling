@@ -3,6 +3,7 @@ const router = express.Router();
 const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
 const Order = require('../models/Order');
+const { sendOrderConfirmation, sendOrderAdminAlert } = require('../services/emailService');
 
 const orderLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
@@ -14,7 +15,7 @@ const orderLimiter = rateLimit({
 
 const validateOrder = [
   body('serviceType')
-    .isIn(['grazing', 'platter', 'full-service'])
+    .isIn(['grazing', 'grazing-table', 'platter', 'full-service', 'main-menu', 'food-boxes'])
     .withMessage('Invalid service type'),
   body('contact.name')
     .trim().notEmpty().withMessage('Name is required')
@@ -57,6 +58,10 @@ router.post('/', orderLimiter, validateOrder, async (req, res) => {
       message: 'Order saved.',
       data: { id: order._id },
     });
+
+    // Fire emails after response — non-blocking
+    sendOrderConfirmation(order).catch(err => console.error('Order confirmation email error:', err.message));
+    sendOrderAdminAlert(order).catch(err => console.error('Order admin alert email error:', err.message));
   } catch (err) {
     console.error('Order save error:', err);
     res.status(500).json({ success: false, message: 'Failed to save order.' });

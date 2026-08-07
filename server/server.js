@@ -103,12 +103,14 @@ app.use('/api/enquiries', require('./routes/enquiries'));
 app.use('/api/menu', openCors, require('./routes/menu'));
 app.use('/api/orders', openCors, require('./routes/orders'));
 app.use('/api/menu-config', openCors, require('./routes/menuConfig'));
+app.use('/api/newsletter', openCors, require('./routes/newsletter'));
 app.use('/api/admin/auth', require('./routes/admin/auth'));
 app.use('/api/admin/dashboard', require('./routes/admin/dashboard'));
 app.use('/api/admin/orders', require('./routes/admin/orders'));
 app.use('/api/admin/enquiries', require('./routes/admin/enquiries'));
 app.use('/api/admin/menu', require('./routes/admin/menu'));
 app.use('/api/admin/invoices', require('./routes/admin/invoices'));
+app.use('/api/admin/newsletter', require('./routes/admin/newsletter'));
 
 // Health check
 app.get('/api/health', (_, res) => res.json({ status: 'ok', env: process.env.NODE_ENV }));

@@ -61,6 +61,16 @@ export default function AdminInvoicesPage() {
     fetchInvoices();
   }
 
+  async function sendReminder(inv) {
+    if (!confirm(`Send a payment reminder to ${inv.client?.email}?`)) return;
+    try {
+      await axios.post(`/api/admin/invoices/${inv._id}/send-reminder`, {}, { headers: authHeader });
+      alert('Reminder sent successfully.');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to send reminder.');
+    }
+  }
+
   return (
     <div className="p-6 max-w-6xl">
       <div className="flex items-center justify-between mb-6">
@@ -139,6 +149,14 @@ export default function AdminInvoicesPage() {
                         >
                           PDF
                         </button>
+                        {['sent', 'overdue'].includes(inv.status) && (
+                          <button
+                            onClick={() => sendReminder(inv)}
+                            className="text-xs text-amber-600 hover:text-amber-800 font-medium"
+                          >
+                            Remind
+                          </button>
+                        )}
                         {inv.status === 'draft' && (
                           <button
                             onClick={() => deleteInvoice(inv._id)}

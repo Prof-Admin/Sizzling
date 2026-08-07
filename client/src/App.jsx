@@ -14,6 +14,7 @@ import AdminMenuPage from './pages/admin/AdminMenuPage';
 import AdminInvoicesPage from './pages/admin/AdminInvoicesPage';
 import AdminInvoiceBuilderPage from './pages/admin/AdminInvoiceBuilderPage';
 import AdminSettingsPage from './pages/admin/AdminSettingsPage';
+import AdminNewsletterPage from './pages/admin/AdminNewsletterPage';
 import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
 import PackagesPage from './pages/PackagesPage';
@@ -83,6 +84,7 @@ function AdminRoutes() {
         <Route path="invoices" element={<AdminInvoicesPage />} />
         <Route path="invoices/:id" element={<AdminInvoiceBuilderPage />} />
         <Route path="menu" element={<AdminMenuPage />} />
+        <Route path="newsletter" element={<AdminNewsletterPage />} />
         <Route path="settings" element={<AdminSettingsPage />} />
       </Route>
     </Routes>

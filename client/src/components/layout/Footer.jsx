@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const EXPLORE = [
   { label: 'Bowl Food', to: '/menu' },
@@ -21,6 +23,58 @@ const LEGAL = [
 ];
 
 
+function NewsletterSignup() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState(null); // 'success' | 'error'
+  const [msg, setMsg] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!email) return;
+    setLoading(true);
+    try {
+      const r = await axios.post('/api/newsletter/subscribe', { email });
+      setStatus('success');
+      setMsg(r.data.message);
+      setEmail('');
+    } catch (err) {
+      setStatus('error');
+      setMsg(err.response?.data?.message || 'Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="mt-6">
+      <h3 className="text-xs font-semibold tracking-widest uppercase text-white/70 mb-2">Newsletter</h3>
+      {status === 'success' ? (
+        <p className="text-xs text-white/80">{msg}</p>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex gap-2">
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Your email"
+            required
+            className="flex-1 min-w-0 bg-white/10 border border-white/20 text-white placeholder-white/40 text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-white/50"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-white text-primary text-xs font-bold px-3 py-2 rounded-sm hover:bg-white/90 transition-colors disabled:opacity-60 whitespace-nowrap"
+          >
+            {loading ? '...' : 'Subscribe'}
+          </button>
+        </form>
+      )}
+      {status === 'error' && <p className="text-xs text-red-300 mt-1">{msg}</p>}
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="bg-primary text-white pt-12 pb-6" role="contentinfo">
@@ -39,6 +93,7 @@ export default function Footer() {
                 hello@sizzlingsensations.co.uk
               </a>
             </div>
+            <NewsletterSignup />
           </div>
 
           {/* Explore */}

@@ -3,6 +3,7 @@ const router = express.Router();
 const rateLimit = require('express-rate-limit');
 const Enquiry = require('../models/Enquiry');
 const { validateEnquiry } = require('../middleware/validators');
+const { sendEnquiryConfirmation, sendEnquiryAdminAlert } = require('../services/emailService');
 
 const enquiryLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
@@ -35,6 +36,10 @@ router.post('/', enquiryLimiter, validateEnquiry, async (req, res) => {
       message: "Thank you! We'll be in touch within 4 business hours.",
       data: { id: enquiry._id },
     });
+
+    // Fire emails after response — non-blocking
+    sendEnquiryConfirmation(enquiry).catch(err => console.error('Enquiry confirmation email error:', err.message));
+    sendEnquiryAdminAlert(enquiry).catch(err => console.error('Enquiry admin alert email error:', err.message));
   } catch (error) {
     console.error('Enquiry error:', error);
     res.status(500).json({ success: false, message: 'Something went wrong. Please try again.' });
