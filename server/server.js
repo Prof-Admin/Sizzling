@@ -72,9 +72,9 @@ app.use(
   })
 );
 
-// Body parsing
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+// Body parsing — 10mb to support invoice PDF base64 payloads
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Sanitize mongo queries
 app.use(mongoSanitize());
