@@ -31,7 +31,7 @@ export default function AdminNewsletterPage() {
       setSubject('');
       setContentHtml('');
     } catch (err) {
-      setResult({ success: false, message: err.response?.data?.message || 'Failed to send.' });
+      setResult({ success: false, message: err.response?.data?.message || err.message || 'Failed to send.' });
     } finally {
       setSending(false);
     }

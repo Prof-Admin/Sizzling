@@ -40,7 +40,7 @@ router.post('/send', adminAuth, async (req, res) => {
     }
 
     let sent = 0;
-    let failed = 0;
+    const errors = [];
 
     for (const sub of subscribers) {
       try {
@@ -49,11 +49,19 @@ router.post('/send', adminAuth, async (req, res) => {
         sent++;
       } catch (err) {
         console.error(`Newsletter send failed for ${sub.email}:`, err.message);
-        failed++;
+        errors.push({ email: sub.email, error: err.message });
       }
     }
 
-    res.json({ success: true, message: `Newsletter sent to ${sent} subscriber(s).`, sent, failed });
+    if (sent === 0 && errors.length > 0) {
+      return res.status(500).json({
+        success: false,
+        message: `Failed to send newsletter. Error: ${errors[0].error}`,
+        errors,
+      });
+    }
+
+    res.json({ success: true, message: `Newsletter sent to ${sent} subscriber(s).`, sent, failed: errors.length });
   } catch (err) {
     console.error('Newsletter send error:', err);
     res.status(500).json({ success: false, message: 'Failed to send newsletter.' });
