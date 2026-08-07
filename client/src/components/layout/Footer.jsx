@@ -29,7 +29,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" aria-label="Sizzling Sensations Home">
-              <img src="/logo-white.png" alt="Sizzling Sensations" className="h-12 w-auto object-contain" />
+              <img src="/logo-white.png" alt="Sizzling Sensations" className="h-12 w-auto object-contain mix-blend-screen" />
             </Link>
             <p className="mt-3 text-sm text-white/70 leading-relaxed max-w-xs">
               London's premier choice for authentic and modern African catering. Bringing heritage to every table.
