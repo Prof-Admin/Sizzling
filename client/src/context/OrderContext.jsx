@@ -501,6 +501,7 @@ function reducer(state, action) {
 
     // Grazing Table flow
     case 'SET_GRAZING_FIELD': return { ...state, [action.payload.key]: action.payload.val };
+    case 'RESET_ORDER':       return { ...initialState };
 
     default: return state;
   }
@@ -526,9 +527,9 @@ export function OrderProvider({ children, menuSections: menuSectionsProp, fsPack
       return sum;
     }, 0);
 
-    const brunchTotal = state.addedPackages.reduce((s, p) => s + p.price, 0);
-    const menuSubtotal = menuTotal + brunchTotal;
-    const tableStylingCost = state.style ? 250 : 0; // added when a theme is selected
+    const brunchTotal = 0;
+    const menuSubtotal = menuTotal;
+    const tableStylingCost = 250; // flat styling fee for all grazing tables
     const logisticsCost = 100; // minimum — actual cost confirmed by location
     const staffCost = state.staffCount * Math.max(state.staffHours, 4) * 15; // £15/hr, 4hr min
     const subtotal = tableStylingCost + logisticsCost + menuSubtotal + staffCost;

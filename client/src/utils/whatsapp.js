@@ -12,7 +12,7 @@ export function openWhatsApp(text) {
 
 export function buildGrazingMessage(state, computed, menuSections = DEFAULT_MENU_SECTIONS) {
   const {
-    style, guestTier, primaryColor, accentColor, menuItems, addedPackages,
+    guestCount, grazingColors, menuItems,
     setupTime, staffCount, staffHours, kitchenStatus, accessNotes, details,
   } = state;
   const { total } = computed;
@@ -28,7 +28,6 @@ export function buildGrazingMessage(state, computed, menuSections = DEFAULT_MENU
     }
   }
 
-  const brunchLines = addedPackages.map(p => `  • ${p.name} — ${fmt(p.price)}`);
   const dietaryList = details.dietary.length
     ? details.dietary.map(d => d.replace(/-/g, ' ')).join(', ')
     : 'None';
@@ -37,9 +36,8 @@ export function buildGrazingMessage(state, computed, menuSections = DEFAULT_MENU
     `🍽️ *NEW GRAZING TABLE ORDER — Sizzling Sensations*`,
     ``,
     `📋 *Service*: Grazing Table`,
-    style ? `🎨 *Style*: ${style.name}` : null,
-    `👥 *Guests*: ${guestTier?.guests ?? '—'} (${guestTier?.label ?? '—'} tier)`,
-    primaryColor ? `🎨 *Colours*: ${primaryColor.name} & ${accentColor?.name ?? '—'}` : null,
+    `👥 *Guests*: ${guestCount ?? '—'}`,
+    grazingColors ? `🎨 *Event Colours*: ${grazingColors}` : null,
     ``,
     `━━━━━━━━━━━━━━━━━━`,
     `📞 *CONTACT DETAILS*`,
@@ -59,7 +57,6 @@ export function buildGrazingMessage(state, computed, menuSections = DEFAULT_MENU
     `━━━━━━━━━━━━━━━━━━`,
     `🍴 *MENU SELECTIONS*`,
     menuLines.length ? menuLines.join('\n') : `  None selected`,
-    brunchLines.length ? `\n🎁 *BRUNCH PACKAGES*\n${brunchLines.join('\n')}` : null,
     ``,
     `━━━━━━━━━━━━━━━━━━`,
     `⚙️ *LOGISTICS*`,

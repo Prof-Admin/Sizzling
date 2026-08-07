@@ -64,7 +64,10 @@ export default function FullServiceStep3() {
           £{fsTotal.toLocaleString('en-GB', { minimumFractionDigits: 2 })} estimated total
         </p>
         <p className="text-sm text-dark-600 mb-6">Your WhatsApp message was opened automatically. If it didn't open, <button onClick={() => openWhatsApp(waMessage)} className="text-primary underline font-medium">click here to resend</button>.</p>
-        <Link to="/" className="btn-outline-dark justify-center">Back to Home</Link>
+        <div className="flex flex-col gap-3">
+          <button onClick={() => dispatch({ type: 'RESET_ORDER' })} className="btn-primary justify-center">Place Another Order</button>
+          <Link to="/" className="btn-outline-dark justify-center">Back to Home</Link>
+        </div>
       </div>
     );
   }
@@ -177,6 +180,9 @@ export default function FullServiceStep3() {
               <svg className="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
+            </button>
+            <button onClick={() => dispatch({ type: 'RESET_ORDER' })} className="text-xs text-dark-600 hover:text-primary underline mt-3 block">
+              Start Over
             </button>
           </div>
 

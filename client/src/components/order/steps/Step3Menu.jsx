@@ -1,9 +1,6 @@
 import { useOrder } from '../../../context/OrderContext';
 import { useMenuConfig } from '../../../context/MenuConfigContext';
 
-const BRUNCH_IMG = '/image 1.webp';
-const BRUNCH_PKG_IMG = '/image 2.webp';
-
 function fmt(n) {
   return `£${n.toFixed(2)}`;
 }
@@ -84,94 +81,6 @@ function RegularSection({ section, guestCount }) {
         <p className="text-xs text-dark-600 italic px-1">
           Desserts feed 10–12 per dish and are not counted in your portion total.
         </p>
-      )}
-    </div>
-  );
-}
-
-function BrunchSection() {
-  const { state, dispatch } = useOrder();
-  const { brunchPackages } = useMenuConfig();
-  const { brunchType, brunchGuests, addedPackages } = state;
-
-  const GUEST_OPTS = [20, 50, 100, 150];
-  const packages = brunchPackages[brunchType];
-  const activePkg = packages.find(p => p.guests === brunchGuests);
-  const isAdded = activePkg && addedPackages.find(p => p.name === activePkg.name);
-
-  return (
-    <div className="mb-10">
-      <div className="relative h-44 rounded-sm overflow-hidden mb-4">
-        <img src={BRUNCH_IMG} alt="Premium Brunch" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 p-5 text-white">
-          <div className="flex items-end gap-4">
-            <div>
-              <h3 className="text-xl font-serif font-bold">Premium Brunch</h3>
-              <p className="text-sm opacity-80 mt-0.5">Curated guest packages for morning events</p>
-            </div>
-            <div className="flex gap-2 pb-0.5">
-              {['nigerian', 'western'].map(t => (
-                <button
-                  key={t}
-                  onClick={() => dispatch({ type: 'SET_BRUNCH_TYPE', payload: t })}
-                  className={`px-3 py-1 text-xs font-semibold rounded-sm transition-colors
-                    ${brunchType === t ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
-                >
-                  {t === 'nigerian' ? 'Nigerian Breakfast' : 'Western Brunch'}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Guest count tabs */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-        {GUEST_OPTS.map(g => (
-          <button
-            key={g}
-            onClick={() => dispatch({ type: 'SET_BRUNCH_GUESTS', payload: g })}
-            className={`py-3 text-center rounded-sm border-2 transition-all font-bold text-lg
-              ${brunchGuests === g ? 'border-primary text-primary bg-primary/5' : 'border-gray-200 text-dark-600 hover:border-gray-300 bg-white'}`}
-          >
-            {g}
-            <span className="block text-[10px] font-normal text-dark-600">GUESTS</span>
-          </button>
-        ))}
-      </div>
-
-      {/* Package card */}
-      {activePkg && (
-        <div className="bg-white border border-gray-200 rounded-sm p-4 flex gap-4">
-          <img src={BRUNCH_PKG_IMG} alt={activePkg.name} className="w-20 h-20 object-cover rounded-sm shrink-0" />
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2">
-              <p className="text-sm font-bold text-dark">{activePkg.name}</p>
-              <p className="text-lg font-bold text-dark shrink-0">{fmt(activePkg.price)}</p>
-            </div>
-            <p className="text-xs text-dark-600 mt-1 leading-relaxed">{activePkg.desc}</p>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {activePkg.tags.map(tag => (
-                <span key={tag} className="flex items-center gap-1 text-[10px] text-primary font-medium">
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-end shrink-0">
-            <button
-              onClick={() => dispatch({ type: 'TOGGLE_PACKAGE', payload: activePkg })}
-              className={`px-4 py-2 text-xs font-bold rounded-sm border-2 transition-colors
-                ${isAdded ? 'bg-primary/10 border-primary text-primary' : 'bg-primary border-primary text-white hover:bg-primary-light'}`}
-            >
-              {isAdded ? 'Remove' : 'Add to Plan'}
-            </button>
-          </div>
-        </div>
       )}
     </div>
   );

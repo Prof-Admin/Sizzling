@@ -90,25 +90,8 @@ function Section({ title, children }) {
 
 /* ─── GRAZING TAB ─── */
 function GrazingEditor({ authHeader }) {
-  const tiers = useMenuKey('guest-tiers', authHeader);
-  const styles = useMenuKey('grazing-styles', authHeader);
   const menu = useMenuKey('grazing-menu', authHeader);
-  const brunch = useMenuKey('brunch-packages', authHeader);
   const staff = useMenuKey('staff-config', authHeader);
-
-  function updateTier(i, field, val) {
-    const next = tiers.data.map((t, idx) => idx === i ? { ...t, [field]: val } : t);
-    tiers.setData(next);
-  }
-  function addTier() { tiers.setData([...tiers.data, { label: 'New Tier', guests: 0, price: 0 }]); }
-  function delTier(i) { tiers.setData(tiers.data.filter((_, idx) => idx !== i)); }
-
-  function updateStyle(i, field, val) {
-    const next = styles.data.map((s, idx) => idx === i ? { ...s, [field]: val } : s);
-    styles.setData(next);
-  }
-  function addStyle() { styles.setData([...styles.data, { id: `style-${Date.now()}`, name: '', tag: '', desc: '', img: '' }]); }
-  function delStyle(i) { styles.setData(styles.data.filter((_, idx) => idx !== i)); }
 
   function updateMenuItem(sIdx, iIdx, field, val) {
     const next = menu.data.map((sec, si) => si !== sIdx ? sec : {
@@ -139,59 +122,10 @@ function GrazingEditor({ authHeader }) {
   }
   function delSection(sIdx) { menu.setData(menu.data.filter((_, si) => si !== sIdx)); }
 
-  function updateBrunch(type, i, field, val) {
-    brunch.setData({ ...brunch.data, [type]: brunch.data[type].map((p, idx) => idx === i ? { ...p, [field]: val } : p) });
-  }
-  function addBrunch(type) {
-    brunch.setData({ ...brunch.data, [type]: [...(brunch.data[type] || []), { guests: 0, price: 0, name: '', desc: '', tags: [] }] });
-  }
-  function delBrunch(type, i) {
-    brunch.setData({ ...brunch.data, [type]: brunch.data[type].filter((_, idx) => idx !== i) });
-  }
-
-  if (!tiers.data || !styles.data || !menu.data || !brunch.data || !staff.data) return <p className="text-sm text-gray-400 p-4">Loading...</p>;
+  if (!menu.data || !staff.data) return <p className="text-sm text-gray-400 p-4">Loading...</p>;
 
   return (
     <div>
-      {/* Guest Tiers */}
-      <Section title="Guest Tiers">
-        <div className="space-y-2">
-          {tiers.data.map((tier, i) => (
-            <div key={i} className="flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-sm px-3 py-2">
-              <input value={tier.label} onChange={e => updateTier(i, 'label', e.target.value)} placeholder="Label" className="w-24 border-0 bg-transparent text-sm focus:outline-none font-medium" />
-              <input type="number" value={tier.guests} onChange={e => updateTier(i, 'guests', Number(e.target.value))} placeholder="Guests" className="w-20 border border-gray-200 rounded-sm px-2 py-1 text-sm focus:outline-none bg-white" />
-              <span className="text-gray-400 text-xs">guests</span>
-              <span className="text-gray-400 text-xs">£</span>
-              <input type="number" value={tier.price} onChange={e => updateTier(i, 'price', Number(e.target.value))} placeholder="Price" className="w-24 border border-gray-200 rounded-sm px-2 py-1 text-sm focus:outline-none bg-white" />
-              <DelBtn onClick={() => delTier(i)} />
-            </div>
-          ))}
-        </div>
-        <AddBtn onClick={addTier} label="Add Tier" />
-        <SaveBar onSave={() => tiers.save(tiers.data)} saving={tiers.saving} toast={tiers.toast} />
-      </Section>
-
-      {/* Table Styles */}
-      <Section title="Table Styles">
-        <div className="space-y-3">
-          {styles.data.map((s, i) => (
-            <div key={i} className="bg-gray-50 border border-gray-200 rounded-sm p-3">
-              <div className="flex items-start gap-2">
-                <div className="flex-1 grid grid-cols-2 gap-2">
-                  <Field label="Name" value={s.name} onChange={v => updateStyle(i, 'name', v)} />
-                  <Field label="Tag" value={s.tag} onChange={v => updateStyle(i, 'tag', v)} placeholder="e.g. AUTHENTIC & WARM" />
-                  <div className="col-span-2"><Field label="Description" value={s.desc} onChange={v => updateStyle(i, 'desc', v)} /></div>
-                  <div className="col-span-2"><Field label="Image URL" value={s.img} onChange={v => updateStyle(i, 'img', v)} /></div>
-                </div>
-                <DelBtn onClick={() => delStyle(i)} />
-              </div>
-            </div>
-          ))}
-        </div>
-        <AddBtn onClick={addStyle} label="Add Style" />
-        <SaveBar onSave={() => styles.save(styles.data)} saving={styles.saving} toast={styles.toast} />
-      </Section>
-
       {/* Menu Sections */}
       <Section title="Menu Sections & Items">
         <div className="flex items-center gap-3 mb-4 p-3 bg-amber-50 border border-amber-200 rounded-sm">
@@ -246,36 +180,6 @@ function GrazingEditor({ authHeader }) {
         ))}
         <AddBtn onClick={addSection} label="Add Section" />
         <SaveBar onSave={() => menu.save(menu.data)} saving={menu.saving} toast={menu.toast} />
-      </Section>
-
-      {/* Brunch Packages */}
-      <Section title="Brunch Packages">
-        {['nigerian', 'western'].map(type => (
-          <div key={type} className="mb-5">
-            <p className="text-xs font-bold text-gray-600 uppercase mb-2">{type === 'nigerian' ? 'Nigerian Traditional' : 'Western Brunch'}</p>
-            <div className="space-y-2">
-              {(brunch.data[type] || []).map((pkg, i) => (
-                <div key={i} className="bg-gray-50 border border-gray-200 rounded-sm p-3">
-                  <div className="grid grid-cols-3 gap-2 mb-2">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-xs text-gray-500">Guests</span>
-                      <input type="number" value={pkg.guests} onChange={e => updateBrunch(type, i, 'guests', Number(e.target.value))} className="flex-1 border border-gray-200 rounded-sm px-2 py-1 text-xs focus:outline-none bg-white" />
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-xs text-gray-500">£</span>
-                      <input type="number" value={pkg.price} onChange={e => updateBrunch(type, i, 'price', Number(e.target.value))} className="flex-1 border border-gray-200 rounded-sm px-2 py-1 text-xs focus:outline-none bg-white" />
-                    </div>
-                    <div className="flex justify-end"><DelBtn onClick={() => delBrunch(type, i)} /></div>
-                  </div>
-                  <input value={pkg.name} onChange={e => updateBrunch(type, i, 'name', e.target.value)} placeholder="Package name" className="w-full text-xs border border-gray-200 rounded-sm px-2.5 py-1.5 mb-1.5 focus:outline-none bg-white" />
-                  <input value={pkg.desc} onChange={e => updateBrunch(type, i, 'desc', e.target.value)} placeholder="Description" className="w-full text-xs border border-gray-200 rounded-sm px-2.5 py-1.5 focus:outline-none bg-white" />
-                </div>
-              ))}
-            </div>
-            <AddBtn onClick={() => addBrunch(type)} label={`Add ${type === 'nigerian' ? 'Nigerian' : 'Western'} Package`} />
-          </div>
-        ))}
-        <SaveBar onSave={() => brunch.save(brunch.data)} saving={brunch.saving} toast={brunch.toast} />
       </Section>
 
       {/* Staff Config */}

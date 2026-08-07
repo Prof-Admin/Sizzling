@@ -62,12 +62,9 @@ export default function Step5Details() {
       contact: { name: details.name, email: details.email, phone: details.phone },
       estimatedTotal: computed.total,
       orderData: {
-        style: state.style,
-        guestTier: state.guestTier,
-        primaryColor: state.primaryColor,
-        accentColor: state.accentColor,
+        guestCount: state.guestCount,
+        colors: state.grazingColors,
         menuItems: state.menuItems,
-        brunchPackages: state.addedPackages,
         logistics: {
           setupTime: state.setupTime,
           staffCount: state.staffCount,
@@ -102,7 +99,10 @@ export default function Step5Details() {
         <p className="text-dark-600 mb-2">Thank you, {details.name}.</p>
         <p className="text-dark-600 mb-6">We'll review your event details and send you a full quotation to <span className="font-medium text-dark">{details.email}</span> shortly.</p>
         <p className="text-sm text-dark-600 mb-6">Your WhatsApp message was opened automatically. If it didn't open, <button onClick={() => openWhatsApp(waMessage)} className="text-primary underline font-medium">click here to resend</button>.</p>
-        <Link to="/" className="btn-outline-dark justify-center">Back to Home</Link>
+        <div className="flex flex-col gap-3">
+          <button onClick={() => dispatch({ type: 'RESET_ORDER' })} className="btn-primary justify-center">Place Another Order</button>
+          <Link to="/" className="btn-outline-dark justify-center">Back to Home</Link>
+        </div>
       </div>
     );
   }
@@ -237,16 +237,21 @@ export default function Step5Details() {
           </svg>
           Back to Logistics
         </button>
-        <button
-          onClick={handleSubmit}
-          disabled={!details.name || !details.email || !details.phone}
-          className={`btn-primary text-sm ${(!details.name || !details.email || !details.phone) ? 'opacity-50 cursor-not-allowed' : ''}`}
-        >
-          Request a Quotation
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+        <div className="flex flex-col items-end gap-2">
+          <button
+            onClick={handleSubmit}
+            disabled={!details.name || !details.email || !details.phone}
+            className={`btn-primary text-sm ${(!details.name || !details.email || !details.phone) ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            Request a Quotation
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button onClick={() => dispatch({ type: 'RESET_ORDER' })} className="text-xs text-dark-600 hover:text-primary underline">
+            Start Over
+          </button>
+        </div>
       </div>
     </div>
   );

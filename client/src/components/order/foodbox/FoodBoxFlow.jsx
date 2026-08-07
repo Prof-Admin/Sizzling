@@ -386,7 +386,10 @@ function Step3({ state, dispatch, count, total, onBack, onSubmit, submitted, waM
             Your WhatsApp message was opened automatically. If it didn't open,{' '}
             <button onClick={() => openWhatsApp(waMessage)} className="text-primary underline font-medium">click here to resend</button>.
           </p>
-          <Link to="/" className="btn-outline-dark justify-center">Back to Home</Link>
+          <div className="flex flex-col gap-3">
+            <button onClick={() => dispatch({ type: 'RESET_ORDER' })} className="btn-primary justify-center">Place Another Order</button>
+            <Link to="/" className="btn-outline-dark justify-center">Back to Home</Link>
+          </div>
         </div>
       </div>
     );
@@ -503,6 +506,9 @@ function Step3({ state, dispatch, count, total, onBack, onSubmit, submitted, waM
                 </svg>
               </button>
               <p className="text-[10px] text-dark-600 text-center mt-3">By placing your order you agree to our Terms of Service.</p>
+              <button onClick={() => dispatch({ type: 'RESET_ORDER' })} className="w-full text-xs text-dark-600 hover:text-primary underline mt-2 text-center">
+                Start Over
+              </button>
             </div>
           </div>
         </div>
