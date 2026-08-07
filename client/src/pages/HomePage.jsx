@@ -259,7 +259,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20 bg-primary" aria-label="Call to action">
+      <section className="py-16 md:py-20 bg-dark" aria-label="Call to action">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-3">Ready to Place an Order?</h2>
           <p className="text-white/80 text-sm md:text-base mb-8 max-w-lg mx-auto">
