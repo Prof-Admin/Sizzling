@@ -340,13 +340,15 @@ export default function AdminInvoiceBuilderPage() {
     if (!invoice.client.email) { showToast('Client email is required.', 'error'); return; }
     setSendingEmail(true);
     try {
-      const pdfBase64 = getInvoicePdfBase64(invoice, settings, logoBase64);
+      // Generate PDF with 'sent' status so the attachment doesn't show DRAFT
+      const sentStatus = invoice.status === 'draft' ? 'sent' : invoice.status;
+      const pdfBase64 = getInvoicePdfBase64({ ...invoice, status: sentStatus }, settings, logoBase64);
       await axios.post(
         `/api/admin/invoices/${id}/send-email`,
         { pdfBase64 },
         { headers: authHeader }
       );
-      setInvoice(prev => ({ ...prev, status: prev.status === 'draft' ? 'sent' : prev.status }));
+      setInvoice(prev => ({ ...prev, status: sentStatus }));
       showToast(`Invoice sent to ${invoice.client.email}!`);
     } catch (e) {
       showToast(e.response?.data?.message || 'Failed to send email.', 'error');
@@ -397,17 +399,6 @@ export default function AdminInvoiceBuilderPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             PDF
-          </button>
-
-          <button
-            onClick={handleSendEmail}
-            disabled={sendingEmail || isNew}
-            className="px-3 py-1.5 border border-blue-200 bg-blue-50 rounded-sm text-xs font-medium text-blue-700 hover:bg-blue-100 transition-colors disabled:opacity-40 flex items-center gap-1.5"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            {sendingEmail ? 'Sending…' : 'Email to Client'}
           </button>
 
           <button

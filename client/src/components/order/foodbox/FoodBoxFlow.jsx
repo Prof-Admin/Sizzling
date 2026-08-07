@@ -196,7 +196,7 @@ function Step1({ state, dispatch, count, total, onNext, boxes }) {
 }
 
 /* ─── STEP 2: Your Details ─── */
-function Step2({ state, dispatch, count, total, onBack, onNext }) {
+function Step2({ state, dispatch, count, total, onBack, onNext, boxes }) {
   const { foodBoxDate, foodBoxContact, foodBoxNotes } = state;
 
   function field(key, val) {
@@ -563,6 +563,7 @@ export default function FoodBoxFlow() {
         <Step2 state={state} dispatch={dispatch} count={foodBoxCount} total={foodBoxTotal}
           onBack={() => dispatch({ type: 'SET_FOOD_BOX_STEP', payload: 1 })}
           onNext={() => dispatch({ type: 'SET_FOOD_BOX_STEP', payload: 3 })}
+          boxes={FOOD_BOXES}
         />
       )}
       {foodBoxStep === 3 && (

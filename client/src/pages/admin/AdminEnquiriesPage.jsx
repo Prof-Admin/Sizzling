@@ -45,9 +45,13 @@ export default function AdminEnquiriesPage() {
   useEffect(() => { fetchEnquiries(); }, [page, statusFilter]);
 
   async function updateStatus(id, status) {
-    await axios.patch(`/api/admin/enquiries/${id}`, { status }, { headers: authHeader });
-    fetchEnquiries();
+    setEnquiries(prev => prev.map(e => e._id === id ? { ...e, status } : e));
     if (selected?._id === id) setSelected(prev => ({ ...prev, status }));
+    try {
+      await axios.patch(`/api/admin/enquiries/${id}`, { status }, { headers: authHeader });
+    } catch (err) {
+      fetchEnquiries();
+    }
   }
 
   return (

@@ -58,9 +58,13 @@ export default function AdminOrdersPage() {
   useEffect(() => { fetchOrders(); }, [page, typeFilter, statusFilter]);
 
   async function updateStatus(id, status) {
-    await axios.patch(`/api/admin/orders/${id}`, { status }, { headers: authHeader });
-    fetchOrders();
+    setOrders(prev => prev.map(o => o._id === id ? { ...o, status } : o));
     if (selected?._id === id) setSelected(prev => ({ ...prev, status }));
+    try {
+      await axios.patch(`/api/admin/orders/${id}`, { status }, { headers: authHeader });
+    } catch (err) {
+      fetchOrders();
+    }
   }
 
   async function handleInvoiceAction(orderId) {
