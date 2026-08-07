@@ -83,10 +83,6 @@ export default function Footer() {
             </ul>
             <h3 className="text-xs font-semibold tracking-widest uppercase text-gray-400 mb-3">Contact</h3>
             <address className="not-italic space-y-1">
-              <p className="text-sm text-gray-400">Canary Wharf, London, E14</p>
-              <a href="tel:+442074640000" className="text-sm text-gray-400 hover:text-white transition-colors block">
-                +44 20 7464 0000
-              </a>
               <a href="mailto:hello@sizzlingsensation.co.uk" className="text-sm text-gray-400 hover:text-white transition-colors block">
                 hello@sizzlingsensation.co.uk
               </a>

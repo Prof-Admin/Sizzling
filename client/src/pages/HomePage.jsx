@@ -49,11 +49,6 @@ const SCHEMA = {
   description: 'Nigerian catering for events, gatherings, and celebrations in London',
   url: 'https://sizzlingsensation.co.uk',
   email: 'hello@sizzlingsensation.co.uk',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'London',
-    addressCountry: 'GB',
-  },
   servesCuisine: 'Nigerian',
   priceRange: '££',
 };

@@ -33,7 +33,7 @@ export default function AdminSettingsPage() {
     companyDetails: {
       name: 'Sizzling Sensations',
       tagline: "London's Premier African Catering",
-      address: 'London, United Kingdom',
+      address: '',
       phone: '',
       email: 'hello@sizzlingsensations.co.uk',
       website: 'www.sizzlingsensations.co.uk',
