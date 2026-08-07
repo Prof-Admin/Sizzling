@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useOrder } from '../../../context/OrderContext';
-import { MAIN_MENU_SECTIONS } from '../../../context/OrderContext';
+import { useMenuConfig } from '../../../context/MenuConfigContext';
 import { openWhatsApp, buildMainMenuMessage } from '../../../utils/whatsapp';
 import { saveOrder } from '../../../utils/api';
-
-const ALL_ITEMS = MAIN_MENU_SECTIONS.flatMap(s => s.items);
 const MIN_ORDER = 150;
 const STEP_LABELS = ['Order Details', 'Menu Selection', 'Review & Send'];
 
@@ -258,10 +256,10 @@ function Step1({ state, dispatch, onNext }) {
 }
 
 /* ─── STEP 2: Menu Selection ─── */
-function Step2({ state, dispatch, total, onBack, onNext }) {
+function Step2({ state, dispatch, total, onBack, onNext, sections, allItems }) {
   const { mainMenuItems } = state;
   const meetsMin = total >= MIN_ORDER;
-  const selected = ALL_ITEMS.filter(i => (mainMenuItems[i.id] ?? 0) > 0);
+  const selected = allItems.filter(i => (mainMenuItems[i.id] ?? 0) > 0);
 
   function setQty(id, qty) {
     dispatch({ type: 'UPDATE_MAIN_MENU_ITEM', payload: { id, qty } });
@@ -272,7 +270,7 @@ function Step2({ state, dispatch, total, onBack, onNext }) {
       <div className="grid lg:grid-cols-[1fr_268px] gap-6 items-start">
 
         <div>
-          {MAIN_MENU_SECTIONS.map(section => (
+          {sections.map(section => (
             <div key={section.id} className="mb-10">
               <div className="relative h-40 rounded-sm overflow-hidden mb-4">
                 <img src={section.img} alt={section.label} className="w-full h-full object-cover" loading="lazy" />
@@ -396,9 +394,9 @@ function Step2({ state, dispatch, total, onBack, onNext }) {
 }
 
 /* ─── STEP 3: Review & Send ─── */
-function Step3({ state, dispatch, total, onBack, onSubmit, submitted, waMessage }) {
+function Step3({ state, dispatch, total, onBack, onSubmit, submitted, waMessage, allItems }) {
   const { mainMenuItems, mainMenuFulfillment, mainMenuDate, mainMenuAddress, mainMenuNotes, mainMenuContact } = state;
-  const selected = ALL_ITEMS.filter(i => (mainMenuItems[i.id] ?? 0) > 0);
+  const selected = allItems.filter(i => (mainMenuItems[i.id] ?? 0) > 0);
 
   function updateContact(key, val) {
     dispatch({ type: 'UPDATE_MAIN_MENU_CONTACT', payload: { [key]: val } });
@@ -558,10 +556,13 @@ function Step3({ state, dispatch, total, onBack, onSubmit, submitted, waMessage 
 /* ─── Flow container ─── */
 export default function MainMenuFlow() {
   const { state, dispatch, computed } = useOrder();
+  const { mainMenuSections } = useMenuConfig();
   const { mainMenuStep } = state;
   const { mainMenuTotal } = computed;
   const [submitted, setSubmitted] = useState(false);
   const [waMessage, setWaMessage] = useState('');
+
+  const allItems = useMemo(() => mainMenuSections.flatMap(s => s.items), [mainMenuSections]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -581,7 +582,7 @@ export default function MainMenuFlow() {
         date: state.mainMenuDate,
         address: state.mainMenuAddress,
         notes: state.mainMenuNotes,
-        items: ALL_ITEMS
+        items: allItems
           .filter(i => (state.mainMenuItems[i.id] ?? 0) > 0)
           .map(i => ({ id: i.id, name: i.name, qty: state.mainMenuItems[i.id], price: i.price * state.mainMenuItems[i.id] })),
       },
@@ -600,6 +601,8 @@ export default function MainMenuFlow() {
         <Step2 state={state} dispatch={dispatch} total={mainMenuTotal}
           onBack={() => dispatch({ type: 'SET_MAIN_MENU_STEP', payload: 1 })}
           onNext={() => dispatch({ type: 'SET_MAIN_MENU_STEP', payload: 3 })}
+          sections={mainMenuSections}
+          allItems={allItems}
         />
       )}
       {mainMenuStep === 3 && (
@@ -608,6 +611,7 @@ export default function MainMenuFlow() {
           onSubmit={handleSubmit}
           submitted={submitted}
           waMessage={waMessage}
+          allItems={allItems}
         />
       )}
     </div>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   GUEST_TIERS, STYLES, PALETTE, MENU_SECTIONS, BRUNCH_PACKAGES,
   PLATTER_TRAYS, PLATTER_SMALL_CHOPS, PLATTER_BRUNCH, FS_PACKAGES, FS_MENU,
+  MAIN_MENU_SECTIONS, FOOD_BOXES,
 } from './OrderContext';
 
 const defaults = {
@@ -15,7 +16,9 @@ const defaults = {
   'platter-brunch': PLATTER_BRUNCH,
   'fs-packages': FS_PACKAGES,
   'fs-menu': FS_MENU,
-  'staff-config': { hourlyRate: 16.67, minHours: 6 },
+  'main-menu-sections': MAIN_MENU_SECTIONS,
+  'food-box-options': FOOD_BOXES,
+  'staff-config': { hourlyRate: 15, minHours: 4 },
 };
 
 export const MenuConfigContext = createContext(defaults);
@@ -49,6 +52,8 @@ export function useMenuConfig() {
     platterBrunch: config['platter-brunch'],
     fsPackages: config['fs-packages'],
     fsMenu: config['fs-menu'],
+    mainMenuSections: config['main-menu-sections'],
+    foodBoxOptions: config['food-box-options'],
     staffConfig: config['staff-config'],
   };
 }

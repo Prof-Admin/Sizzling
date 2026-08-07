@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useOrder } from '../../../context/OrderContext';
-import { FOOD_BOXES } from '../../../context/OrderContext';
+import { useMenuConfig } from '../../../context/MenuConfigContext';
 import { openWhatsApp, buildFoodBoxMessage } from '../../../utils/whatsapp';
 import { saveOrder } from '../../../utils/api';
 
@@ -103,7 +103,7 @@ function Stepper({ qty, onChange }) {
 }
 
 /* ─── STEP 1: Choose Your Boxes ─── */
-function Step1({ state, dispatch, count, total, onNext }) {
+function Step1({ state, dispatch, count, total, onNext, boxes }) {
   const { foodBoxBoxes } = state;
   const meetsMin = count >= MIN_BOXES;
 
@@ -120,7 +120,7 @@ function Step1({ state, dispatch, count, total, onNext }) {
       </div>
 
       <div className="grid md:grid-cols-3 gap-5 mb-8">
-        {FOOD_BOXES.map(box => {
+        {boxes.map(box => {
           const qty = foodBoxBoxes[box.id] ?? 0;
           const active = qty > 0;
           return (
@@ -340,7 +340,7 @@ function Step2({ state, dispatch, count, total, onBack, onNext }) {
               <p className="text-sm font-semibold text-dark">Box Summary</p>
             </div>
             <div className="p-4 space-y-2">
-              {FOOD_BOXES.filter(b => (state.foodBoxBoxes[b.id] ?? 0) > 0).map(box => (
+              {boxes.filter(b => (state.foodBoxBoxes[b.id] ?? 0) > 0).map(box => (
                 <div key={box.id} className="flex justify-between text-xs">
                   <span className="text-dark-600">{box.name} × {state.foodBoxBoxes[box.id]}</span>
                   <span className="font-medium text-dark">{fmt(state.foodBoxBoxes[box.id] * box.price)}</span>
@@ -359,9 +359,9 @@ function Step2({ state, dispatch, count, total, onBack, onNext }) {
 }
 
 /* ─── STEP 3: Review & Send ─── */
-function Step3({ state, dispatch, count, total, onBack, onSubmit, submitted, waMessage }) {
+function Step3({ state, dispatch, count, total, onBack, onSubmit, submitted, waMessage, boxes }) {
   const { foodBoxBoxes, foodBoxDate, foodBoxContact, foodBoxNotes, foodBoxFulfillment } = state;
-  const selectedBoxes = FOOD_BOXES.filter(b => (foodBoxBoxes[b.id] ?? 0) > 0);
+  const selectedBoxes = boxes.filter(b => (foodBoxBoxes[b.id] ?? 0) > 0);
   const canSubmit = foodBoxContact.name && foodBoxContact.email && foodBoxContact.phone && count >= MIN_BOXES && foodBoxDate;
 
   if (submitted) {
@@ -514,6 +514,7 @@ function Step3({ state, dispatch, count, total, onBack, onSubmit, submitted, waM
 /* ─── Flow container ─── */
 export default function FoodBoxFlow() {
   const { state, dispatch, computed } = useOrder();
+  const { foodBoxOptions: FOOD_BOXES } = useMenuConfig();
   const { foodBoxStep } = state;
   const { foodBoxCount, foodBoxTotal } = computed;
   const [submitted, setSubmitted] = useState(false);
@@ -549,6 +550,7 @@ export default function FoodBoxFlow() {
       {foodBoxStep === 1 && (
         <Step1 state={state} dispatch={dispatch} count={foodBoxCount} total={foodBoxTotal}
           onNext={() => dispatch({ type: 'SET_FOOD_BOX_STEP', payload: 2 })}
+          boxes={FOOD_BOXES}
         />
       )}
       {foodBoxStep === 2 && (
@@ -563,6 +565,7 @@ export default function FoodBoxFlow() {
           onSubmit={handleSubmit}
           submitted={submitted}
           waMessage={waMessage}
+          boxes={FOOD_BOXES}
         />
       )}
     </div>

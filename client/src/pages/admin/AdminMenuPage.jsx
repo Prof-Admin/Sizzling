@@ -512,22 +512,144 @@ function FullServiceEditor({ authHeader }) {
   );
 }
 
+/* ─── BOWL FOOD TAB ─── */
+function BowlFoodEditor({ authHeader }) {
+  const sections = useMenuKey('main-menu-sections', authHeader);
+
+  function updateItem(sIdx, iIdx, field, val) {
+    const next = sections.data.map((sec, si) => si !== sIdx ? sec : {
+      ...sec,
+      items: sec.items.map((item, ii) => ii !== iIdx ? item : { ...item, [field]: val }),
+    });
+    sections.setData(next);
+  }
+  function addItem(sIdx) {
+    const next = sections.data.map((sec, si) => si !== sIdx ? sec : {
+      ...sec,
+      items: [...sec.items, { id: `item-${Date.now()}`, name: '', price: 0, size: '' }],
+    });
+    sections.setData(next);
+  }
+  function delItem(sIdx, iIdx) {
+    const next = sections.data.map((sec, si) => si !== sIdx ? sec : {
+      ...sec,
+      items: sec.items.filter((_, ii) => ii !== iIdx),
+    });
+    sections.setData(next);
+  }
+
+  if (!sections.data) return <p className="text-sm text-gray-400 p-4">Loading...</p>;
+
+  return (
+    <div>
+      <p className="text-xs text-gray-500 mb-6">Add or remove dishes shown in the Bowl Food order builder. Minimum order is £150.</p>
+      {sections.data.map((sec, si) => (
+        <div key={si} className="mb-6 border border-gray-200 rounded-sm overflow-hidden">
+          <div className="bg-gray-50 px-4 py-3 flex items-center gap-3">
+            <p className="flex-1 text-sm font-bold text-gray-800">{sec.label}</p>
+            {sec.note && <p className="text-xs text-gray-400 italic">{sec.note}</p>}
+          </div>
+          <div className="p-4">
+            <table className="w-full text-xs mb-2">
+              <thead><tr className="text-gray-500 font-medium">
+                <th className="text-left pb-2">Name</th>
+                <th className="text-left pb-2 w-24">Price £</th>
+                <th className="text-left pb-2 w-32">Size / Serves</th>
+                <th className="w-6" />
+              </tr></thead>
+              <tbody>
+                {sec.items.map((item, ii) => (
+                  <tr key={ii} className="border-t border-gray-100">
+                    <td className="py-1.5 pr-2"><input value={item.name} onChange={e => updateItem(si, ii, 'name', e.target.value)} className="w-full border border-gray-200 rounded-sm px-2 py-1 focus:outline-none" /></td>
+                    <td className="py-1.5 pr-2"><input type="number" value={item.price} onChange={e => updateItem(si, ii, 'price', Number(e.target.value))} className="w-full border border-gray-200 rounded-sm px-2 py-1 focus:outline-none" /></td>
+                    <td className="py-1.5 pr-2"><input value={item.size || ''} onChange={e => updateItem(si, ii, 'size', e.target.value)} placeholder="e.g. 5L · Feeds 20-25" className="w-full border border-gray-200 rounded-sm px-2 py-1 focus:outline-none" /></td>
+                    <td className="py-1.5"><DelBtn onClick={() => delItem(si, ii)} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <AddBtn onClick={() => addItem(si)} label="Add Dish" />
+          </div>
+        </div>
+      ))}
+      <SaveBar onSave={() => sections.save(sections.data)} saving={sections.saving} toast={sections.toast} />
+    </div>
+  );
+}
+
+/* ─── FOOD BOXES TAB ─── */
+function FoodBoxesEditor({ authHeader }) {
+  const boxes = useMenuKey('food-box-options', authHeader);
+
+  function updateBox(i, field, val) {
+    boxes.setData(boxes.data.map((b, bi) => bi !== i ? b : { ...b, [field]: val }));
+  }
+  function updateContent(i, ci, val) {
+    boxes.setData(boxes.data.map((b, bi) => bi !== i ? b : {
+      ...b, contents: b.contents.map((c, cIdx) => cIdx !== ci ? c : val),
+    }));
+  }
+  function addContent(i) {
+    boxes.setData(boxes.data.map((b, bi) => bi !== i ? b : { ...b, contents: [...b.contents, ''] }));
+  }
+  function delContent(i, ci) {
+    boxes.setData(boxes.data.map((b, bi) => bi !== i ? b : { ...b, contents: b.contents.filter((_, cIdx) => cIdx !== ci) }));
+  }
+  function addBox() {
+    boxes.setData([...boxes.data, { id: `box-${Date.now()}`, name: '', price: 15, contents: [], img: '' }]);
+  }
+  function delBox(i) { boxes.setData(boxes.data.filter((_, bi) => bi !== i)); }
+
+  if (!boxes.data) return <p className="text-sm text-gray-400 p-4">Loading...</p>;
+
+  return (
+    <div>
+      <p className="text-xs text-gray-500 mb-6">Manage the food box options shown to customers. Each box has a fixed price and a list of included items.</p>
+      <div className="space-y-4">
+        {boxes.data.map((box, i) => (
+          <div key={i} className="border border-gray-200 rounded-sm p-4">
+            <div className="flex items-start gap-3 mb-3">
+              <div className="flex-1 grid grid-cols-2 gap-3">
+                <Field label="Box Name" value={box.name} onChange={v => updateBox(i, 'name', v)} />
+                <Field label="Price £" value={box.price} onChange={v => updateBox(i, 'price', Number(v))} type="number" />
+              </div>
+              <DelBtn onClick={() => delBox(i)} />
+            </div>
+            <p className="text-[10px] font-bold text-gray-500 uppercase mb-2">Contents</p>
+            <div className="space-y-1.5 mb-2">
+              {box.contents.map((c, ci) => (
+                <div key={ci} className="flex items-center gap-2">
+                  <input value={c} onChange={e => updateContent(i, ci, e.target.value)} className="flex-1 border border-gray-200 rounded-sm px-2 py-1 text-xs focus:outline-none" placeholder="e.g. Jollof rice" />
+                  <DelBtn onClick={() => delContent(i, ci)} />
+                </div>
+              ))}
+            </div>
+            <AddBtn onClick={() => addContent(i)} label="Add Item" />
+          </div>
+        ))}
+      </div>
+      <AddBtn onClick={addBox} label="Add Box Option" />
+      <SaveBar onSave={() => boxes.save(boxes.data)} saving={boxes.saving} toast={boxes.toast} />
+    </div>
+  );
+}
+
 /* ─── MAIN PAGE ─── */
 const TABS = [
-  { id: 'grazing', label: 'Grazing Table' },
-  { id: 'platter', label: 'Platter' },
-  { id: 'fullservice', label: 'Full Service' },
+  { id: 'bowlfood',  label: 'Bowl Food' },
+  { id: 'foodboxes', label: 'Food Boxes' },
+  { id: 'grazing',   label: 'Grazing Table' },
 ];
 
 export default function AdminMenuPage() {
   const { authHeader } = useAdminAuth();
-  const [tab, setTab] = useState('grazing');
+  const [tab, setTab] = useState('bowlfood');
 
   return (
     <div className="p-6 max-w-4xl">
       <div className="mb-6">
         <h1 className="text-xl font-bold text-gray-900">Menu Configuration</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Edit prices, items, and options shown to customers in the order builder</p>
+        <p className="text-sm text-gray-500 mt-0.5">Edit prices and items shown to customers in the order builder</p>
       </div>
 
       <div className="flex gap-1 mb-6 border-b border-gray-200">
@@ -544,9 +666,9 @@ export default function AdminMenuPage() {
         ))}
       </div>
 
-      {tab === 'grazing' && <GrazingEditor authHeader={authHeader} />}
-      {tab === 'platter' && <PlatterEditor authHeader={authHeader} />}
-      {tab === 'fullservice' && <FullServiceEditor authHeader={authHeader} />}
+      {tab === 'bowlfood'  && <BowlFoodEditor authHeader={authHeader} />}
+      {tab === 'foodboxes' && <FoodBoxesEditor authHeader={authHeader} />}
+      {tab === 'grazing'   && <GrazingEditor authHeader={authHeader} />}
     </div>
   );
 }
